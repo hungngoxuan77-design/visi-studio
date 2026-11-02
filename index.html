@@ -9,6 +9,7 @@
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="ai-makeup.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -17,6 +18,7 @@
       <div class="side-caption">KHÔNG GIAN CỦA BẠN</div>
       <nav class="sidebar-nav" aria-label="Điều hướng chính">
         <button class="nav-btn active" data-page="home"><span>⌂</span> Tổng quan</button>
+        <button class="nav-btn" data-page="ai"><span>✦</span> AI Makeup Live</button>
         <button class="nav-btn" data-page="makeup"><span>✿</span> Makeup Planner</button>
         <button class="nav-btn" data-page="photo"><span>◈</span> Photo Studio</button>
         <button class="nav-btn" data-page="skincare"><span>♡</span> Chăm sóc da</button>
@@ -31,9 +33,10 @@
       <footer class="site-footer">Visi Studio · Bản thử nghiệm hoạt động trên thiết bị · Dữ liệu của bạn do bạn kiểm soát</footer>
     </main>
   </div>
-  <nav class="mobile-nav" aria-label="Điều hướng di động"><button data-page="home" class="active">⌂<span>Trang chủ</span></button><button data-page="makeup">✿<span>Makeup</span></button><button data-page="photo">◈<span>Chỉnh ảnh</span></button><button data-page="skincare">♡<span>Chăm da</span></button><button data-page="gallery">▧<span>Đã lưu</span></button></nav>
+  <nav class="mobile-nav" aria-label="Điều hướng di động"><button data-page="home" class="active">⌂<span>Trang chủ</span></button><button data-page="ai">✦<span>AI Live</span></button><button data-page="photo">◈<span>Chỉnh ảnh</span></button><button data-page="skincare">♡<span>Chăm da</span></button><button data-page="gallery">▧<span>Đã lưu</span></button></nav>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="lipstick-engine.js" defer></script>
-  <script src="app.js?v=visi-lips-visible-1" defer></script>
+  <script src="ai-makeup.js?v=live20261102" defer></script>
+  <script src="app.js?v=live20261102" defer></script>
 </body>
 </html>
