@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#fbf6f2" />
+  <meta name="description" content="Visi Studio — lập quy trình makeup, chăm da và chỉnh ảnh đẹp ngay trên trình duyệt." />
+  <title>Visi Studio — Đẹp theo cách của bạn</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✳</span><div><strong>VISI<span>.</span></strong><small>STUDIO</small></div></div>
+      <div class="side-caption">KHÔNG GIAN CỦA BẠN</div>
+      <nav class="sidebar-nav" aria-label="Điều hướng chính">
+        <button class="nav-btn active" data-page="home"><span>⌂</span> Tổng quan</button>
+        <button class="nav-btn" data-page="makeup"><span>✿</span> Makeup Planner</button>
+        <button class="nav-btn" data-page="photo"><span>◈</span> Photo Studio</button>
+        <button class="nav-btn" data-page="skincare"><span>♡</span> Chăm sóc da</button>
+        <button class="nav-btn" data-page="schedule"><span>▦</span> Lịch làm đẹp</button>
+        <button class="nav-btn" data-page="gallery"><span>▧</span> Bộ sưu tập</button>
+      </nav>
+      <div class="side-bottom"><div class="member-tile"><div class="member-flower">✧</div><strong>Beauty, your way.</strong><p>Một góc nhỏ dành riêng cho việc chăm sóc bản thân mỗi ngày.</p></div><button data-page="settings" class="settings-link">⚙ Cài đặt & dữ liệu</button></div>
+    </aside>
+    <main class="main-wrap">
+      <header class="topbar"><div class="top-brand">VISI<span>.</span></div><div class="topbar-right"><span class="privacy-label">◉ Ảnh xử lý trên thiết bị</span><span class="date-pill" id="current-date"></span><button class="profile-icon" data-page="settings" aria-label="Cài đặt">✦</button></div></header>
+      <div id="app-content" class="content" aria-live="polite"></div>
+      <footer class="site-footer">Visi Studio · Bản thử nghiệm hoạt động trên thiết bị · Dữ liệu của bạn do bạn kiểm soát</footer>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Điều hướng di động"><button data-page="home" class="active">⌂<span>Trang chủ</span></button><button data-page="makeup">✿<span>Makeup</span></button><button data-page="photo">◈<span>Chỉnh ảnh</span></button><button data-page="skincare">♡<span>Chăm da</span></button><button data-page="gallery">▧<span>Đã lưu</span></button></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
