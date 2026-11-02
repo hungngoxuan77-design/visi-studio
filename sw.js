@@ -1,5 +1,5 @@
 // Scoped, relative cache paths work at both a custom domain and /repo-name/ on GitHub Pages.
-const CACHE = 'visi-studio-pwa-v4-lips-20261102';
+const CACHE = 'visi-studio-pwa-v5-lip-visible-20261102';
 const SCOPE = new URL('./', self.registration.scope).href;
 const FILES = ['','index.html','styles.css','app.js','lipstick-engine.js','icon.svg','manifest.webmanifest']
   .map(path => new URL(path, SCOPE).href);
