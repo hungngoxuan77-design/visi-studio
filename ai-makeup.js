@@ -45,7 +45,7 @@ try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved && STYLES
 }}catch{}
 const s=initial,undoStack=[],redoStack=[];
 let container=null,canvas=null,video=null,stream=null,imageObj=null,detector=null,detectorLoading=null,detectorMode='',raf=0,runId=0,lastTime=0,points=null,lastFaceFound=false;
-let compare=false,stillURL=null,cameraStarting=false;
+let compare=false,stillURL=null,cameraStarting=false,aiUnavailable=false;
 const ESC=v=>String(v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
 const pick=(sel)=>container?.querySelector(sel);
 const fmtMinutes=steps=>steps.reduce((n,id)=>n+COURSE[id].time,0);
@@ -70,7 +70,7 @@ function render(){
     <div class="ai-empty" data-ai-empty><div class="ai-empty-graphic"><div class="ai-face-outline"><span>✦</span></div></div><h3>Gặp gỡ phiên bản rạng rỡ của bạn</h3><p>Chọn camera hoặc tải ảnh chân dung để bắt đầu thử makeup.</p><div class="ai-empty-actions"><button class="ai-button ai-main" data-ai-action="start">◉ Bật camera AI</button><label class="ai-button ai-secondary">↑ Chọn ảnh<input type="file" accept="image/jpeg,image/png,image/webp" data-ai-file hidden></label></div></div>
     <div class="ai-stage-label" data-ai-stage-label>${modeName()}</div><div class="ai-compare-mark" data-ai-compare-label hidden>ẢNH GỐC · Không hiệu ứng</div>
    </div>
-   <div class="ai-cam-toolbar"><button class="ai-button ai-main" data-ai-action="start">◉ Bật camera</button><label class="ai-button ai-secondary">↑ Tải ảnh<input type="file" accept="image/jpeg,image/png,image/webp" data-ai-file hidden></label><button class="ai-button ai-secondary" data-ai-action="stop">■ Tắt camera</button><button class="ai-button ai-secondary" data-ai-action="snapshot">↓ Lưu ảnh PNG</button></div>
+   <div class="ai-cam-toolbar"><button class="ai-button ai-main" data-ai-action="start">◉ Bật camera</button><label class="ai-button ai-secondary">↑ Tải ảnh<input type="file" accept="image/jpeg,image/png,image/webp" data-ai-file hidden></label><button class="ai-button ai-secondary" data-ai-action="stop">■ Tắt camera</button><button class="ai-button ai-secondary" data-ai-action="snapshot">↓ Lưu ảnh PNG</button><button class="ai-button ai-secondary" data-ai-action="retry-ai" data-ai-retry style="display:none">↻ Thử lại AI</button></div>
    <div class="ai-status-line"><span data-ai-status role="status" aria-live="polite">Chọn Bật camera hoặc Tải ảnh. AI chỉ tải khi bạn chủ động sử dụng.</span><span>Ảnh và video không được tải lên máy chủ.</span></div>
    <div class="ai-view-bottom"><button data-ai-action="compare" class="ai-mini-button" aria-pressed="false">◉ Xem trước / sau</button><button data-ai-action="mirror" class="ai-mini-button">⇄ Lật gương</button><button data-ai-action="guide" class="ai-mini-button">◎ Vị trí hướng dẫn</button><div class="ai-history"><button data-ai-action="undo" aria-label="Hoàn tác" title="Hoàn tác">↶</button><button data-ai-action="redo" aria-label="Làm lại" title="Làm lại">↷</button><button data-ai-action="reset" aria-label="Đặt lại hiệu ứng" title="Đặt lại hiệu ứng">↻</button></div></div>
   </section>
@@ -123,19 +123,107 @@ function drawFrame(){if(!canvas||!container)return;const src=stream&&video?.read
 function setIndicator(isLive){const el=pick('[data-ai-indicator]');if(el){el.textContent=isLive?'● CAMERA ĐANG BẬT':imageObj?'● CHẾ ĐỘ ẢNH':'● ĐANG CHỜ CAMERA';el.classList.toggle('on',isLive)}const label=pick('[data-ai-stage-label]');if(label)label.textContent=modeName();const empty=pick('[data-ai-empty]');if(empty)empty.hidden=!!(stream||imageObj);}
 async function loadDetector(mode){if(!detectorLoading){detectorLoading=(async()=>{const {FaceLandmarker,FilesetResolver}=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/vision_bundle.mjs');const fileset=await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/wasm');let result;try{result=await FaceLandmarker.createFromOptions(fileset,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task',delegate:'GPU'},runningMode:mode,numFaces:1,minFaceDetectionConfidence:.5,minTrackingConfidence:.5});}catch{result=await FaceLandmarker.createFromOptions(fileset,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task',delegate:'CPU'},runningMode:mode,numFaces:1,minFaceDetectionConfidence:.5,minTrackingConfidence:.5});}detectorMode=mode;return result;})().then(v=>{detector=v;return v}).catch(e=>{detectorLoading=null;throw e});}
  const d=await detectorLoading;if(detectorMode!==mode){await d.setOptions({runningMode:mode});detectorMode=mode;}return d;}
-function stopCamera(keepPhoto=true){runId++;if(raf){cancelAnimationFrame(raf);raf=0;}if(stream){for(const track of stream.getTracks())track.stop();stream=null;}if(video){video.pause();video.srcObject=null;}lastTime=0;points=null;if(!keepPhoto)imageObj=null;setIndicator(false);if(container)status('Camera đã tắt. Không có hình ảnh nào được tải lên máy chủ.');if(keepPhoto&&imageObj)drawFrame();}
-async function startCamera(){if(cameraStarting)return;if(!navigator.mediaDevices?.getUserMedia){status('Trình duyệt không hỗ trợ camera hoặc trang không chạy HTTPS.','warn');return;}
- if(!confirm('Bật camera và tải mô hình AI?\n\nBạn có thể tắt camera bất cứ lúc nào. Ảnh/video được phân tích trên thiết bị. Trình duyệt sẽ kết nối tới jsDelivr và Google để tải thư viện/mô hình ở lần sử dụng đầu tiên.'))return;
- cameraStarting=true;stopCamera(false);const token=runId;status('Đang xin quyền camera…');const btn=pick('[data-ai-action="start"]');if(btn)btn.disabled=true;
- try{const media=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:'user',width:{ideal:960},height:{ideal:720}}});if(token!==runId||!container){media.getTracks().forEach(t=>t.stop());return;}stream=media;imageObj=null;video.srcObject=media;await video.play();if(token!==runId||!container)return;setIndicator(true);status('Đang tải AI nhận diện khuôn mặt (cần Internet lần đầu)…');await loadDetector('VIDEO');if(token!==runId||!container)return;status('Camera đã bật. Đưa mặt vào khung để thử makeup trực tiếp.');lastTime=0;loop(token);
- }catch(err){if(token===runId){stopCamera();status(err?.name==='NotAllowedError'?'Bạn đã từ chối quyền camera. Hãy cấp quyền trong trình duyệt rồi thử lại.':err?.name==='NotFoundError'?'Không tìm thấy camera trên thiết bị.':'Không mở được camera hoặc mô hình AI. Kiểm tra quyền camera và Internet.','warn');}console.warn('Visi AI camera',err);}finally{cameraStarting=false;if(btn&&btn.isConnected)btn.disabled=false;}}
-function loop(token){if(token!==runId||!stream||!container)return;try{const stamp=performance.now();if(video.readyState>=2 && stamp-lastTime>90){const result=detector.detectForVideo(video,stamp);points=result.faceLandmarks?.[0]||null;lastTime=stamp;const nowFound=!!points;if(nowFound!==lastFaceFound){lastFaceFound=nowFound;status(nowFound?'Đã nhận diện khuôn mặt • Màu makeup đang bám theo chuyển động.':'Không thấy mặt rõ. Nhìn vào camera dưới ánh sáng đủ.');}}drawFrame();}catch(e){stopCamera();status('Mô hình AI gặp lỗi. Hãy thử tải lại trang hoặc dùng ảnh tĩnh.','warn');console.warn('Visi AI inference',e);return;}raf=requestAnimationFrame(()=>loop(token));}
+function showRetryAI(visible){const b=pick('[data-ai-retry]');if(b)b.style.display=visible?'':'none';}
+function explainCameraError(err){
+  const name=err?.name||'UnknownError';
+  if(name==='NotAllowedError'||name==='PermissionDeniedError'||name==='SecurityError')return 'Camera bị chặn quyền ('+name+'). Nhấn biểu tượng bên trái địa chỉ web → Quyền trang web → Camera → Cho phép; kiểm tra cả quyền Camera trong Windows.';
+  if(name==='NotFoundError'||name==='DevicesNotFoundError')return 'Không tìm thấy webcam ('+name+'). Kiểm tra camera USB hoặc camera tích hợp trong Windows và chọn thiết bị trong cài đặt Chrome.';
+  if(name==='NotReadableError'||name==='TrackStartError')return 'Camera có thể đang được ứng dụng khác sử dụng hoặc bị Windows chặn ('+name+'). Đóng Zoom, Zalo, Meet, ứng dụng Camera rồi thử lại.';
+  if(name==='OverconstrainedError')return 'Thiết bị không đáp ứng cấu hình camera ('+name+'). Hãy thử webcam khác hoặc kiểm tra cài đặt Chrome.';
+  if(name==='AbortError')return 'Windows hoặc camera ngắt khi đang khởi động ('+name+'). Rút/cắm lại webcam hoặc khởi động lại Chrome.';
+  return `Không mở được webcam (${name}${err?.message?': '+String(err.message).slice(0,130):''}). Hãy kiểm tra thiết bị và quyền truy cập camera.`;
+}
+async function requestCamera(){
+  try{return await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:'user',width:{ideal:960},height:{ideal:720}}});}
+  catch(err){
+    // Don't repeat a denied permission prompt; retry once without optional constraints only for device/startup errors.
+    if(!['NotReadableError','OverconstrainedError','AbortError','NotFoundError'].includes(err?.name))throw err;
+    return navigator.mediaDevices.getUserMedia({audio:false,video:true});
+  }
+}
+function stopCamera(keepPhoto=true){
+  runId++;if(raf){cancelAnimationFrame(raf);raf=0;}
+  if(stream){for(const track of stream.getTracks())track.stop();stream=null;}
+  if(video){video.pause();video.srcObject=null;}
+  lastTime=0;points=null;lastFaceFound=false;aiUnavailable=false;showRetryAI(false);
+  if(!keepPhoto)imageObj=null;
+  setIndicator(false);
+  if(container)status('Camera đã tắt. Không có hình ảnh nào được tải lên máy chủ.');
+  if(keepPhoto&&imageObj)drawFrame();
+}
+async function startCamera(){
+  if(cameraStarting)return;
+  if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia){status('Trang web phải dùng HTTPS và trình duyệt hỗ trợ camera.','warn');return;}
+  if(!confirm('Bật camera và tải mô hình AI?\n\nBạn có thể tắt camera bất cứ lúc nào. Ảnh/video được phân tích trên thiết bị. Trình duyệt sẽ kết nối tới jsDelivr và Google để tải thư viện/mô hình ở lần sử dụng đầu tiên.'))return;
+  cameraStarting=true;stopCamera(false);const token=runId;
+  status('Đang yêu cầu quyền truy cập webcam…');
+  const btns=[...container.querySelectorAll('[data-ai-action="start"]')];btns.forEach(b=>b.disabled=true);
+  let phase='camera';
+  try{
+    const media=await requestCamera();
+    if(token!==runId||!container){media.getTracks().forEach(t=>t.stop());return;}
+    stream=media;imageObj=null;
+    video.muted=true;video.playsInline=true;video.autoplay=true;video.srcObject=media;
+    phase='playback';
+    await video.play();
+    if(token!==runId||!container)return;
+    setIndicator(true);
+    status('Webcam đã mở. Đang tải AI nhận diện khuôn mặt…');
+    lastTime=0;aiUnavailable=true; // video only until FaceLandmarker has switched to VIDEO mode
+    loop(token); // show camera immediately, even if AI initialization fails
+    phase='ai';
+    try{
+      await loadDetector('VIDEO');
+      if(token!==runId||!container)return;
+      aiUnavailable=false;showRetryAI(false);
+      status('Camera + AI đã bật. Hướng mặt vào webcam để xem lớp makeup.');
+    }catch(err){
+      if(token!==runId||!container)return;
+      aiUnavailable=true;points=null;showRetryAI(true);
+      status('Webcam đã mở, nhưng AI chưa khởi tạo được ('+(err?.name||'LoadError')+'). Xem camera bình thường; thử nút “Thử lại AI” hoặc kiểm tra CDN/mô hình trong mạng.','warn');
+      console.warn('Visi AI model load',err);
+    }
+  }catch(err){
+    if(token===runId&&container){stopCamera();
+      status(phase==='camera'?explainCameraError(err):'Camera đã cấp quyền nhưng không phát được hình ('+(err?.name||'PlaybackError')+'). Hãy đóng ứng dụng đang dùng camera và thử lại.','warn');}
+    console.warn('Visi AI camera ('+phase+')',err);
+  }finally{cameraStarting=false;btns.forEach(b=>{if(b.isConnected)b.disabled=false;});}
+}
+async function retryAI(){
+  if(!stream||!container){status('Bật camera trước khi thử kết nối lại AI.','warn');return;}
+  const btn=pick('[data-ai-retry]');if(btn)btn.disabled=true;
+  status('Đang kết nối lại mô hình AI…');aiUnavailable=true;
+  try{
+    await loadDetector('VIDEO');if(!stream||!container)return;
+    aiUnavailable=false;lastTime=0;lastFaceFound=false;
+    showRetryAI(false);status('AI đã sẵn sàng. Hãy đưa khuôn mặt vào khung.');
+  }catch(err){aiUnavailable=true;showRetryAI(true);status('AI vẫn chưa tải được ('+(err?.name||'LoadError')+'). Camera vẫn hoạt động; kiểm tra Internet hoặc thử mạng khác.','warn');console.warn('Visi AI retry',err);}
+  finally{if(btn&&btn.isConnected)btn.disabled=false;}
+}
+function loop(token){
+ if(token!==runId||!stream||!container)return;
+ try{
+  const stamp=performance.now();
+  if(!aiUnavailable&&detector&&video.readyState>=2&&stamp-lastTime>90){
+   const result=detector.detectForVideo(video,stamp);
+   points=result.faceLandmarks?.[0]||null;lastTime=stamp;
+   const nowFound=!!points;
+   if(nowFound!==lastFaceFound){lastFaceFound=nowFound;status(nowFound?'Đã nhận diện khuôn mặt • Màu makeup đang bám theo chuyển động.':'Không thấy mặt rõ. Nhìn vào camera dưới ánh sáng đủ.');}
+  }
+  drawFrame();
+ }catch(err){
+   aiUnavailable=true;points=null;detector=null;detectorLoading=null;showRetryAI(true);
+   status('Webcam vẫn hoạt động nhưng AI nhận diện bị lỗi ('+(err?.name||'InferenceError')+'). Nhấn Thử lại AI.','warn');
+   console.warn('Visi AI inference',err);
+ }
+ raf=requestAnimationFrame(()=>loop(token));
+}
 async function loadImage(file){if(!file)return;if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>16*1024*1024){status('Chỉ hỗ trợ JPG/PNG/WEBP tối đa 16 MB.','warn');return;}stopCamera(false);const token=runId;const url=URL.createObjectURL(file);stillURL=url;const img=new Image();try{await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url});if(token!==runId||!container)return;const maxDimension=1600;const factor=Math.min(1,maxDimension/Math.max(img.naturalWidth,img.naturalHeight));
   if(factor<1){const scaled=document.createElement('canvas');scaled.width=Math.round(img.naturalWidth*factor);scaled.height=Math.round(img.naturalHeight*factor);scaled.getContext('2d').drawImage(img,0,0,scaled.width,scaled.height);imageObj=scaled;}else imageObj=img;
   setIndicator(false);status('Đang tải AI để nhận diện khuôn mặt trong ảnh…');const det=await loadDetector('IMAGE');if(token!==runId||!container)return;points=det.detect(imageObj).faceLandmarks?.[0]||null;drawFrame();status(points?'Đã nhận diện mặt. Chọn màu để thử ngay trên ảnh.':'Chưa nhận diện được khuôn mặt. Hãy chọn ảnh rõ mặt, đủ sáng.',points?'info':'warn');}catch(e){status('Không mở được ảnh hoặc AI. Hãy kiểm tra kết nối Internet.','warn');console.warn('Visi AI photo',e);}finally{URL.revokeObjectURL(url);if(stillURL===url)stillURL=null;}}
 function snapshot(){if(!canvas||!(stream||imageObj)){status('Hãy bật camera hoặc tải ảnh trước khi lưu.','warn');return;}canvas.toBlob(blob=>{if(!blob){status('Không thể xuất PNG trên trình duyệt này.','warn');return;}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`visi-ai-makeup-${Date.now()}.png`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);status('Đã xuất ảnh PNG.');},'image/png');}
 function reset(){transact(()=>{s.colors={...STYLES[s.style].colors};s.opacity={lip:65,blush:32,eye:24,base:12};s.layers={lip:true,blush:true,eye:false,base:false};s.finish='satin';});}
-function action(type){if(type==='start'){startCamera();return;}if(type==='stop'){stopCamera();return;}if(type==='snapshot'){snapshot();return;}if(type==='undo'){if(undoStack.length){redoStack.push(snap());applySnap(undoStack.pop());}return;}if(type==='redo'){if(redoStack.length){undoStack.push(snap());applySnap(redoStack.pop());}return;}if(type==='compare'){compare=!compare;updateUI();drawFrame();return;}if(type==='mirror'){transact(()=>{s.mirror=!s.mirror});return;}if(type==='guide'){transact(()=>{s.guide=!s.guide});return;}if(type==='reset'){reset();return;}if(type==='prev'){s.step=Math.max(0,s.step-1);persist();updateUI();drawFrame();return;}if(type==='next'){s.step=Math.min(ids().length-1,s.step+1);persist();updateUI();drawFrame();return;}if(type==='complete'){const key=planKey(),items=new Set(s.done[key]||[]),id=ids()[s.step];if(items.has(id))items.delete(id);else items.add(id);s.done[key]=[...items];if(items.has(id)&&s.step<ids().length-1)s.step++;persist();updateUI();drawFrame();return;}}
+function action(type){if(type==='start'){startCamera();return;}if(type==='retry-ai'){retryAI();return;}if(type==='stop'){stopCamera();return;}if(type==='snapshot'){snapshot();return;}if(type==='undo'){if(undoStack.length){redoStack.push(snap());applySnap(undoStack.pop());}return;}if(type==='redo'){if(redoStack.length){undoStack.push(snap());applySnap(redoStack.pop());}return;}if(type==='compare'){compare=!compare;updateUI();drawFrame();return;}if(type==='mirror'){transact(()=>{s.mirror=!s.mirror});return;}if(type==='guide'){transact(()=>{s.guide=!s.guide});return;}if(type==='reset'){reset();return;}if(type==='prev'){s.step=Math.max(0,s.step-1);persist();updateUI();drawFrame();return;}if(type==='next'){s.step=Math.min(ids().length-1,s.step+1);persist();updateUI();drawFrame();return;}if(type==='complete'){const key=planKey(),items=new Set(s.done[key]||[]),id=ids()[s.step];if(items.has(id))items.delete(id);else items.add(id);s.done[key]=[...items];if(items.has(id)&&s.step<ids().length-1)s.step++;persist();updateUI();drawFrame();return;}}
 function mount(){container=document.querySelector('.ai-page');if(!container)return;canvas=pick('[data-ai-canvas]');video=pick('[data-ai-video]');
  container.addEventListener('click',e=>{const actionEl=e.target.closest('[data-ai-action]');if(actionEl){action(actionEl.dataset.aiAction);return;}const sty=e.target.closest('[data-ai-style]');if(sty&&STYLES[sty.dataset.aiStyle]){transact(()=>{s.style=sty.dataset.aiStyle;s.step=0;s.colors={...STYLES[s.style].colors}});return;}const chip=e.target.closest('[data-ai-swatch]');if(chip){const [layer,value]=chip.dataset.aiSwatch.split('|');if(layer in s.colors && /^#[a-f0-9]{6}$/i.test(value)){transact(()=>{s.colors[layer]=value;s.layers[layer]=true});}return;}const step=e.target.closest('[data-ai-step]');if(step){s.step=Math.max(0,Math.min(ids().length-1,Number(step.dataset.aiStep)));persist();updateUI();drawFrame();}});
  container.addEventListener('change',e=>{if(e.target.matches('[data-ai-file]')){loadImage(e.target.files?.[0]);e.target.value='';return;}if(e.target.matches('[data-ai-level]')){const l=e.target.value;if(LEVELS[l]){s.level=l;s.step=0;persist();updateUI();drawFrame();}return;}if(e.target.matches('[data-ai-layer]')){const key=e.target.dataset.aiLayer;transact(()=>{s.layers[key]=e.target.checked});return;}if(e.target.matches('[data-ai-custom]')){const key=e.target.dataset.aiCustom;transact(()=>{s.colors[key]=e.target.value;s.layers[key]=true});return;}if(e.target.matches('[data-ai-finish]')){transact(()=>{s.finish=e.target.value});return;}});
