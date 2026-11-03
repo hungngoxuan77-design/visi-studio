@@ -27,3 +27,25 @@
 .product-note-item p{font-size:12px;margin:0 0 4px;line-height:1.6}
 .product-note-item small{display:block;color:#96787f;font-size:11px;line-height:1.6}
 @media(max-width:740px){.personalization-grid{grid-template-columns:1fr}.curriculum-status{font-size:11px}}
+
+/* Visi Studio Dynamic Curriculum · seven style cards and inventory-driven route */
+.style-gallery-section{background:#fff;border:1px solid #eee2e3;border-radius:20px;padding:22px;margin-bottom:20px;box-shadow:0 9px 26px #4b334008}
+.style-heading h2{font-family:'Playfair Display',Georgia,serif;font-size:27px;margin:8px 0 5px;letter-spacing:-.35px}
+.style-heading p{font-size:12px;line-height:1.65;color:#9c858f;margin:0 0 17px}
+.style-gallery{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px}
+.style-pick{border:1px solid #eddee0;border-radius:13px;padding:6px;background:#fcf9f8;text-align:left;min-width:0;color:#604550;transition:transform .17s,border-color .17s,box-shadow .17s}
+.style-pick:hover{transform:translateY(-2px);border-color:#bd7890}.style-pick.active{border:2px solid #ab5e79;padding:5px;box-shadow:0 4px 17px #a35e791f;background:#fff6f8}
+.style-pick img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:65% center;border-radius:9px;display:block;margin-bottom:8px;background:#f2e5e4}
+.style-pick strong{display:block;font-weight:800;font-size:11px;white-space:normal;line-height:1.35;padding:0 4px}
+.style-pick small{display:block;font-size:9px;line-height:1.5;color:#a08e95;margin-top:3px;padding:0 4px 5px}
+.dynamic-step-count{border:1px solid #e7d8de;background:#fff7f8;min-height:42px;border-radius:11px;padding:5px 10px;display:flex;flex-direction:column;justify-content:center}
+.dynamic-step-count b{color:#9f506b;font-size:12px}.dynamic-step-count small{color:#9e8590;font-size:9px;line-height:1.4}
+.style-equipment{margin-top:18px}.equipment-cover{display:flex;gap:14px;background:linear-gradient(105deg,#fff8f5,#fbf3f1);border:1px solid #f1e2df;border-radius:14px;padding:11px;align-items:center}
+.equipment-cover>img{width:150px;min-width:150px;height:110px;object-fit:cover;object-position:68% center;border-radius:10px}
+.equipment-cover strong{display:block;font-family:'Playfair Display',serif;font-size:19px;color:#74475d;margin:3px 0}
+.equipment-cover p{margin:3px 0 8px;font-size:11px;line-height:1.5;color:#826c76}.equipment-cover b{font-size:10px;color:#704d5d}
+.equipment-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.equipment-tags span{font-size:10px;background:#eaf6ed;color:#3e7761;border:1px solid #b4dbc2;border-radius:20px;padding:4px 9px}.equipment-tags .missing-tool{color:#a0644e;background:#fff3e6;border-color:#eddbcb}
+.plan-missing{background:#fff7ea;color:#8e6c45;border:1px solid #f1d7a9;padding:13px 15px;border-radius:11px;font-size:12px;line-height:1.6;margin-top:12px}.plan-missing[hidden]{display:none!important}
+.local-media-note{font-size:10px;color:#8b7b82;line-height:1.5;margin:3px 0}
+@media (max-width:1050px){.style-gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:600px){.style-gallery-section{padding:13px}.style-heading h2{font-size:23px}.style-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.equipment-cover>img{width:102px;min-width:102px;height:100px}.equipment-cover{align-items:flex-start}.style-pick strong{font-size:11px}.style-pick small{font-size:9px}}

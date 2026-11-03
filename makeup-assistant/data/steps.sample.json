@@ -1,73 +1,48 @@
 {
-  "version": "1.2",
+  "version": "2.0-dynamic",
   "locale": "vi-VN",
-  "description": "Lộ trình trang điểm và điều kiện cá nhân hóa tải trực tiếp bằng fetch() từ Visi Studio; mỗi thay đổi lựa chọn sẽ đọc quy tắc trong JSON này.",
+  "description": "Trình tạo quy trình trang điểm động: phong cách, tông da và sản phẩm đang sở hữu; không có gói 7/14 bước.",
   "steps": {
     "cleanse": {
       "title": "Làm sạch & dưỡng ẩm",
       "category": "01 · CHUẨN BỊ",
       "minutes": 2,
       "kind": "prep",
-      "desc": "Chuẩn bị bề mặt da sạch, đủ ẩm để lớp trang điểm dễ bám và tự nhiên.",
+      "desc": "Làm sạch da trước khi trang điểm bằng sữa rửa mặt bạn đang có.",
       "products": [
-        "Sữa rửa mặt dịu nhẹ",
-        "Kem dưỡng ẩm hợp với loại da"
+        "Sữa rửa mặt dịu nhẹ"
       ],
       "tools": [
-        "Khăn mặt sạch",
-        "Tay sạch / bông tẩy trang"
+        "Tay sạch",
+        "Khăn riêng sạch"
       ],
       "how": [
-        "Làm sạch mặt với sản phẩm dịu nhẹ, không chà sát mạnh.",
-        "Thấm khô bằng khăn sạch rồi lấy lượng kem dưỡng vừa đủ.",
-        "Chờ kem thấm trước khi bắt đầu trang điểm."
+        "Dùng sữa rửa mặt đang có.",
+        "Rửa sạch và thấm nhẹ bằng khăn riêng."
       ],
       "tip": "Da dầu vẫn cần dưỡng ẩm. Không chồng quá nhiều sản phẩm nếu bạn ở nơi nóng ẩm.",
       "id": "cleanse",
       "requiredProductCategories": [
-        "cleanser",
-        "moisturizer"
+        "cleanser"
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/prep.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/how-to-apply-makeup",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
-          "title": "Làm sạch tay và da",
-          "detail": "Rửa tay; làm ướt mặt và dùng sữa rửa mặt dịu nhẹ. Massage nhẹ, tránh cọ xát vùng kích ứng.",
-          "durationSeconds": 30,
-          "productCategory": "cleanser",
-          "tool": "Tay sạch",
-          "faceRegion": null
+          "title": "Rửa mặt nhẹ nhàng",
+          "detail": "Dùng sữa rửa mặt đúng hướng dẫn nhà sản xuất, không chà xát mạnh.",
+          "durationSeconds": 40,
+          "faceRegion": "face",
+          "tool": "Tay sạch"
         },
         {
           "order": 2,
           "title": "Rửa sạch và thấm khô",
-          "detail": "Rửa kỹ với nước; dùng khăn mềm sạch thấm nhẹ, không chà mặt.",
+          "detail": "Rửa lại bằng nước và thấm bằng khăn riêng, sạch.",
           "durationSeconds": 30,
-          "productCategory": "cleanser",
-          "tool": "Khăn mềm sạch",
-          "faceRegion": null
-        },
-        {
-          "order": 3,
-          "title": "Dưỡng ẩm đúng lượng",
-          "detail": "Lấy một lớp kem dưỡng vừa đủ, tán mỏng từ giữa mặt ra ngoài; chọn kết cấu phù hợp da.",
-          "durationSeconds": 30,
-          "productCategory": "moisturizer",
-          "tool": "Ngón tay sạch",
-          "faceRegion": null
-        },
-        {
-          "order": 4,
-          "title": "Đợi lớp dưỡng ổn định",
-          "detail": "Để sản phẩm thấm theo hướng dẫn rồi kiểm tra vùng da dễ vón trước khi đánh nền.",
-          "durationSeconds": 30,
-          "productCategory": null,
-          "tool": "Gương",
-          "faceRegion": null
+          "faceRegion": "face",
+          "tool": "Khăn sạch"
         }
       ],
       "skinTypeConditions": {
@@ -98,10 +73,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "basic",
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -114,8 +85,7 @@
           "sensitive"
         ],
         "inventoryCategories": [
-          "cleanser",
-          "moisturizer"
+          "cleanser"
         ],
         "missingInventoryAction": "show_missing_notice",
         "optional": false
@@ -129,17 +99,17 @@
           "quantityGuidance": "Lượng vừa đủ theo nhãn",
           "alternative": "Nước ấm và khăn mềm khi cần làm sạch đơn giản",
           "safetyNote": "Tránh chà xát hoặc sản phẩm gây kích ứng"
-        },
-        {
-          "categoryId": "moisturizer",
-          "productName": "Kem dưỡng ẩm",
-          "selectionNote": "Chọn gel/lotion cho da dễ dầu, kem dưỡng giàu ẩm cho da khô",
-          "quantityGuidance": "Một lớp mỏng, điều chỉnh theo cảm giác da",
-          "alternative": "Sản phẩm dưỡng ẩm khác phù hợp",
-          "safetyNote": "Ngừng dùng nếu có phản ứng kích ứng"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Áp dụng kỹ thuật việt nam tự nhiên và điều chỉnh từng lớp mỏng.",
+        "douyin": "Áp dụng kỹ thuật douyin trong trẻo và điều chỉnh từng lớp mỏng.",
+        "western": "Áp dụng kỹ thuật âu mỹ sắc nét và điều chỉnh từng lớp mỏng.",
+        "thai": "Áp dụng kỹ thuật thái lan quyến rũ và điều chỉnh từng lớp mỏng.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Áp dụng kỹ thuật clean girl và điều chỉnh từng lớp mỏng.",
+        "latin": "Áp dụng kỹ thuật latin / fox eye và điều chỉnh từng lớp mỏng."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "cleanser",
@@ -149,6 +119,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "cleanser"
+        ]
+      ],
+      "categoryId": "cleanse",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/cleanse.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/cleanse.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/cleanse.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/cleanse.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/cleanse.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/cleanse.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/cleanse.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "sunscreen": {
@@ -176,8 +189,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/prep.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -235,10 +246,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "basic",
-          "advanced"
-        ],
         "timeOfDay": [
           "day"
         ],
@@ -266,7 +273,15 @@
           "safetyNote": "Thoa lại theo hướng dẫn khi cần"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Áp dụng kỹ thuật việt nam tự nhiên và điều chỉnh từng lớp mỏng.",
+        "douyin": "Áp dụng kỹ thuật douyin trong trẻo và điều chỉnh từng lớp mỏng.",
+        "western": "Áp dụng kỹ thuật âu mỹ sắc nét và điều chỉnh từng lớp mỏng.",
+        "thai": "Áp dụng kỹ thuật thái lan quyến rũ và điều chỉnh từng lớp mỏng.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Áp dụng kỹ thuật clean girl và điều chỉnh từng lớp mỏng.",
+        "latin": "Áp dụng kỹ thuật latin / fox eye và điều chỉnh từng lớp mỏng."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "sunscreen"
@@ -277,6 +292,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "sunscreen"
+        ]
+      ],
+      "categoryId": "sunscreen",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/sunscreen.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/sunscreen.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/sunscreen.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/sunscreen.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/sunscreen.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/sunscreen.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/sunscreen.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "primer": {
@@ -304,8 +362,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/base.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -363,9 +419,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -394,7 +447,15 @@
           "safetyNote": "Tránh sản phẩm vón với lớp dưỡng"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Áp dụng kỹ thuật việt nam tự nhiên và điều chỉnh từng lớp mỏng.",
+        "douyin": "Áp dụng kỹ thuật douyin trong trẻo và điều chỉnh từng lớp mỏng.",
+        "western": "Áp dụng kỹ thuật âu mỹ sắc nét và điều chỉnh từng lớp mỏng.",
+        "thai": "Áp dụng kỹ thuật thái lan quyến rũ và điều chỉnh từng lớp mỏng.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Áp dụng kỹ thuật clean girl và điều chỉnh từng lớp mỏng.",
+        "latin": "Áp dụng kỹ thuật latin / fox eye và điều chỉnh từng lớp mỏng."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "primer"
@@ -407,6 +468,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "primer"
+        ]
+      ],
+      "categoryId": "primer",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/primer.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/primer.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/primer.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/primer.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/primer.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/primer.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/primer.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "foundation": {
@@ -435,8 +539,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/base.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/face-makeup/how-to-apply-foundation-the-best-way",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -503,10 +605,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "basic",
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -561,9 +659,13 @@
         }
       ],
       "styleVariations": {
-        "vietnam": "Tán nền mỏng và bền với thời tiết nóng ẩm.",
-        "douyin": "Nền mỏng sáng tự nhiên, tránh bật tông quá mức.",
-        "western": "Lớp nền đều màu, có thể tăng độ che phủ ở vùng cần."
+        "vietnam": "Tán một lớp nền thật mỏng; chỉ dặm vùng cần đều màu.",
+        "douyin": "Giữ nền mỏng, sáng theo màu da thật, bắt sáng tiết chế.",
+        "western": "Dặm nền đều; thêm độ che phủ từng vùng nếu cần.",
+        "thai": "Nền mỏng nhưng bền, kiểm soát vùng chữ T theo loại da.",
+        "korean": "Dặm từng lớp cushion cực mỏng để giữ da thật.",
+        "clean": "Có thể bỏ nền nếu làn da đã đủ đều; chỉ dùng nền khi sở hữu và cần.",
+        "latin": "Dặm nền cân bằng, giữ đúng tông da gốc."
       },
       "aiMapping": {
         "recognizedProductCategories": [
@@ -575,6 +677,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "foundation"
+        ]
+      ],
+      "categoryId": "foundation",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/foundation.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/foundation.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/foundation.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/foundation.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/foundation.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/foundation.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/foundation.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "concealer": {
@@ -603,8 +748,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/base.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -671,9 +814,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -702,7 +842,15 @@
           "safetyNote": "Tránh thoa dày lên vùng kích ứng"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Áp dụng kỹ thuật việt nam tự nhiên và điều chỉnh từng lớp mỏng.",
+        "douyin": "Áp dụng kỹ thuật douyin trong trẻo và điều chỉnh từng lớp mỏng.",
+        "western": "Áp dụng kỹ thuật âu mỹ sắc nét và điều chỉnh từng lớp mỏng.",
+        "thai": "Áp dụng kỹ thuật thái lan quyến rũ và điều chỉnh từng lớp mỏng.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Áp dụng kỹ thuật clean girl và điều chỉnh từng lớp mỏng.",
+        "latin": "Áp dụng kỹ thuật latin / fox eye và điều chỉnh từng lớp mỏng."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "concealer"
@@ -714,6 +862,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "concealer"
+        ]
+      ],
+      "categoryId": "concealer",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/concealer.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/concealer.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/concealer.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/concealer.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/concealer.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/concealer.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/concealer.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "powder": {
@@ -741,8 +932,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/base.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -800,9 +989,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -831,7 +1017,15 @@
           "safetyNote": "Không tự tăng lượng theo độ sẫm của da"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Áp dụng kỹ thuật việt nam tự nhiên và điều chỉnh từng lớp mỏng.",
+        "douyin": "Áp dụng kỹ thuật douyin trong trẻo và điều chỉnh từng lớp mỏng.",
+        "western": "Áp dụng kỹ thuật âu mỹ sắc nét và điều chỉnh từng lớp mỏng.",
+        "thai": "Áp dụng kỹ thuật thái lan quyến rũ và điều chỉnh từng lớp mỏng.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Áp dụng kỹ thuật clean girl và điều chỉnh từng lớp mỏng.",
+        "latin": "Áp dụng kỹ thuật latin / fox eye và điều chỉnh từng lớp mỏng."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "powder"
@@ -844,6 +1038,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "powder"
+        ]
+      ],
+      "categoryId": "powder",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/powder.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/powder.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/powder.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/powder.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/powder.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/powder.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/powder.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "brows": {
@@ -872,8 +1109,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/eye.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -931,10 +1166,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "basic",
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -990,8 +1221,12 @@
       ],
       "styleVariations": {
         "vietnam": "Đầu mày mềm, đuôi gọn.",
-        "douyin": "Dáng mày tự nhiên, đường nét dịu.",
-        "western": "Nhấn phần cung và đuôi mày rõ hơn nếu phù hợp."
+        "douyin": "Đầu mày mềm, đuôi gọn.",
+        "western": "Đầu mày mềm, đuôi gọn.",
+        "thai": "Đầu mày mềm, đuôi gọn.",
+        "korean": "Chải sợi và định hình ngang mềm.",
+        "clean": "Chải gọn sợi mày, hạn chế tô thành khuôn.",
+        "latin": "Đầu mày mềm, đuôi gọn."
       },
       "aiMapping": {
         "recognizedProductCategories": [
@@ -1003,6 +1238,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "brow"
+        ]
+      ],
+      "categoryId": "brows",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/brows.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/brows.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/brows.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/brows.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/brows.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/brows.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/brows.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "eyeshadow": {
@@ -1031,8 +1309,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/eye.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -1090,9 +1366,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -1147,9 +1420,13 @@
         }
       ],
       "styleVariations": {
-        "vietnam": "Nâu sữa/hồng đất dễ dùng.",
-        "douyin": "Hồng đào, nhũ mịn, nhấn nhẹ bọng mắt.",
-        "western": "Phối nâu khói, nhấn chiều sâu đuôi mắt."
+        "vietnam": "Phối nâu sữa hoặc hồng đất, tán mỏng và mềm.",
+        "douyin": "Phủ màu hồng đào, thêm nhũ mịn và nhấn vùng mí dưới thật nhẹ để gợi hiệu ứng aegyo-sal; không vẽ quầng mắt đậm.",
+        "western": "Nhấn hốc và đuôi mắt bằng màu nâu có chiều sâu.",
+        "thai": "Tán màu đồng, nâu ấm, nhấn đuôi mắt.",
+        "korean": "Màu sữa, nâu nhạt, đào; viền mắt thật mềm.",
+        "clean": "Nâu sữa/hồng đất dễ dùng.",
+        "latin": "Nhấn đuôi mắt màu nâu khói, kết nối hướng nâng đuôi."
       },
       "aiMapping": {
         "recognizedProductCategories": [
@@ -1161,6 +1438,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "eyeshadow"
+        ]
+      ],
+      "categoryId": "eyeshadow",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/eyeshadow.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/eyeshadow.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/eyeshadow.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/eyeshadow.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/eyeshadow.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/eyeshadow.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/eyeshadow.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "eyeliner": {
@@ -1188,8 +1508,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/eye.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -1247,9 +1565,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -1278,7 +1593,15 @@
           "safetyNote": "Không kẻ vào niêm mạc mắt"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Kẻ viền mảnh sát chân mi.",
+        "douyin": "Đuôi mắt mảnh, không kéo quá dài.",
+        "western": "Kẻ mắt rõ nét theo cấu trúc mắt.",
+        "thai": "Đuôi mắt sắc nét nhưng không kéo quá cao.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Áp dụng kỹ thuật clean girl và điều chỉnh từng lớp mỏng.",
+        "latin": "Kẻ sát mi, kéo đuôi nâng vừa phải theo dáng mắt."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "eyeliner"
@@ -1289,6 +1612,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "eyeliner"
+        ]
+      ],
+      "categoryId": "eyeliner",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/eyeliner.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/eyeliner.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/eyeliner.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/eyeliner.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/eyeliner.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/eyeliner.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/eyeliner.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "mascara": {
@@ -1316,8 +1682,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/eye.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -1375,9 +1739,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -1406,7 +1767,15 @@
           "safetyNote": "Không dùng chung mascara"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Áp dụng kỹ thuật việt nam tự nhiên và điều chỉnh từng lớp mỏng.",
+        "douyin": "Áp dụng kỹ thuật douyin trong trẻo và điều chỉnh từng lớp mỏng.",
+        "western": "Áp dụng kỹ thuật âu mỹ sắc nét và điều chỉnh từng lớp mỏng.",
+        "thai": "Áp dụng kỹ thuật thái lan quyến rũ và điều chỉnh từng lớp mỏng.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Chuốt một lớp rất mỏng nếu có.",
+        "latin": "Áp dụng kỹ thuật latin / fox eye và điều chỉnh từng lớp mỏng."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "mascara"
@@ -1417,6 +1786,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "mascara"
+        ]
+      ],
+      "categoryId": "mascara",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/mascara.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/mascara.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/mascara.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/mascara.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/mascara.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/mascara.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/mascara.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "contour": {
@@ -1445,8 +1857,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/blush.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -1504,9 +1914,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -1562,8 +1969,12 @@
       ],
       "styleVariations": {
         "vietnam": "Tạo khối rất nhẹ hoặc bỏ qua.",
-        "douyin": "Tạo khối tinh tế, ưu tiên cảm giác trong trẻo.",
-        "western": "Nhấn đường khối rõ hơn, tán kỹ viền."
+        "douyin": "Tạo khối rất nhẹ hoặc bỏ qua.",
+        "western": "Đặt contour dưới xương gò má, tán đều mép.",
+        "thai": "Tạo khối rất nhẹ hoặc bỏ qua.",
+        "korean": "Tạo khối rất nhẹ hoặc bỏ qua.",
+        "clean": "Tạo khối rất nhẹ hoặc bỏ qua.",
+        "latin": "Contour ấm vừa phải, tán lên điểm cao gò má."
       },
       "aiMapping": {
         "recognizedProductCategories": [
@@ -1576,6 +1987,49 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "contour"
+        ]
+      ],
+      "categoryId": "contour",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/contour.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/contour.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/contour.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/contour.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/contour.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/contour.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/contour.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "blush": {
@@ -1603,8 +2057,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/blush.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/face-makeup/how-to-apply-liquid-blush",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -1662,10 +2114,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "basic",
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -1720,9 +2168,13 @@
         }
       ],
       "styleVariations": {
-        "vietnam": "Đặt ở gò má tự nhiên, tán mềm.",
-        "douyin": "Đặt má cao và tán lan nhẹ dưới mắt.",
-        "western": "Tán từ gò má về thái dương."
+        "vietnam": "Đặt má hồng đào vừa phải ở gò má.",
+        "douyin": "Má đặt hơi cao dưới mắt rồi tán loang.",
+        "western": "Đặt ở gò má tự nhiên, tán mềm.",
+        "thai": "Má màu đào đất/terracotta, tán lên thái dương.",
+        "korean": "Má nhẹ, ranh giới tan tự nhiên.",
+        "clean": "Má kem mỏng như ửng tự nhiên.",
+        "latin": "Đặt ở gò má tự nhiên, tán mềm."
       },
       "aiMapping": {
         "recognizedProductCategories": [
@@ -1734,6 +2186,49 @@
         "virtualTryOn": "cheek_color",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "blush"
+        ]
+      ],
+      "categoryId": "blush",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/blush.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/blush.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/blush.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/blush.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/blush.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/blush.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/blush.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "lipstick": {
@@ -1764,8 +2259,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/lip.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -1832,10 +2325,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "basic",
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -1890,9 +2379,13 @@
         }
       ],
       "styleVariations": {
-        "vietnam": "Son MLBB hoặc đỏ đất, tán mềm viền.",
-        "douyin": "Son ombre, nhấn lòng môi rồi tán loang.",
-        "western": "Có thể viền môi nhẹ trước khi tô son."
+        "vietnam": "Đỏ đất, hồng đất, cam đào; viền môi tán mềm.",
+        "douyin": "Đánh lòng môi đậm hơn, tán mờ ra ngoài theo kiểu ombré.",
+        "western": "Viền môi gọn, màu nude nâu hoặc berry tùy undertone.",
+        "thai": "Ưu tiên đỏ đất, hồng ấm hoặc cam gạch.",
+        "korean": "Môi màu MLBB hoặc tint hồng dịu, không cần viền sắc.",
+        "clean": "Son dưỡng có màu hoặc tint mỏng; không cần tạo viền sắc.",
+        "latin": "Viền môi rõ mềm, thử màu nâu đỏ hoặc berry."
       },
       "aiMapping": {
         "recognizedProductCategories": [
@@ -1904,6 +2397,49 @@
         "virtualTryOn": "lip_color",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "lipstick"
+        ]
+      ],
+      "categoryId": "lipstick",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/lipstick.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/lipstick.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/lipstick.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/lipstick.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/lipstick.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/lipstick.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/lipstick.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     },
     "finish": {
@@ -1932,8 +2468,6 @@
       ],
       "placeholderImageUrl": "assets/guide-poster.svg",
       "localIllustrationVideoUrl": "media/prep.mp4",
-      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
-      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
       "instructionSteps": [
         {
           "order": 1,
@@ -1991,10 +2525,6 @@
         }
       },
       "displayConditions": {
-        "plans": [
-          "basic",
-          "advanced"
-        ],
         "timeOfDay": [
           "day",
           "night"
@@ -2023,7 +2553,15 @@
           "safetyNote": "Tránh hít trực tiếp và vùng mắt"
         }
       ],
-      "styleVariations": {},
+      "styleVariations": {
+        "vietnam": "Áp dụng kỹ thuật việt nam tự nhiên và điều chỉnh từng lớp mỏng.",
+        "douyin": "Áp dụng kỹ thuật douyin trong trẻo và điều chỉnh từng lớp mỏng.",
+        "western": "Áp dụng kỹ thuật âu mỹ sắc nét và điều chỉnh từng lớp mỏng.",
+        "thai": "Áp dụng kỹ thuật thái lan quyến rũ và điều chỉnh từng lớp mỏng.",
+        "korean": "Áp dụng kỹ thuật hàn quốc thanh lịch và điều chỉnh từng lớp mỏng.",
+        "clean": "Áp dụng kỹ thuật clean girl và điều chỉnh từng lớp mỏng.",
+        "latin": "Áp dụng kỹ thuật latin / fox eye và điều chỉnh từng lớp mỏng."
+      },
       "aiMapping": {
         "recognizedProductCategories": [
           "setting_spray"
@@ -2032,6 +2570,218 @@
         "virtualTryOn": "not_implemented",
         "autoCompleteStep": false,
         "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "setting_spray"
+        ]
+      ],
+      "categoryId": "finish",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/finish.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/finish.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/finish.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/finish.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/finish.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/finish.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/finish.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
+      }
+    },
+    "moisturize": {
+      "title": "Dưỡng ẩm trước khi makeup",
+      "category": "01 · CHUẨN BỊ",
+      "minutes": 2,
+      "kind": "prep",
+      "desc": "Làm mềm da và tạo nền cho lớp trang điểm, sử dụng kem dưỡng bạn đang có.",
+      "products": [
+        "Kem dưỡng ẩm phù hợp với loại da"
+      ],
+      "tools": [
+        "Tay sạch"
+      ],
+      "how": [
+        "Lấy lượng kem nhỏ theo nhãn sản phẩm.",
+        "Thoa mỏng lên mặt, tán nhẹ từng vùng.",
+        "Đợi thấm rồi mới bắt đầu lớp nền."
+      ],
+      "tip": "Da dầu vẫn cần dưỡng phù hợp; tránh quá nhiều lớp nếu dễ bí.",
+      "id": "moisturize",
+      "requiredProductCategories": [
+        "moisturizer"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/prep.mp4",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Lấy một lượng kem nhỏ",
+          "detail": "Cho kem dưỡng ra tay sạch theo hướng dẫn sản phẩm, không lấy quá nhiều.",
+          "durationSeconds": 20,
+          "faceRegion": "face",
+          "tool": "Tay sạch"
+        },
+        {
+          "order": 2,
+          "title": "Tán đều lên mặt",
+          "detail": "Thoa mỏng từ trung tâm ra ngoài, tránh vùng mắt nếu sản phẩm không dành cho mắt.",
+          "durationSeconds": 40,
+          "faceRegion": "face",
+          "tool": "Tay sạch"
+        },
+        {
+          "order": 3,
+          "title": "Chờ kem thấm",
+          "detail": "Để bề mặt da ổn định trước khi đánh nền.",
+          "durationSeconds": 40,
+          "faceRegion": "face",
+          "tool": "Không cần dụng cụ"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Dưỡng ẩm phù hợp loại da normal; sử dụng ít một và quan sát độ thấm.",
+          "quantityGuidance": "Một lớp mỏng, đủ ẩm."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Dưỡng ẩm phù hợp loại da oily; sử dụng ít một và quan sát độ thấm.",
+          "quantityGuidance": "Một lớp mỏng, tăng từng chút nếu còn khô."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Dưỡng ẩm phù hợp loại da dry; sử dụng ít một và quan sát độ thấm.",
+          "quantityGuidance": "Một lớp đủ ẩm, theo nhu cầu."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Dưỡng ẩm phù hợp loại da combination; sử dụng ít một và quan sát độ thấm.",
+          "quantityGuidance": "Theo từng vùng da."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Dưỡng ẩm phù hợp loại da sensitive; sử dụng ít một và quan sát độ thấm.",
+          "quantityGuidance": "Từng lượng nhỏ; ngừng nếu kích ứng."
+        }
+      },
+      "displayConditions": {
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "moisturizer"
+        ],
+        "missingInventoryAction": "show_missing_notice",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "moisturizer",
+          "productName": "Kem dưỡng",
+          "selectionNote": "Chọn loại phù hợp với da thực tế; thử vùng nhỏ nếu nhạy cảm",
+          "quantityGuidance": "Bắt đầu lượng nhỏ, tăng nếu cần",
+          "alternative": "Không tự thay bằng sản phẩm không rõ thành phần",
+          "safetyNote": "Tránh dùng trên vùng da đang kích ứng mạnh."
+        }
+      ],
+      "styleVariations": {
+        "vietnam": "Lớp dưỡng mỏng, giữ độ ẩm để makeup dễ tán.",
+        "douyin": "Lớp dưỡng mỏng, giữ độ ẩm để makeup dễ tán.",
+        "western": "Lớp dưỡng mỏng, giữ độ ẩm để makeup dễ tán.",
+        "thai": "Lớp dưỡng mỏng, giữ độ ẩm để makeup dễ tán.",
+        "korean": "Lớp dưỡng mỏng, giữ độ ẩm để makeup dễ tán.",
+        "clean": "Lớp dưỡng mỏng, giữ độ ẩm để makeup dễ tán.",
+        "latin": "Lớp dưỡng mỏng, giữ độ ẩm để makeup dễ tán."
+      },
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "cleanser",
+          "moisturizer"
+        ],
+        "faceRegions": [],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      },
+      "requiredInventoryAnyOf": [
+        [
+          "moisturizer"
+        ]
+      ],
+      "categoryId": "cleanse",
+      "mediaByStyle": {
+        "vietnam": {
+          "video": "media/styles/vietnam/moisturize.mp4",
+          "image": "assets/styles/vietnam.svg",
+          "kind": "original-demo-animation"
+        },
+        "douyin": {
+          "video": "media/styles/douyin/moisturize.mp4",
+          "image": "assets/styles/douyin.svg",
+          "kind": "original-demo-animation"
+        },
+        "western": {
+          "video": "media/styles/western/moisturize.mp4",
+          "image": "assets/styles/western.svg",
+          "kind": "original-demo-animation"
+        },
+        "thai": {
+          "video": "media/styles/thai/moisturize.mp4",
+          "image": "assets/styles/thai.svg",
+          "kind": "original-demo-animation"
+        },
+        "korean": {
+          "video": "media/styles/korean/moisturize.mp4",
+          "image": "assets/styles/korean.svg",
+          "kind": "original-demo-animation"
+        },
+        "clean": {
+          "video": "media/styles/clean/moisturize.mp4",
+          "image": "assets/styles/clean.svg",
+          "kind": "original-demo-animation"
+        },
+        "latin": {
+          "video": "media/styles/latin/moisturize.mp4",
+          "image": "assets/styles/latin.svg",
+          "kind": "original-demo-animation"
+        }
       }
     }
   },
@@ -2068,5 +2818,663 @@
     "Lượng phấn và độ che phủ dựa trên loại da, vùng da, công thức và sở thích — không dựa riêng vào tông da.",
     "AI chỉ ước lượng màu trên ảnh/camera, phải thử nền thật ở quai hàm trước khi mua.",
     "Nhận diện mỹ phẩm từ ảnh cần người dùng xác nhận loại sản phẩm, không suy luận thành phần hay thương hiệu."
-  ]
+  ],
+  "styles": {
+    "vietnam": {
+      "name": "Việt Nam tự nhiên",
+      "tagline": "Nền mỏng · má đào · môi mềm",
+      "description": "Học cách trang điểm nhẹ nhàng phù hợp sinh hoạt hằng ngày, ưu tiên lớp nền mỏng và sự thoải mái.",
+      "palette": {
+        "bg": "#F5E9E4",
+        "accent": "#B76D78",
+        "shadow": "#624457",
+        "skin": "#DAB29A",
+        "lip": "#BE586E",
+        "eye": "#A37F79"
+      },
+      "requiredTools": [
+        {
+          "id": "hands",
+          "name": "Tay sạch",
+          "tracked": false
+        },
+        {
+          "id": "mirror",
+          "name": "Gương đủ sáng",
+          "tracked": false
+        },
+        {
+          "id": "sponge",
+          "name": "Bông mút hoặc puff cushion",
+          "tracked": true
+        }
+      ],
+      "stepOrder": [
+        "cleanse",
+        "moisturize",
+        "sunscreen",
+        "primer",
+        "foundation",
+        "concealer",
+        "powder",
+        "brows",
+        "eyeshadow",
+        "eyeliner",
+        "mascara",
+        "blush",
+        "lipstick",
+        "finish"
+      ],
+      "highlight": "blush",
+      "id": "vietnam",
+      "imageUrl": "assets/styles/vietnam.svg",
+      "recommendedProducts": [
+        {
+          "id": "foundation",
+          "name": "Foundation"
+        },
+        {
+          "id": "blush",
+          "name": "Blush"
+        },
+        {
+          "id": "lipstick",
+          "name": "Lipstick"
+        }
+      ],
+      "skinTonePalette": {
+        "light": {
+          "lip": "#B84C66",
+          "blush": "#D78C92",
+          "eye": "#9D7B71",
+          "note": "Ưu tiên màu có độ tương phản phù hợp sở thích, thử ánh sáng tự nhiên."
+        },
+        "medium": {
+          "lip": "#A54B58",
+          "blush": "#C77B78",
+          "eye": "#946D60",
+          "note": "Tông đỏ đất, hồng đất hoặc đào ấm là điểm bắt đầu; không áp đặt."
+        },
+        "tan": {
+          "lip": "#963A52",
+          "blush": "#B76562",
+          "eye": "#80564A",
+          "note": "Có thể thử berry, terracotta, nâu đồng để màu lên rõ hơn."
+        },
+        "deep": {
+          "lip": "#8B304A",
+          "blush": "#AD545E",
+          "eye": "#6E4B46",
+          "note": "Các màu bão hòa như berry/đỏ rượu có thể nổi bật; thử trên mặt thật."
+        }
+      }
+    },
+    "douyin": {
+      "name": "Douyin trong trẻo",
+      "tagline": "Mắt long lanh · má cao · môi ombré",
+      "description": "Tập trung màu hồng đào, vùng mắt lung linh, má cao và son tán lòng môi.",
+      "palette": {
+        "bg": "#F8E6EE",
+        "accent": "#CE6D9D",
+        "shadow": "#62384F",
+        "skin": "#F1C8B7",
+        "lip": "#D4517B",
+        "eye": "#BB73A6"
+      },
+      "requiredTools": [
+        {
+          "id": "mirror",
+          "name": "Gương đủ sáng",
+          "tracked": false
+        },
+        {
+          "id": "brush",
+          "name": "Cọ mắt nhỏ và cọ tán",
+          "tracked": true
+        },
+        {
+          "id": "curler",
+          "name": "Kẹp mi",
+          "tracked": true
+        },
+        {
+          "id": "swab",
+          "name": "Tăm bông sửa viền",
+          "tracked": false
+        }
+      ],
+      "stepOrder": [
+        "cleanse",
+        "moisturize",
+        "sunscreen",
+        "primer",
+        "foundation",
+        "concealer",
+        "powder",
+        "brows",
+        "eyeshadow",
+        "eyeliner",
+        "mascara",
+        "blush",
+        "lipstick",
+        "finish"
+      ],
+      "highlight": "eyeshadow",
+      "id": "douyin",
+      "imageUrl": "assets/styles/douyin.svg",
+      "recommendedProducts": [
+        {
+          "id": "foundation",
+          "name": "Foundation"
+        },
+        {
+          "id": "blush",
+          "name": "Blush"
+        },
+        {
+          "id": "lipstick",
+          "name": "Lipstick"
+        }
+      ],
+      "skinTonePalette": {
+        "light": {
+          "lip": "#B84C66",
+          "blush": "#D78C92",
+          "eye": "#9D7B71",
+          "note": "Ưu tiên màu có độ tương phản phù hợp sở thích, thử ánh sáng tự nhiên."
+        },
+        "medium": {
+          "lip": "#A54B58",
+          "blush": "#C77B78",
+          "eye": "#946D60",
+          "note": "Tông đỏ đất, hồng đất hoặc đào ấm là điểm bắt đầu; không áp đặt."
+        },
+        "tan": {
+          "lip": "#B14A6B",
+          "blush": "#CB7A9E",
+          "eye": "#80564A",
+          "note": "Có thể thử berry, terracotta, nâu đồng để màu lên rõ hơn."
+        },
+        "deep": {
+          "lip": "#A44168",
+          "blush": "#AD597D",
+          "eye": "#6E4B46",
+          "note": "Các màu bão hòa như berry/đỏ rượu có thể nổi bật; thử trên mặt thật."
+        }
+      }
+    },
+    "western": {
+      "name": "Âu Mỹ sắc nét",
+      "tagline": "Khối rõ · mắt khói · môi định hình",
+      "description": "Tạo chiều sâu mắt, độ tương phản và đường khối sắc nét nhưng vẫn tán chuyển màu.",
+      "palette": {
+        "bg": "#F0E3D8",
+        "accent": "#A87460",
+        "shadow": "#4B3434",
+        "skin": "#BF886B",
+        "lip": "#8C3848",
+        "eye": "#775448"
+      },
+      "requiredTools": [
+        {
+          "id": "mirror",
+          "name": "Gương đủ sáng",
+          "tracked": false
+        },
+        {
+          "id": "sponge",
+          "name": "Bông mút nền",
+          "tracked": true
+        },
+        {
+          "id": "brush",
+          "name": "Cọ mắt và tạo khối",
+          "tracked": true
+        }
+      ],
+      "stepOrder": [
+        "cleanse",
+        "moisturize",
+        "sunscreen",
+        "primer",
+        "foundation",
+        "concealer",
+        "powder",
+        "brows",
+        "contour",
+        "eyeshadow",
+        "eyeliner",
+        "mascara",
+        "blush",
+        "lipstick",
+        "finish"
+      ],
+      "highlight": "contour",
+      "id": "western",
+      "imageUrl": "assets/styles/western.svg",
+      "recommendedProducts": [
+        {
+          "id": "foundation",
+          "name": "Foundation"
+        },
+        {
+          "id": "blush",
+          "name": "Blush"
+        },
+        {
+          "id": "lipstick",
+          "name": "Lipstick"
+        }
+      ],
+      "skinTonePalette": {
+        "light": {
+          "lip": "#B84C66",
+          "blush": "#D78C92",
+          "eye": "#9D7B71",
+          "note": "Ưu tiên màu có độ tương phản phù hợp sở thích, thử ánh sáng tự nhiên."
+        },
+        "medium": {
+          "lip": "#A54B58",
+          "blush": "#C77B78",
+          "eye": "#946D60",
+          "note": "Tông đỏ đất, hồng đất hoặc đào ấm là điểm bắt đầu; không áp đặt."
+        },
+        "tan": {
+          "lip": "#963A52",
+          "blush": "#B76562",
+          "eye": "#80564A",
+          "note": "Có thể thử berry, terracotta, nâu đồng để màu lên rõ hơn."
+        },
+        "deep": {
+          "lip": "#8B304A",
+          "blush": "#AD545E",
+          "eye": "#6E4B46",
+          "note": "Các màu bão hòa như berry/đỏ rượu có thể nổi bật; thử trên mặt thật."
+        }
+      }
+    },
+    "thai": {
+      "name": "Thái Lan quyến rũ",
+      "tagline": "Nền bền · mắt nhấn · môi ấm",
+      "description": "Tập trung lớp makeup bền, mắt có chiều sâu, má ấm và màu son tươi, hợp khí hậu nóng ẩm.",
+      "palette": {
+        "bg": "#F5E5DC",
+        "accent": "#C87660",
+        "shadow": "#654035",
+        "skin": "#C6977A",
+        "lip": "#BA514F",
+        "eye": "#9E6A4B"
+      },
+      "requiredTools": [
+        {
+          "id": "mirror",
+          "name": "Gương đủ sáng",
+          "tracked": false
+        },
+        {
+          "id": "sponge",
+          "name": "Bông mút nền",
+          "tracked": true
+        },
+        {
+          "id": "brush",
+          "name": "Cọ tán màu mắt",
+          "tracked": true
+        },
+        {
+          "id": "curler",
+          "name": "Kẹp mi",
+          "tracked": true
+        }
+      ],
+      "stepOrder": [
+        "cleanse",
+        "moisturize",
+        "sunscreen",
+        "primer",
+        "foundation",
+        "concealer",
+        "powder",
+        "brows",
+        "eyeshadow",
+        "eyeliner",
+        "mascara",
+        "contour",
+        "blush",
+        "lipstick",
+        "finish"
+      ],
+      "highlight": "eyeliner",
+      "id": "thai",
+      "imageUrl": "assets/styles/thai.svg",
+      "recommendedProducts": [
+        {
+          "id": "foundation",
+          "name": "Foundation"
+        },
+        {
+          "id": "blush",
+          "name": "Blush"
+        },
+        {
+          "id": "lipstick",
+          "name": "Lipstick"
+        }
+      ],
+      "skinTonePalette": {
+        "light": {
+          "lip": "#B84C66",
+          "blush": "#D78C92",
+          "eye": "#9D7B71",
+          "note": "Ưu tiên màu có độ tương phản phù hợp sở thích, thử ánh sáng tự nhiên."
+        },
+        "medium": {
+          "lip": "#A54B58",
+          "blush": "#C77B78",
+          "eye": "#946D60",
+          "note": "Tông đỏ đất, hồng đất hoặc đào ấm là điểm bắt đầu; không áp đặt."
+        },
+        "tan": {
+          "lip": "#963A52",
+          "blush": "#B76562",
+          "eye": "#80564A",
+          "note": "Có thể thử berry, terracotta, nâu đồng để màu lên rõ hơn."
+        },
+        "deep": {
+          "lip": "#8B304A",
+          "blush": "#AD545E",
+          "eye": "#6E4B46",
+          "note": "Các màu bão hòa như berry/đỏ rượu có thể nổi bật; thử trên mặt thật."
+        }
+      }
+    },
+    "korean": {
+      "name": "Hàn Quốc thanh lịch",
+      "tagline": "Da căng mịn · mắt tự nhiên · môi nhẹ",
+      "description": "Lớp nền mỏng, chân mày tự nhiên, màu mắt tinh tế và môi dịu dàng.",
+      "palette": {
+        "bg": "#EBEEE8",
+        "accent": "#8D9D8B",
+        "shadow": "#515B53",
+        "skin": "#E2BEAF",
+        "lip": "#B97380",
+        "eye": "#A88D82"
+      },
+      "requiredTools": [
+        {
+          "id": "mirror",
+          "name": "Gương đủ sáng",
+          "tracked": false
+        },
+        {
+          "id": "sponge",
+          "name": "Puff cushion hoặc bông mút",
+          "tracked": true
+        },
+        {
+          "id": "brush",
+          "name": "Cọ mắt mềm",
+          "tracked": true
+        }
+      ],
+      "stepOrder": [
+        "cleanse",
+        "moisturize",
+        "sunscreen",
+        "primer",
+        "foundation",
+        "concealer",
+        "powder",
+        "brows",
+        "eyeshadow",
+        "mascara",
+        "blush",
+        "lipstick",
+        "finish"
+      ],
+      "highlight": "foundation",
+      "id": "korean",
+      "imageUrl": "assets/styles/korean.svg",
+      "recommendedProducts": [
+        {
+          "id": "foundation",
+          "name": "Foundation"
+        },
+        {
+          "id": "blush",
+          "name": "Blush"
+        },
+        {
+          "id": "lipstick",
+          "name": "Lipstick"
+        }
+      ],
+      "skinTonePalette": {
+        "light": {
+          "lip": "#C16F7A",
+          "blush": "#E5A5A1",
+          "eye": "#9D7B71",
+          "note": "Ưu tiên màu có độ tương phản phù hợp sở thích, thử ánh sáng tự nhiên."
+        },
+        "medium": {
+          "lip": "#A54B58",
+          "blush": "#C77B78",
+          "eye": "#946D60",
+          "note": "Tông đỏ đất, hồng đất hoặc đào ấm là điểm bắt đầu; không áp đặt."
+        },
+        "tan": {
+          "lip": "#963A52",
+          "blush": "#B76562",
+          "eye": "#80564A",
+          "note": "Có thể thử berry, terracotta, nâu đồng để màu lên rõ hơn."
+        },
+        "deep": {
+          "lip": "#9A4C67",
+          "blush": "#BD777A",
+          "eye": "#6E4B46",
+          "note": "Các màu bão hòa như berry/đỏ rượu có thể nổi bật; thử trên mặt thật."
+        }
+      }
+    },
+    "clean": {
+      "name": "Clean Girl",
+      "tagline": "Da tự nhiên · má nhẹ · son dưỡng màu",
+      "description": "Trang điểm tối giản, chú trọng bề mặt da thực, chân mày gọn và má môi nhẹ nhàng.",
+      "palette": {
+        "bg": "#EEEDE5",
+        "accent": "#99A38C",
+        "shadow": "#595E55",
+        "skin": "#D8AA8D",
+        "lip": "#B66A70",
+        "eye": "#9D8477"
+      },
+      "requiredTools": [
+        {
+          "id": "mirror",
+          "name": "Gương đủ sáng",
+          "tracked": false
+        },
+        {
+          "id": "hands",
+          "name": "Tay sạch",
+          "tracked": false
+        }
+      ],
+      "stepOrder": [
+        "cleanse",
+        "moisturize",
+        "sunscreen",
+        "foundation",
+        "concealer",
+        "brows",
+        "mascara",
+        "blush",
+        "lipstick",
+        "finish"
+      ],
+      "highlight": "blush",
+      "id": "clean",
+      "imageUrl": "assets/styles/clean.svg",
+      "recommendedProducts": [
+        {
+          "id": "foundation",
+          "name": "Foundation"
+        },
+        {
+          "id": "blush",
+          "name": "Blush"
+        },
+        {
+          "id": "lipstick",
+          "name": "Lipstick"
+        }
+      ],
+      "skinTonePalette": {
+        "light": {
+          "lip": "#B84C66",
+          "blush": "#D78C92",
+          "eye": "#9D7B71",
+          "note": "Ưu tiên màu có độ tương phản phù hợp sở thích, thử ánh sáng tự nhiên."
+        },
+        "medium": {
+          "lip": "#A54B58",
+          "blush": "#C77B78",
+          "eye": "#946D60",
+          "note": "Tông đỏ đất, hồng đất hoặc đào ấm là điểm bắt đầu; không áp đặt."
+        },
+        "tan": {
+          "lip": "#963A52",
+          "blush": "#B76562",
+          "eye": "#80564A",
+          "note": "Có thể thử berry, terracotta, nâu đồng để màu lên rõ hơn."
+        },
+        "deep": {
+          "lip": "#8B304A",
+          "blush": "#AD545E",
+          "eye": "#6E4B46",
+          "note": "Các màu bão hòa như berry/đỏ rượu có thể nổi bật; thử trên mặt thật."
+        }
+      }
+    },
+    "latin": {
+      "name": "Latin / Fox Eye",
+      "tagline": "Eyeliner nâng đuôi · khối ấm · môi rõ",
+      "description": "Nhấn đuôi mắt hướng lên, phối màu ấm và tạo khối mềm, cân đối với dáng mắt riêng.",
+      "palette": {
+        "bg": "#F1DED7",
+        "accent": "#B65E50",
+        "shadow": "#543A39",
+        "skin": "#B77F65",
+        "lip": "#A94652",
+        "eye": "#765142"
+      },
+      "requiredTools": [
+        {
+          "id": "mirror",
+          "name": "Gương đủ sáng",
+          "tracked": false
+        },
+        {
+          "id": "brush",
+          "name": "Cọ mắt vát/mảnh",
+          "tracked": true
+        },
+        {
+          "id": "curler",
+          "name": "Kẹp mi (nếu chuốt mi)",
+          "tracked": true
+        }
+      ],
+      "stepOrder": [
+        "cleanse",
+        "moisturize",
+        "sunscreen",
+        "primer",
+        "foundation",
+        "concealer",
+        "powder",
+        "brows",
+        "contour",
+        "eyeshadow",
+        "eyeliner",
+        "mascara",
+        "blush",
+        "lipstick",
+        "finish"
+      ],
+      "highlight": "eyeliner",
+      "id": "latin",
+      "imageUrl": "assets/styles/latin.svg",
+      "recommendedProducts": [
+        {
+          "id": "foundation",
+          "name": "Foundation"
+        },
+        {
+          "id": "blush",
+          "name": "Blush"
+        },
+        {
+          "id": "lipstick",
+          "name": "Lipstick"
+        }
+      ],
+      "skinTonePalette": {
+        "light": {
+          "lip": "#A94A51",
+          "blush": "#C6806B",
+          "eye": "#9D7B71",
+          "note": "Ưu tiên màu có độ tương phản phù hợp sở thích, thử ánh sáng tự nhiên."
+        },
+        "medium": {
+          "lip": "#A54B58",
+          "blush": "#C77B78",
+          "eye": "#946D60",
+          "note": "Tông đỏ đất, hồng đất hoặc đào ấm là điểm bắt đầu; không áp đặt."
+        },
+        "tan": {
+          "lip": "#963A52",
+          "blush": "#B76562",
+          "eye": "#80564A",
+          "note": "Có thể thử berry, terracotta, nâu đồng để màu lên rõ hơn."
+        },
+        "deep": {
+          "lip": "#813A42",
+          "blush": "#9C5D55",
+          "eye": "#6E4B46",
+          "note": "Các màu bão hòa như berry/đỏ rượu có thể nổi bật; thử trên mặt thật."
+        }
+      }
+    }
+  },
+  "policy": {
+    "inventoryRequiredForCosmeticSteps": true,
+    "noFixedStepCap": true,
+    "noYoutube": true,
+    "videoSource": "style-specific-local-mp4",
+    "whenMissingProduct": "exclude-step-and-suggest-needed-item",
+    "missingVideo": "show-error-no-substitution",
+    "toneAnalysis": "approximate-user-can-override",
+    "usageBySkinTypeNotDepth": true
+  },
+  "productNames": {
+    "cleanser": "Sữa rửa mặt",
+    "moisturizer": "Kem dưỡng",
+    "sunscreen": "Kem chống nắng",
+    "primer": "Kem lót",
+    "foundation": "Kem nền / cushion",
+    "concealer": "Che khuyết điểm",
+    "powder": "Phấn phủ",
+    "brow": "Chì mày / gel mày",
+    "eyeshadow": "Bảng phấn mắt",
+    "eyeliner": "Kẻ mắt",
+    "mascara": "Mascara",
+    "contour": "Tạo khối / bronzer",
+    "blush": "Má hồng",
+    "lipstick": "Son môi",
+    "setting_spray": "Xịt khóa nền",
+    "brush": "Cọ trang điểm",
+    "sponge": "Bông mút",
+    "curler": "Kẹp mi"
+  }
 }

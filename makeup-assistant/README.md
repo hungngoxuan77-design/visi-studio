@@ -1,75 +1,97 @@
-# Visi Studio — AI Makeup Assistant · JSON-driven edition
+# Visi Studio — Dynamic AI Makeup Curriculum (7 styles)
 
-Ứng dụng web HTML/CSS/JavaScript thuần. **Mọi bài học, quy tắc lọc và nội dung cá nhân hóa được đọc từ `data/steps.sample.json` khi tải trang**, không còn một danh sách `COURSE` viết cứng trong `script.js`.
+Một ứng dụng HTML/CSS/JavaScript thuần, được phát triển từ Visi Studio AI Makeup Assistant. Chạy được dưới `/visi-studio/makeup-assistant/` trên GitHub Pages hoặc tại một website tĩnh khác. **Không có gói Cơ bản/Nâng cao và không khóa lộ trình theo 7/14 bước.**
 
-## Chạy thử tại máy
+## 1. Cách hoạt động
 
-```bash
-cd makeup-assistant
-python -m http.server 8000
+Người dùng chọn một trong 7 phong cách: **Việt Nam tự nhiên, Douyin trong trẻo, Âu Mỹ sắc nét, Thái Lan quyến rũ, Hàn Quốc thanh lịch, Clean Girl, Latin / Fox Eye**. Họ cho phép camera hoặc tải ảnh để MediaPipe Face Landmarker tìm điểm trên mặt. Ứng dụng **ước lượng** nhóm tông da từ điểm má (phụ thuộc rất mạnh vào ánh sáng); người dùng có thể chuyển nhóm thủ công. Cuối cùng, người dùng kiểm tra và đánh dấu các loại mỹ phẩm, dụng cụ họ thực sự sở hữu.
+
+`curriculum.js` nhận `{ style, tone, skinType, timeOfDay, inventory }`, sau đó:
+
+1. Lấy `styles[style].stepOrder` — thứ tự **phong cách** (không phải số bước cố định).
+2. Bỏ các bước không phù hợp thời điểm (chống nắng buổi tối) và điều kiện loại da.
+3. Với mỗi bước, kiểm tra `requiredInventoryAnyOf`: **mỗi nhóm cần ít nhất 1 loại mỹ phẩm đã được xác nhận**. Nếu thiếu, bỏ qua bước và đưa sản phẩm vào danh sách cần chuẩn bị; không hướng dẫn thoa thứ người dùng không có.
+4. Tạo `palette` từ `styles[style].skinTonePalette[tone]` và thông tin hướng dẫn từ `skinTypeConditions`, `toneSuggestions`, `styleVariations` của công đoạn.
+5. Cấp file video cục bộ đúng phong cách: `media/styles/<style>/<step>.mp4`. Không dùng YouTube và không lấy video của phong cách khác.
+6. Ghi tiến độ của từng cấu hình vào `localStorage` (trên thiết bị).
+
+`VisiCurriculum.buildPlan(data, opts)` trả về:
+
+```javascript
+{
+  style, styleInfo, tone, skinType, timeOfDay, inventory,
+  steps: [{ id, title, actions, availableProducts, videoUrl, imageUrl,
+            suggestedColors, skinGuidance, quantityGuidance, styleGuidance }],
+  stepIds, skipped, missing, requiredTools, palette,
+  totalMinutes, suggestionCategories, warnings
+}
 ```
 
-Mở `http://localhost:8000`. **Đừng mở `index.html` trực tiếp qua `file://`**: trình duyệt thường chặn `fetch()` tới file JSON. Camera chỉ hoạt động trong môi trường an toàn (HTTPS hoặc localhost) với quyền và webcam phù hợp.
+Ví dụ:
 
-## Đưa lên GitHub Pages
+```javascript
+const data = await fetch('./data/steps.sample.json').then(r => r.json());
+const profile = VisiCurriculum.validate(data);
+const plan = VisiCurriculum.buildPlan(profile, {
+  style:'douyin', tone:'tan', skinType:'oily', timeOfDay:'day',
+  inventory:['lipstick','blush','eyeshadow','brush']
+});
+console.log(plan.stepIds); // ['eyeshadow','blush','lipstick']
+```
 
-1. Giữ nguyên cấu trúc `makeup-assistant/` và tải **cả thư mục** vào gốc repo `hungngoxuan77-design/visi-studio` (hoặc thay các file tương ứng trong thư mục `makeup-assistant` nếu đã có).
-2. Kiểm tra các đường dẫn `makeup-assistant/index.html`, `makeup-assistant/script.js`, `makeup-assistant/curriculum.js`, `makeup-assistant/inventory-ai.js`, `makeup-assistant/data/steps.sample.json`, `makeup-assistant/media/`.
-3. Trong GitHub Pages chọn nhánh `main`, thư mục `/(root)`; sau deploy mở `https://hungngoxuan77-design.github.io/visi-studio/makeup-assistant/`.
-4. Nếu đã có bản cũ, thử cửa sổ ẩn danh hoặc Ctrl+Shift+R.
+## 2. Cấu trúc thư mục
 
-## Cấu trúc
-
-```text
+```
 makeup-assistant/
-├── index.html              # Giao diện hai màn hình và bộ lọc
-├── style.css               # Thiết kế + thẻ gợi ý cá nhân hóa
-├── inventory.css           # Giao diện quét/tủ mỹ phẩm
-├── curriculum.js           # ENGINE đọc, kiểm tra và lọc theo các rule JSON
-├── script.js               # fetch JSON lúc khởi động, giao diện, camera, bài học
-├── inventory-ai.js        # Tủ mỹ phẩm + quét một sản phẩm AI thử nghiệm
-├── data/steps.sample.json  # 14 bước, schema 1.2 (mở rộng từ 1.1)
-├── assets/                 # Logo và ảnh minh họa
-└── media/                  # 5 video minh họa MP4
+  index.html             # giao diện 2 màn hình
+  style.css              # style mới + giao diện cũ
+  inventory.css          # tủ mỹ phẩm / quét ảnh
+  script.js              # camera, makeup, video, tương tác
+  inventory-ai.js        # nhận diện mỹ phẩm thử nghiệm, xác nhận thủ công
+  curriculum.js          # pure-js dynamic planner, không phụ thuộc DOM
+  data/steps.sample.json # 7 phong cách + 15 công đoạn và điều kiện
+  assets/styles/*.svg    # 7 ảnh minh họa đồ họa 1200 x 800
+  media/styles/*/*.mp4   # 105 video MP4 đồ họa theo phong cách + công đoạn
+  tests/check-dynamic.js # 280 tình huống lựa chọn
 ```
 
-## Dữ liệu JSON nối vào chức năng nào?
+105 clip là **video minh họa đồ họa do ứng dụng tạo** (mỗi video hiển thị quy trình/thao tác minh họa), **không phải footage của nghệ sĩ trang điểm chuyên nghiệp**. Khi có video chuyên gia được cấp phép phù hợp, bạn có thể thay video MP4 đúng đường dẫn và giữ nguyên JSON. Người dùng cũng có thể nhập video của mình trong trình duyệt; video người dùng không được tự động lưu lên server.
 
-| Trường JSON | Trên web app |
-|---|---|
-| `displayConditions.plans` | Chọn Cơ bản / Nâng cao; số bước tự lấy từ JSON (7/14) |
-| `displayConditions.timeOfDay` | Chọn ban ngày / buổi tối; ví dụ chống nắng chỉ có vào ban ngày |
-| `displayConditions.eligibleSkinTypes` và `skinTypeConditions[skin].enabled` | Điều kiện được hiển thị theo loại da |
-| `displayConditions.inventoryCategories`, `optional`, `missingInventoryAction` | Ẩn bước tùy chọn thiếu mỹ phẩm ở gói Tự động; hiện cảnh báo thiếu món trong gói chọn tay |
-| `instructionSteps` | Các thao tác chi tiết, thứ tự, dụng cụ, thời lượng và vị trí khuôn mặt |
-| `skinTypeConditions` | Lưu ý theo da dầu, khô, thường, hỗn hợp hoặc nhạy cảm; gợi ý lượng dùng |
-| `toneSuggestions` | Màu gợi ý theo tông sáng / trung bình / ngăm / sẫm |
-| `styleVariations` | Hướng dẫn khác nhau cho Việt Nam / Douyin / Âu Mỹ |
-| `productNotes` | Ghi chú mua/chọn mỹ phẩm, lượng dùng và phương án thay thế |
-| `localIllustrationVideoUrl` | Video MP4 riêng của từng công đoạn |
-| `placeholderImageUrl` | Ảnh minh họa công đoạn |
-| `expertResourceUrl`, `expertVideoUrl` | Tài liệu và video từ nguồn tham khảo |
+Các ảnh phong cách là minh họa vector SVG gốc (không phải ảnh mẫu người thật). Có thể thay bằng ảnh JPG/WebP chất lượng cao **mà bạn có quyền sử dụng**, sửa cả `styles[].imageUrl` và `steps[].mediaByStyle[].image`. Hãy giữ ảnh trong `assets/styles/` để có thể truy cập ổn định trên GitHub Pages.
 
-**Tự sửa JSON:** đổi nội dung, số bước, điều kiện, video tại `data/steps.sample.json`, commit lên GitHub. Tải lại trang là có dữ liệu mới, không phải chép `COURSE` vào `script.js`. Nhớ giữ schema hợp lệ; nếu JSON sai, app hiện banner báo lỗi và nút Thử lại.
+## 3. Đưa lên GitHub Pages (không ghi đè website chính)
 
-**Lộ trình & tủ đồ:**
-- Chưa chọn mỹ phẩm: gói Auto sử dụng chương trình Cơ bản (ban ngày tối đa 7 bước).
-- Tủ đồ đủ mỹ phẩm: app đề xuất Nâng cao, chỉ giữ bước bắt buộc và các bước tùy chọn có vật dụng phù hợp.
-- Chọn gói Cơ bản hoặc Nâng cao thủ công: luôn hiển thị các bước phù hợp điều kiện; cảnh báo sản phẩm còn thiếu.
-- Chọn buổi tối: theo JSON mẫu, bỏ chống nắng. Các phần `skinTypeConditions` hiện đều `enabled=true` vì loại da không nên mặc định bị tước bước makeup; thay nội dung điều kiện theo nhu cầu có kiểm chứng.
-- Tông da từ AI là **ước lượng dựa trên ánh sáng ảnh**, không phải đo undertone hoặc chẩn đoán da. Người dùng luôn có thể chọn tay; lượng mỹ phẩm liên quan loại da và sản phẩm, không được suy ra từ độ sáng da.
+1. Giải nén gói ZIP.
+2. Mở repository `https://github.com/hungngoxuan77-design/visi-studio` → **Add file → Upload files**.
+3. Kéo **nguyên thư mục `makeup-assistant`** ở cấp gốc vào vùng tải lên (thay file cũ trong thư mục này nếu đã có).
+4. Kiểm tra đường dẫn `makeup-assistant/index.html`, `makeup-assistant/data/steps.sample.json`, `makeup-assistant/media/styles/douyin/lipstick.mp4` xuất hiện trong bản commit.
+5. **Commit changes**. Trong Settings → Pages, giữ `Deploy from a branch` → `main` → `/(root)`.
+6. Mở `https://hungngoxuan77-design.github.io/visi-studio/makeup-assistant/` sau khi workflow GitHub Pages thành công. Dùng `Ctrl+Shift+R` nếu bị cache.
 
-## Kiểm thử
+**Không cần upload lại hoặc thay file `index.html` ở thư mục gốc** của website Visi Studio.
+
+## 4. Chạy thử và kiểm thử
+
+Chạy máy chủ cục bộ ở thư mục chứa `makeup-assistant`:
 
 ```bash
-node --check curriculum.js
-node --check inventory-ai.js
-node --check script.js
-node tests/check-curriculum.js
+python -m http.server 8080
 ```
 
-Bài kiểm thử kiểm tra dữ liệu JSON, 30 tổ hợp gói/loại da/thời điểm, gợi ý theo tông da, liên kết video, và việc ẩn chống nắng ban đêm. Kiểm thử này không thay cho kiểm tra thao tác camera AI trên thiết bị thật.
+Mở `http://localhost:8080/makeup-assistant/`. Không mở trực tiếp file HTML `file://` vì JavaScript phải `fetch()` dữ liệu JSON. MediaPipe và CLIP (dùng tùy chọn) tải mô hình từ bên thứ ba khi dùng, cần Internet.
 
-## Quyền riêng tư và giới hạn
+```bash
+node makeup-assistant/tests/check-dynamic.js
+node --check makeup-assistant/script.js
+node --check makeup-assistant/curriculum.js
+node --check makeup-assistant/inventory-ai.js
+```
 
-Camera không mở tự động; khung hình được xử lý trên trình duyệt qua MediaPipe khi có quyền. Mô hình MediaPipe và CLIP tải từ dịch vụ thứ ba, cần mạng. CLIP là bộ phân loại dựa trên tương đồng, có thể nhận diện sai; người dùng xác nhận thủ công trước khi đưa vào tủ. Không có máy chủ lưu ảnh, cơ sở dữ liệu người dùng, thanh toán, hay phân tích tông da đủ chính xác để mua đúng mã nền. Video minh họa có sẵn chỉ là đồ họa và liên kết chuyên gia thuộc nguồn bên ngoài, không thay thế thư viện bài giảng chuyên nghiệp đã xin bản quyền.
+## 5. Giới hạn cần minh bạch trước khi bán
+
+- MediaPipe xác định điểm trên khuôn mặt. **Phân loại tông da hiện vẫn là phép ước lượng độ sáng từ vài vùng má, không phải mô hình tone matching đã được thẩm định.** Màu makeup ảo không đủ tin cậy để quyết định mã kem nền khi mua.
+- Không đo loại da chính xác chỉ từ ảnh. Loại da do người dùng tự chọn. Lượng dùng phụ thuộc loại da, sản phẩm và nhu cầu, không chỉ dựa vào mức da sáng/tối.
+- Quét sản phẩm bằng CLIP chạy thử nghiệm trên thiết bị, có thể nhận nhầm; chỉ thêm loại mỹ phẩm sau khi người dùng xác nhận.
+- Khi máy không có webcam hoặc Chrome báo `NotReadableError`, dùng chế độ tải ảnh. Không cam kết đã kiểm thử webcam thật trong môi trường tự động.
+- Website tĩnh không có xác thực tài khoản, thương mại điện tử, hay cơ sở dữ liệu nhiều người dùng. Để bán gói cần dịch vụ backend, quyền truy cập và quản lý dữ liệu.
+- Hình SVG và MP4 là nội dung hướng dẫn đồ họa mang tính demo; cần thay bằng media được sản xuất chuyên nghiệp và cấp phép trước khi gọi đây là khóa học của chuyên gia.

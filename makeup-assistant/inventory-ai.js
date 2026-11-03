@@ -25,31 +25,23 @@ const CATALOG=[
  {id:'sponge',name:'Bông mút',icon:'⬡',label:'a pink beauty blender makeup sponge'},
  {id:'curler',name:'Kẹp mi',icon:'⌣',label:'a metal eyelash curler makeup tool'}
 ];
-const NEEDS={cleanse:'cleanser',sunscreen:'sunscreen',primer:'primer',foundation:'foundation',concealer:'concealer',powder:'powder',brows:'brow',eyeshadow:'eyeshadow',eyeliner:'eyeliner',mascara:'mascara',contour:'contour',blush:'blush',lipstick:'lipstick',finish:'setting_spray'};
-const ADVANCED=new Set(['primer','concealer','powder','eyeshadow','eyeliner','mascara','contour','setting_spray']);
-const REQUIRED_STEPS=new Set(['cleanse','sunscreen','finish']);
 let selected=[];try{const raw=JSON.parse(localStorage.getItem(STORAGE)||'[]');if(Array.isArray(raw))selected=raw.filter(id=>CATALOG.some(c=>c.id===id));}catch{}
 let onChange=null,captureProduct=null,aiPromise=null,pending=null,previewURL=null,busy=false;
 const el=id=>document.getElementById(id);
 function save(){try{localStorage.setItem(STORAGE,JSON.stringify(selected))}catch{}}
 function picked(id){return selected.includes(id)}
 function inventoryKey(){return selected.length?[...selected].sort().join('_'):'all'}
-function recommendedTier(){const advanced=selected.filter(id=>ADVANCED.has(id)).length;return advanced>=3||selected.length>=9?'advanced':'basic'}
-function getPlan(tier,plans){const actual=tier==='auto'?recommendedTier():tier;
- const list=plans[actual]||plans.basic;
- if(!selected.length)return list;
- // Everyday prep and safe finishing advice remain even when the user has not scanned them.
- const adaptive=list.filter(step=>REQUIRED_STEPS.has(step)||picked(NEEDS[step]));
- return adaptive.length?adaptive:list;
-}
-function getAvailability(step){const id=NEEDS[step];if(!id||!selected.length)return {missing:false};const label=CATALOG.find(x=>x.id===id)?.name||id;return {missing:!picked(id),label};}
+function inventoryKey(){return selected.length?[...selected].sort().join('_'):'empty'}
+function getAvailability(step){const required=step?.requiredProductCategories||[];return {missing:required.length>0&&!required.some(id=>selected.includes(id)),label:required.join(', ')};}
 function updateUI(){const list=el('inventoryChips');if(!list)return;
  list.innerHTML=CATALOG.map(item=>`<button type="button" data-owned="${item.id}" class="inventory-chip ${picked(item.id)?'is-owned':''}" aria-pressed="${picked(item.id)}"><span aria-hidden="true">${item.icon}</span>${item.name}<b>${picked(item.id)?'✓':'+'}</b></button>`).join('');
  el('ownedCount').textContent=`${selected.length} món`;
- const suggested=recommendedTier();const planned=global.VisiCoursePlanner?.getPlan?.().length ?? (selected.length?getPlan('auto',{basic:['cleanse','sunscreen','foundation','brows','blush','lipstick','finish'],advanced:['cleanse','sunscreen','primer','foundation','concealer','powder','brows','eyeshadow','eyeliner','mascara','contour','blush','lipstick','finish']}).length:7);
- el('planSuggestion').textContent=selected.length?`Gợi ý: ${suggested==='advanced'?'Nâng cao':'Cơ bản'} • ${planned} bước với mỹ phẩm đã có`:'Chọn vài món hoặc quét ảnh để cá nhân hóa lộ trình.';
+ const planned=global.VisiCoursePlanner?.getDetails?.();
+ el('planSuggestion').textContent=planned
+   ? `${selected.length} loại sản phẩm đã chọn • ${planned.steps.length} công đoạn thực hiện • ${planned.skipped.length} công đoạn được bỏ qua.`
+   : 'Chọn từng món bạn có, lộ trình sẽ được tính tự động; không có số bước cố định.';
 }
-function notify(){save();updateUI();onChange?.();}
+function notify(){save();onChange?.();updateUI();}
 function setScanStatus(txt){const node=el('scanStatus');if(node)node.textContent=txt;}
 function setScanChoice(item,score){pending=item;el('scanConfirmation').hidden=!item;
  el('scanName').textContent=item?item.name:'Chưa nhận diện được';
@@ -93,5 +85,5 @@ function init(options={}){onChange=options.onChange||null;captureProduct=options
  el('clearInventory').addEventListener('click',()=>{selected=[];notify();setScanStatus('Đã xóa danh sách tủ mỹ phẩm.');});
  updateUI();
 }
-window.VisiInventory={CATALOG,getPlan,getAvailability,inventoryKey,init,recommendedTier,getSelected:()=>[...selected]};
+window.VisiInventory={CATALOG,getAvailability,inventoryKey,init,getSelected:()=>[...selected]};
 })(window);

@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fcf9f5">
-  <meta name="description" content="Visi Studio – học makeup 2 màn hình, thử son và má hồng AI, video hướng dẫn, lộ trình cá nhân hóa theo tông da.">
+  <meta name="description" content="Visi Studio – AI makeup hai màn hình: 7 phong cách, lộ trình sinh động từ tông da và mỹ phẩm có sẵn, video MP4 theo phong cách.">
   <title>Visi Studio · AI Makeup Assistant</title>
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=json11">
-  <link rel="stylesheet" href="inventory.css?v=json11">
-  <script src="curriculum.js?v=json11" defer></script>
-  <script src="inventory-ai.js?v=json11" defer></script>
-  <script src="script.js?v=json11" defer></script>
+  <link rel="stylesheet" href="style.css?v=dynamic20">
+  <link rel="stylesheet" href="inventory.css?v=dynamic20">
+  <script src="curriculum.js?v=dynamic20" defer></script>
+  <script src="inventory-ai.js?v=dynamic20" defer></script>
+  <script src="script.js?v=dynamic20" defer></script>
 </head>
 <body>
 <div class="app-shell">
@@ -23,22 +23,24 @@
 
   <main class="main">
     <div class="intro-row">
-      <div><div class="eyebrow"><span class="tiny-star">✦</span> TRẢI NGHIỆM LÀM ĐẸP CÁ NHÂN HÓA</div><h1>Trang điểm đẹp hơn, <em>từng bước một.</em></h1><p>Camera & thử makeup bên trái, video chuyên gia và quy trình theo mỹ phẩm bạn có bên phải.</p></div>
+      <div><div class="eyebrow"><span class="tiny-star">✦</span> TRẢI NGHIỆM LÀM ĐẸP CÁ NHÂN HÓA</div><h1>Trang điểm đẹp hơn, <em>từng bước một.</em></h1><p>Camera & thử makeup bên trái, video minh họa đúng phong cách và quy trình sinh theo mỹ phẩm bạn có bên phải.</p></div>
       <div class="intro-stat"><strong id="totalTime">15 phút</strong><span>Thời gian học dự kiến</span></div>
     </div>
     <div id="curriculumStatus" class="curriculum-status loading" role="status" aria-live="polite">Đang tải dữ liệu JSON…</div>
     <div class="studio-controls">
-      <div class="field"><label for="styleSelect">Phong cách</label><select id="styleSelect"><option value="vietnam">Việt Nam tự nhiên</option><option value="douyin">Douyin trong trẻo</option><option value="western">Âu Mỹ sắc nét</option></select></div>
-      <div class="field"><label for="planSelect">Gói học</label><select id="planSelect"><option value="auto">Tự động theo tủ mỹ phẩm</option><option value="basic">Cơ bản · 7 bước</option><option value="advanced">Nâng cao · 13 bước</option></select></div>
+      <div class="field"><label for="styleSelect">Phong cách</label><select id="styleSelect"><option value="vietnam">Đang tải 7 phong cách...</option></select></div>
+      <div class="field dynamic-plan-field"><label>Lộ trình được sinh tự động</label><div class="dynamic-step-count" id="dynamicCount"><b>Đang tính toán…</b></div></div>
       <div class="field"><label for="toneSelect">Tông da · AI gợi ý</label><select id="toneSelect"><option value="auto">Tự động phân tích</option><option value="light">Da sáng</option><option value="medium">Da trung bình</option><option value="tan">Da ngăm</option><option value="deep">Da sẫm</option></select></div>
       <div class="field"><label for="skinTypeSelect">Loại da</label><select id="skinTypeSelect"><option value="normal">Da thường</option><option value="oily">Da dầu</option><option value="dry">Da khô</option><option value="combination">Da hỗn hợp</option><option value="sensitive">Da nhạy cảm</option></select></div><div class="tone-result"><span class="tone-dot" id="toneDot"></span><div><strong id="toneTitle">Chưa phân tích tông da</strong><small id="toneDetails">Có thể tự chọn hoặc mở camera</small></div></div>
       <div class="field"><label for="timeOfDaySelect">Thời điểm makeup</label><select id="timeOfDaySelect"><option value="day">Ban ngày</option><option value="night">Buổi tối</option></select></div>
     </div>
 
 
+    <section class="style-gallery-section" aria-label="Thư viện phong cách makeup"><div class="style-heading"><div><div class="eyebrow">01 · CHỌN PHONG CÁCH</div><h2>7 cảm hứng, một quy trình riêng của bạn</h2><p>Ảnh minh họa đồ họa được tạo cho từng phong cách. Video bài học lưu ngay trong dự án, không nhúng YouTube.</p></div></div><div id="styleGallery" class="style-gallery"></div><div id="styleEquipment" class="style-equipment"></div><div id="planMissing" class="plan-missing" role="status" hidden></div></section>
+
     <section class="inventory-studio" aria-label="Tủ mỹ phẩm và quét AI">
       <div class="inventory-head">
-        <div><div class="eyebrow">03 · TỦ MỸ PHẨM THÔNG MINH</div><h2>Quét món bạn có, học đúng thứ bạn cần.</h2><p>AI gợi ý loại mỹ phẩm từ <strong>ảnh một món/lần</strong>. Xác nhận kết quả hoặc tự chỉnh — lộ trình sẽ thay đổi theo những món bạn đánh dấu.</p></div>
+        <div><div class="eyebrow">02 · TỦ MỸ PHẨM CỦA BẠN</div><h2>Quét món bạn có, học đúng thứ bạn cần.</h2><p>AI chỉ gợi ý loại mỹ phẩm từ <strong>ảnh một món/lần</strong>. Bạn xác nhận món mình sở hữu — lộ trình chỉ có những bước phù hợp và có sản phẩm.</p></div>
         <div class="inventory-actions"><button id="scanFromPhoto" type="button" class="btn primary">✦ Quét ảnh bằng AI</button><button id="scanFromCamera" type="button" class="btn outline">◎ Chụp đồ từ camera</button><input id="productScanInput" type="file" accept="image/jpeg,image/png,image/webp" hidden></div>
       </div>
       <div class="inventory-body">
@@ -53,7 +55,7 @@
 
     <div class="workspace">
       <section class="pane camera-pane" aria-label="Gương AI và camera">
-        <div class="pane-head"><div><div class="eyebrow">01 · GƯƠNG AI CỦA BẠN</div><h2>Thử trực tiếp trên khuôn mặt</h2></div><span class="live-pill" id="cameraState"><span></span> CHƯA BẬT</span></div>
+        <div class="pane-head"><div><div class="eyebrow">03 · GƯƠNG AI CỦA BẠN</div><h2>Thử trực tiếp trên khuôn mặt</h2></div><span class="live-pill" id="cameraState"><span></span> CHƯA BẬT</span></div>
         <div class="camera-stage" id="cameraStage">
           <canvas id="makeupCanvas" aria-label="Camera hoặc ảnh với lớp thử trang điểm ảo"></canvas>
           <div class="empty-state" id="emptyState"><div class="face-art"><div class="face-shape"><span class="face-eye one"></span><span class="face-eye two"></span><span class="face-lips"></span></div><span class="spark s1">✦</span><span class="spark s2">✧</span></div><strong>Chiếc gương của riêng bạn</strong><p>Bật camera hoặc tải ảnh chân dung để AI nhận diện và thử lớp makeup.</p><div class="empty-actions"><button id="startCameraMain" class="btn primary" type="button"><span>◉</span> Bật camera</button><button id="pickPhotoMain" class="btn outline" type="button">↥ Chọn ảnh</button></div></div>
@@ -71,9 +73,9 @@
       </section>
 
       <section class="pane guide-pane" aria-label="Video hướng dẫn và lộ trình">
-        <div class="pane-head"><div><div class="eyebrow">02 · VIDEO TỪ THƯ VIỆN</div><h2>Video & hướng dẫn từng bước</h2></div><span class="step-badge" id="stepCount">01 / 07</span></div>
-        <div class="guide-player"><video id="guideVideo" controls playsinline preload="metadata" poster="assets/guide-poster.svg"></video><iframe id="expertFrame" title="Video chuyên gia Lisa Eldridge (YouTube)" allow="encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" hidden></iframe><div class="video-corner-note" id="videoLabel">VIDEO MINH HỌA</div></div>
-        <div class="video-actions"><button id="useVideoSample" type="button" class="tiny-btn active">✦ Video minh họa</button><button id="useExpertVideo" type="button" class="tiny-btn">▷ Video chuyên gia</button><a href="https://www.youtube.com/watch?v=bb75cZ81HUU" id="expertOriginal" class="tiny-btn expert-link" target="_blank" rel="noopener noreferrer">↗ Xem trên YouTube</a><button id="pickTutorial" type="button" class="tiny-btn">↥ Video của bạn</button><button id="pickReference" type="button" class="tiny-btn">▧ Ảnh makeup mẫu</button><input type="file" accept="video/mp4,video/webm" id="tutorialInput" hidden><input type="file" accept="image/png,image/jpeg,image/webp" id="referenceInput" hidden></div>
+        <div class="pane-head"><div><div class="eyebrow">04 · VIDEO THEO PHONG CÁCH</div><h2>Video & hướng dẫn từng bước</h2></div><span class="step-badge" id="stepCount">00 / 00</span></div>
+        <div class="guide-player"><video id="guideVideo" controls playsinline preload="metadata" poster="assets/guide-poster.svg"></video><div class="video-corner-note" id="videoLabel">VIDEO MINH HỌA</div></div>
+        <div class="video-actions"><button id="useVideoSample" type="button" class="tiny-btn active">✦ Video cục bộ đúng phong cách</button><button id="pickTutorial" type="button" class="tiny-btn">↥ Video của bạn</button><button id="pickReference" type="button" class="tiny-btn">▧ Ảnh makeup mẫu</button><input type="file" accept="video/mp4,video/webm" id="tutorialInput" hidden><input type="file" accept="image/png,image/jpeg,image/webp" id="referenceInput" hidden></div>
         <div class="reference-box" id="referenceBox" hidden><img id="referenceImg" alt="Ảnh trang điểm tham khảo của người dùng"><span>Ảnh makeup tham khảo</span><button id="clearReference" class="mini-btn" type="button">× Bỏ ảnh</button></div>
         <div class="lesson-header"><div><span class="section-label" id="lessonCategory">01 · CHUẨN BỊ</span><h3 id="lessonTitle">Làm sạch và dưỡng ẩm</h3><p id="lessonDesc">Chuẩn bị một bề mặt da thoải mái trước khi trang điểm.</p></div><span id="lessonMinutes" class="minute-tag">2 phút</span></div>
         <div id="availabilityNotice" class="availability-notice" hidden></div><div class="lesson-kits"><div class="kit"><div class="kit-head"><span class="kit-icon">✦</span><strong>Mỹ phẩm cần dùng</strong></div><ul id="productList"></ul></div><div class="kit"><div class="kit-head"><span class="kit-icon tools-icon">♧</span><strong>Dụng cụ chuẩn bị</strong></div><ul id="toolList"></ul></div></div>
@@ -83,13 +85,13 @@
         </div>
         <p id="styleGuidance" class="style-guidance" hidden></p>
         <div class="instructions"><div class="section-label">HƯỚNG DẪN THAO TÁC CHI TIẾT · TỪ JSON</div><ol id="instructionList"></ol></div>
-        <div class="product-notes" id="productNotes" hidden></div><div class="lesson-resources"><img id="lessonIllustration" src="assets/guide-poster.svg" alt="Hình minh họa bước trang điểm" width="74" height="52"><div><strong>Tài liệu tham khảo</strong><a id="lessonSource" href="https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/how-to-apply-makeup" rel="noopener noreferrer" target="_blank">Quy trình makeup cơ bản của L’Oréal Paris ↗</a></div></div><div class="coach-note"><span>✧ MẸO CHUYÊN GIA</span><p id="expertTip"></p></div>
-        <div class="lesson-bottom"><div class="progress-meta"><span id="progressText">Đã hoàn thành 0 / 7 bước</span><strong id="progressPercent">0%</strong></div><div class="progress-track"><span id="progressFill"></span></div><div class="lesson-nav"><button type="button" id="prevStep" class="btn outline">← Trước</button><button type="button" id="completeStep" class="btn primary">✓ Đánh dấu hoàn thành</button><button type="button" id="nextStep" class="btn outline">Tiếp →</button></div></div>
+        <div class="product-notes" id="productNotes" hidden></div><div class="lesson-resources"><img id="lessonIllustration" src="assets/styles/vietnam.svg" alt="Minh họa phong cách trang điểm" width="100" height="70"><div><strong>Hình minh họa đúng phong cách đang chọn</strong><p class="local-media-note">Video bên trên là hướng dẫn sơ đồ do Visi Studio tạo, không phải bản ghi giảng viên trang điểm.</p></div></div><div class="coach-note"><span>✧ MẸO CHUYÊN GIA</span><p id="expertTip"></p></div>
+        <div class="lesson-bottom"><div class="progress-meta"><span id="progressText">Đã hoàn thành 0 bước</span><strong id="progressPercent">0%</strong></div><div class="progress-track"><span id="progressFill"></span></div><div class="lesson-nav"><button type="button" id="prevStep" class="btn outline">← Trước</button><button type="button" id="completeStep" class="btn primary">✓ Đánh dấu hoàn thành</button><button type="button" id="nextStep" class="btn outline">Tiếp →</button></div></div>
       </section>
     </div>
 
     <section class="roadmap"><div class="roadmap-head"><div><div class="eyebrow">LỘ TRÌNH THIẾT KẾ RIÊNG</div><h2>Bạn đang học những gì?</h2></div><button id="restartCourse" class="btn outline" type="button">↺ Học lại từ đầu</button></div><div class="step-track" id="stepTrack"></div></section>
-    <footer class="footer"><span>VISI STUDIO · AI MAKEUP ASSISTANT</span><span>Ảnh/video xử lý trong trình duyệt · Tông da được ước lượng, có thể chỉnh thủ công · Màu mỹ phẩm chỉ mang tính tham khảo.</span></footer>
+    <footer class="footer"><span>VISI STUDIO · AI MAKEUP ASSISTANT</span><span>Lộ trình theo mỹ phẩm sở hữu · Mô hình ước lượng tông da có thể sai · Màu minh họa không thay thế thử mỹ phẩm thực tế.</span></footer>
   </main>
 </div>
 </body>

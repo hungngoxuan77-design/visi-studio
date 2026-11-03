@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+ <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#EEEDE5"/><stop offset="1" stop-color="#99A38C" stop-opacity=".45"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ <linearGradient id="skin" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#D8AA8D"/><stop offset=".45" stop-color="#f7d7c6"/><stop offset="1" stop-color="#D8AA8D"/></linearGradient>
+ <linearGradient id="hair" x1="0" x2="1"><stop stop-color="#595E55"/><stop offset="1" stop-color="#352a36"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="17"/></filter></defs>
+ <rect width="1200" height="800" fill="url(#bg)"/><circle cx="805" cy="290" r="340" fill="url(#glow)"/><circle cx="1040" cy="90" r="260" fill="#fff" fill-opacity=".27"/><path d="M0 660 C360 530 700 880 1200 665 V800 H0Z" fill="#fff" fill-opacity=".3"/>
+ <text x="75" y="110" font-family="DejaVu Sans,Arial" font-size="25" letter-spacing="10" font-weight="bold" fill="#595E55" opacity=".7">VISI STUDIO / MAKEUP MOOD</text>
+ <path d="M610 760 Q600 620 720 590 L900 580 Q1060 650 1030 800Z" fill="#595E55" opacity=".90"/>
+ <path d="M643 342 Q630 114 837 111 Q1031 120 1026 340 L1026 602 Q990 660 912 645 L660 618Z" fill="url(#hair)"/>
+ <path d="M749 529 C747 619 743 640 804 655 Q866 669 905 626 L894 511Z" fill="url(#skin)"/>
+ <path d="M712 336 C706 228 752 174 831 169 C946 166 979 263 974 389 C968 529 932 609 836 626 C738 599 703 467 712 336Z" fill="url(#skin)"/>
+ <ellipse cx="749" cy="440" rx="45" ry="20" fill="#99A38C" opacity=".32" filter="url(#soft)"/><ellipse cx="934" cy="441" rx="45" ry="20" fill="#99A38C" opacity=".32" filter="url(#soft)"/>
+ <path d="M744 353 Q783 337 813 353" stroke="#595E55" stroke-width="9" stroke-linecap="round" fill="none" opacity=".68"/><path d="M872 353 Q918 328 946 354" stroke="#595E55" stroke-width="9" stroke-linecap="round" fill="none" opacity=".68"/>
+ <path d="M750 397 Q777 377 813 396 Q787 410 750 397Z" fill="#fff" opacity=".8"/><path d="M870 395 Q908 372 942 395 Q911 414 870 395Z" fill="#fff" opacity=".8"/>
+ <path d="M751 394 Q775 379 810 391 M872 391 Q902 374 941 390" stroke="#9D8477" stroke-width="9" fill="none" opacity=".68"/><ellipse cx="784" cy="393" rx="12" ry="13" fill="#595E55"/><ellipse cx="911" cy="393" rx="12" ry="13" fill="#595E55"/><circle cx="780" cy="389" r="4" fill="#fff"/><circle cx="908" cy="389" r="4" fill="#fff"/>
+ <path d="M848 415 Q837 460 853 465" stroke="#995f55" stroke-width="5" opacity=".35" fill="none" stroke-linecap="round"/><path d="M807 531 Q836 520 849 524 Q864 517 894 532 Q860 560 835 552 Q814 547 807 531Z" fill="#B66A70"/><path d="M811 531 Q840 533 892 533" stroke="#fff" stroke-width="3" opacity=".3" fill="none"/>
+ <path d="M714 307 C707 210 755 160 834 164 Q904 160 949 239 Q956 303 977 324 Q1032 170 906 102 Q720 61 662 248 Q660 365 711 412Z" fill="url(#hair)"/>
+ <path d="M715 310 Q778 262 817 188 Q889 300 972 298" fill="none" stroke="#595E55" stroke-width="32" opacity=".9"/>
+ <circle cx="1031" cy="488" r="8" fill="#fff"/><circle cx="649" cy="503" r="6" fill="#fff"/><path d="M705 680 Q844 741 1004 681" stroke="#fff" stroke-opacity=".28" stroke-width="3" fill="none"/>
+ <text x="75" y="500" font-family="DejaVu Sans,Arial" font-size="74" font-weight="bold" fill="#595E55">Clean</text>
+ <text x="76" y="553" font-family="DejaVu Sans,Arial" font-size="26" fill="#595E55" opacity=".82">Da tự nhiên · má nhẹ · son dưỡng màu</text>
+ <rect x="74" y="612" width="190" height="5" rx="3" fill="#99A38C"/><text x="76" y="678" font-family="DejaVu Sans,Arial" font-size="20" font-weight="bold" letter-spacing="4" fill="#595E55">PERSONAL STYLE  /  06</text>
+ </svg>

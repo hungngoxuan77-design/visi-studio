@@ -1,95 +1,120 @@
-/* Visi Studio — JSON curriculum & personalization engine.
- * Data comes from data/steps.sample.json at runtime; no hardcoded step copy.
- * Public API is pure, which makes selection rules testable without browser/camera.
+/* Visi Studio — dynamic curriculum engine (no fixed basic/advanced tiers).
+ * Pure JS: the UI reads data/steps.sample.json and passes style, face-tone estimate
+ * and the inventory that a person has confirmed as owned.
  */
 (function (root, factory) {
   'use strict';
   const api = factory();
-  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  if (typeof module === 'object' && module.exports) module.exports = api;
   if (root) root.VisiCurriculum = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const PLAN_IDS = ['basic', 'advanced'];
-  const SKIN_IDS = ['normal', 'oily', 'dry', 'combination', 'sensitive'];
-  const TONE_IDS = ['light', 'medium', 'tan', 'deep'];
-  const STYLE_IDS = ['vietnam', 'douyin', 'western'];
-
+  const TONES=['light','medium','tan','deep'];
+  const SKIN=['normal','oily','dry','combination','sensitive'];
+  const validPath=p=>typeof p==='string' && !p.includes('..') && /^([a-z0-9-_]+\/)*[a-z0-9-_.]+\.(mp4|svg)$/i.test(p);
   function validate(data) {
-    if (!data || typeof data !== 'object' || !data.steps || typeof data.steps !== 'object' || Array.isArray(data.steps)) {
-      throw new Error('JSON phải có đối tượng steps.');
+    if(!data || typeof data!=='object' || !data.styles || typeof data.styles!=='object' || !data.steps || typeof data.steps!=='object') throw Error('Thiếu styles/steps trong JSON.');
+    const names=Object.keys(data.styles);
+    if(names.length<2)throw Error('Phải có ít nhất 2 phong cách.');
+    for(const [id,s] of Object.entries(data.styles)){
+      if(s.id!==id || !s.name || !validPath(s.imageUrl) || !Array.isArray(s.stepOrder) || !Array.isArray(s.requiredTools))throw Error('Phong cách không hợp lệ: '+id);
+      if(!TONES.every(t=>s.skinTonePalette?.[t]?.lip && s.skinTonePalette[t].blush))throw Error('Thiếu bảng màu theo tông da: '+id);
+      if(new Set(s.stepOrder).size!==s.stepOrder.length)throw Error('Trùng công đoạn trong '+id);
+      s.stepOrder.forEach(k=>{if(!data.steps[k])throw Error(`Phong cách ${id} tham chiếu công đoạn không tồn tại: ${k}`)});
     }
-    const entries = Object.entries(data.steps);
-    if (!entries.length) throw new Error('JSON không có bước trang điểm.');
-    for (const [id, step] of entries) {
-      if (!step || step.id !== id || typeof step.title !== 'string' || !step.title.trim()) throw new Error(`Bước ${id}: thiếu id hoặc title.`);
-      if (!Array.isArray(step.instructionSteps) || !step.instructionSteps.length) throw new Error(`Bước ${id}: thiếu instructionSteps.`);
-      if (!step.displayConditions || !Array.isArray(step.displayConditions.plans) || !step.displayConditions.plans.length) throw new Error(`Bước ${id}: thiếu displayConditions.plans.`);
-      if (step.displayConditions.plans.some(p => !PLAN_IDS.includes(p))) throw new Error(`Bước ${id}: gói không hợp lệ.`);
-      if (!Array.isArray(step.products) || !Array.isArray(step.tools)) throw new Error(`Bước ${id}: products/tools phải là mảng.`);
+    for(const [id,s] of Object.entries(data.steps)){
+      if(s.id!==id || !s.title || !Array.isArray(s.instructionSteps) || !s.instructionSteps.length || !Array.isArray(s.requiredInventoryAnyOf) || !s.mediaByStyle)throw Error('Công đoạn chưa đủ dữ liệu: '+id);
+      for(const style of names){
+        const media=s.mediaByStyle[style];
+        if(!media || !validPath(media.video)|| !validPath(media.image) || !media.video.startsWith(`media/styles/${style}/`) || media.image!==data.styles[style].imageUrl)throw Error(`Video/ảnh của ${id} - ${style} không đúng thư mục.`);
+      }
     }
     return data;
   }
-
-  function getPlans(data) {
-    const result = {basic: [], advanced: []};
-    for (const [id, step] of Object.entries(validate(data).steps)) {
-      for (const tier of step.displayConditions.plans) result[tier].push(id);
+  const unique=arr=>[...new Set(arr)];
+  function toneProfile(data,style,tone){
+    const s=data.styles[style] || Object.values(data.styles)[0];
+    return s.skinTonePalette[TONES.includes(tone)?tone:'medium'];
+  }
+  function buildPlan(data, opts={}) {
+    validate(data);
+    const style=data.styles[opts.style] ? opts.style : Object.keys(data.styles)[0];
+    const tone=TONES.includes(opts.tone)?opts.tone:'medium';
+    const skinType=SKIN.includes(opts.skinType)?opts.skinType:'combination';
+    const timeOfDay=opts.timeOfDay==='night'?'night':'day';
+    const inventory=unique(Array.isArray(opts.inventory)?opts.inventory.filter(x=>typeof x==='string'):[]);
+    const owned=new Set(inventory), profile=data.styles[style];
+    const steps=[],missing=[],skipped=[];
+    const palette=toneProfile(data,style,tone);
+    for(const id of profile.stepOrder){
+      const step=data.steps[id];
+      const cond=step.displayConditions||{};
+      if(Array.isArray(cond.timeOfDay) && cond.timeOfDay.length && !cond.timeOfDay.includes(timeOfDay))continue;
+      if(Array.isArray(cond.eligibleSkinTypes) && cond.eligibleSkinTypes.length && !cond.eligibleSkinTypes.includes(skinType))continue;
+      if(step.skinTypeConditions?.[skinType]?.enabled===false)continue;
+      const options=step.requiredInventoryAnyOf||[];
+      // All groups must be satisfiable; one product from each group is sufficient.
+      const missingGroups=options.filter(group=>!Array.isArray(group) || !group.some(id=>owned.has(id)));
+      if(missingGroups.length){
+        skipped.push({id,reason:'missing-product',missingCategories:unique(missingGroups.flatMap(g=>Array.isArray(g)?g:[]))});
+        for(const group of missingGroups){
+          const suggested=(Array.isArray(group)?group:[]).map(cat=>({id:cat,name:data.productNames?.[cat]||cat}));
+          if(suggested.length)missing.push({forStep:id,step:step.title,options:suggested});
+        }
+        continue;
+      }
+      // Retain canonical data but use only products that are owned.
+      const categories=unique([...(step.requiredProductCategories||[]),...(step.requiredInventoryAnyOf||[]).flat()]);
+      const availableCategories=categories.filter(cat=>owned.has(cat));
+      const local=step.mediaByStyle[style];
+      const face=step.aiMapping?.faceRegion||step.aiMapping?.zone||'none';
+      const baseNotes=(step.productNotes||[]).filter(n=>!n.categoryId||owned.has(n.categoryId));
+      const actions=[...step.instructionSteps].sort((a,b)=>(a.order||0)-(b.order||0));
+      steps.push({
+        ...step,id,style,
+        imageUrl:local.image,videoUrl:local.video,videoKind:local.kind,
+        availableCategories,availableProducts:availableCategories.map(cat=>data.productNames?.[cat]||cat),
+        missingCategories:[],
+        skinGuidance:step.skinTypeConditions?.[skinType]?.guidance||'',
+        quantityGuidance:step.skinTypeConditions?.[skinType]?.quantityGuidance||'',
+        suggestedColors:step.toneSuggestions?.[tone]?.suggestedColors||[],
+        toneNote:step.toneSuggestions?.[tone]?.note||'',
+        styleGuidance:step.styleVariations?.[style]||'',
+        actions,productNotes:baseNotes,
+        faceRegion:face,
+        palette
+      });
     }
-    return result;
-  }
-
-  function isEligible(step, {skinType = 'combination', timeOfDay = 'day'} = {}) {
-    const rules = step.displayConditions || {};
-    if (Array.isArray(rules.eligibleSkinTypes) && rules.eligibleSkinTypes.length && !rules.eligibleSkinTypes.includes(skinType)) return false;
-    if (Array.isArray(rules.timeOfDay) && rules.timeOfDay.length && !rules.timeOfDay.includes(timeOfDay)) return false;
-    if (step.skinTypeConditions?.[skinType]?.enabled === false) return false;
-    return true;
-  }
-
-  function getPlan(data, options = {}) {
-    const {plan = 'auto', recommendedTier = 'basic', skinType = 'combination', timeOfDay = 'day', inventory = []} = options;
-    const tier = plan === 'auto' ? (recommendedTier === 'advanced' ? 'advanced' : 'basic') : (PLAN_IDS.includes(plan) ? plan : 'basic');
-    const owned = new Set(Array.isArray(inventory) ? inventory : []);
-    const hasInventory = owned.size > 0;
-    return getPlans(data)[tier].filter(id => {
-      const step = data.steps[id];
-      if (!isEligible(step, {skinType, timeOfDay})) return false;
-      // Explicit plans show the full curriculum, with preparation warnings for missing items.
-      // Auto plan hides *optional* steps marked as skippable when products are missing.
-      if (plan !== 'auto' || !hasInventory || !step.displayConditions?.optional) return true;
-      const need = step.displayConditions.inventoryCategories || step.requiredProductCategories || [];
-      if (!need.length) return true;
-      const available = need.some(cat => owned.has(cat));
-      if (!available && step.displayConditions.missingInventoryAction === 'offer_skip_or_substitute') return false;
-      return true;
-    });
-  }
-
-  function missingProducts(step, owned = []) {
-    if (!Array.isArray(owned) || !owned.length) return [];
-    const categories = step.displayConditions?.inventoryCategories || step.requiredProductCategories || [];
-    return categories.filter(category => !owned.includes(category));
-  }
-
-  function personalize(step, options = {}) {
-    if (!step) throw new Error('Bước trang điểm không tồn tại.');
-    const skinType = SKIN_IDS.includes(options.skinType) ? options.skinType : 'combination';
-    const tone = TONE_IDS.includes(options.tone) ? options.tone : 'medium';
-    const style = STYLE_IDS.includes(options.style) ? options.style : 'vietnam';
-    const skin = step.skinTypeConditions?.[skinType] || null;
-    const color = step.toneSuggestions?.[tone] || null;
-    const styleGuidance = step.styleVariations?.[style] || '';
-    return {
-      ...step,
-      skinGuidance: skin?.guidance || '',
-      quantityGuidance: skin?.quantityGuidance || '',
-      suggestedColors: Array.isArray(color?.suggestedColors) ? color.suggestedColors : [],
-      toneNote: color?.note || '',
-      styleGuidance,
-      actions: [...(step.instructionSteps || [])].sort((a,b) => (a.order || 0) - (b.order || 0)),
-      productNotes: Array.isArray(step.productNotes) ? step.productNotes : []
+    const requiredTools=profile.requiredTools.map(t=>({ ...t, missing:!!t.tracked && !owned.has(t.id)}));
+    const suggestionCategories=unique(missing.flatMap(x=>x.options.map(o=>o.id)));
+    return {style,styleInfo:profile,tone,skinType,timeOfDay,inventory,steps,
+      stepIds:steps.map(s=>s.id),skipped,missing,requiredTools,
+      suggestionCategories,palette,
+      totalMinutes:steps.reduce((sum,s)=>sum+(Number(s.minutes)||0),0),
+      hasInventory:inventory.length>0,
+      warnings:[
+        'Màu da do camera ước lượng phụ thuộc ánh sáng, hãy tự chỉnh nếu cần.',
+        'Không điều chỉnh lượng mỹ phẩm chỉ vì da tối/sáng; dựa theo loại da và sản phẩm.'
+      ]
     };
   }
-
-  return {validate, getPlans, getPlan, isEligible, missingProducts, personalize};
+  function getPlan(data,opts={}){return buildPlan(data,opts).stepIds}
+  function personalize(step,options={}) {
+    if(!step) throw Error('Không có bước được chọn.');
+    return {
+      ...step,
+      skinGuidance:step.skinGuidance||step.skinTypeConditions?.[options.skinType]?.guidance||'',
+      quantityGuidance:step.quantityGuidance||step.skinTypeConditions?.[options.skinType]?.quantityGuidance||'',
+      suggestedColors:step.suggestedColors||step.toneSuggestions?.[options.tone]?.suggestedColors||[],
+      toneNote:step.toneNote||step.toneSuggestions?.[options.tone]?.note||'',
+      styleGuidance:step.styleGuidance||step.styleVariations?.[options.style]||'',
+      actions:step.actions||[...(step.instructionSteps||[])].sort((a,b)=>(a.order||0)-(b.order||0)),
+      productNotes:step.productNotes||[]
+    };
+  }
+  function missingProducts(step,owned=[]){
+    const have=new Set(owned), groups=step?.requiredInventoryAnyOf||[];
+    return unique(groups.filter(group=>!group.some(id=>have.has(id))).flat());
+  }
+  return { validate, buildPlan, getPlan, personalize, missingProducts, toneProfile };
 });
