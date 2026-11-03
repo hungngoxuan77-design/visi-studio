@@ -1,0 +1,2072 @@
+{
+  "version": "1.2",
+  "locale": "vi-VN",
+  "description": "Lộ trình trang điểm và điều kiện cá nhân hóa tải trực tiếp bằng fetch() từ Visi Studio; mỗi thay đổi lựa chọn sẽ đọc quy tắc trong JSON này.",
+  "steps": {
+    "cleanse": {
+      "title": "Làm sạch & dưỡng ẩm",
+      "category": "01 · CHUẨN BỊ",
+      "minutes": 2,
+      "kind": "prep",
+      "desc": "Chuẩn bị bề mặt da sạch, đủ ẩm để lớp trang điểm dễ bám và tự nhiên.",
+      "products": [
+        "Sữa rửa mặt dịu nhẹ",
+        "Kem dưỡng ẩm hợp với loại da"
+      ],
+      "tools": [
+        "Khăn mặt sạch",
+        "Tay sạch / bông tẩy trang"
+      ],
+      "how": [
+        "Làm sạch mặt với sản phẩm dịu nhẹ, không chà sát mạnh.",
+        "Thấm khô bằng khăn sạch rồi lấy lượng kem dưỡng vừa đủ.",
+        "Chờ kem thấm trước khi bắt đầu trang điểm."
+      ],
+      "tip": "Da dầu vẫn cần dưỡng ẩm. Không chồng quá nhiều sản phẩm nếu bạn ở nơi nóng ẩm.",
+      "id": "cleanse",
+      "requiredProductCategories": [
+        "cleanser",
+        "moisturizer"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/prep.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/how-to-apply-makeup",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Làm sạch tay và da",
+          "detail": "Rửa tay; làm ướt mặt và dùng sữa rửa mặt dịu nhẹ. Massage nhẹ, tránh cọ xát vùng kích ứng.",
+          "durationSeconds": 30,
+          "productCategory": "cleanser",
+          "tool": "Tay sạch",
+          "faceRegion": null
+        },
+        {
+          "order": 2,
+          "title": "Rửa sạch và thấm khô",
+          "detail": "Rửa kỹ với nước; dùng khăn mềm sạch thấm nhẹ, không chà mặt.",
+          "durationSeconds": 30,
+          "productCategory": "cleanser",
+          "tool": "Khăn mềm sạch",
+          "faceRegion": null
+        },
+        {
+          "order": 3,
+          "title": "Dưỡng ẩm đúng lượng",
+          "detail": "Lấy một lớp kem dưỡng vừa đủ, tán mỏng từ giữa mặt ra ngoài; chọn kết cấu phù hợp da.",
+          "durationSeconds": 30,
+          "productCategory": "moisturizer",
+          "tool": "Ngón tay sạch",
+          "faceRegion": null
+        },
+        {
+          "order": 4,
+          "title": "Đợi lớp dưỡng ổn định",
+          "detail": "Để sản phẩm thấm theo hướng dẫn rồi kiểm tra vùng da dễ vón trước khi đánh nền.",
+          "durationSeconds": 30,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": null
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chọn dưỡng ẩm kết cấu vừa phải.",
+          "quantityGuidance": "Một lớp mỏng, đủ ẩm."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Ưu tiên dưỡng dạng gel/lotion nhẹ, không bỏ qua dưỡng ẩm.",
+          "quantityGuidance": "Một lớp mỏng, tăng từng chút nếu còn khô."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Chọn kem dưỡng giàu độ ẩm; chờ thấm trước khi đánh nền.",
+          "quantityGuidance": "Một lớp đủ ẩm, theo nhu cầu."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Dưỡng nhiều hơn ở vùng khô, nhẹ hơn tại chữ T.",
+          "quantityGuidance": "Theo từng vùng da."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Ưu tiên công thức dịu nhẹ, thử ở vùng nhỏ nếu là sản phẩm mới.",
+          "quantityGuidance": "Từng lượng nhỏ; ngừng nếu kích ứng."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "basic",
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "cleanser",
+          "moisturizer"
+        ],
+        "missingInventoryAction": "show_missing_notice",
+        "optional": false
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "cleanser",
+          "productName": "Sữa rửa mặt dịu nhẹ",
+          "selectionNote": "Chọn công thức phù hợp da và không gây khô rít",
+          "quantityGuidance": "Lượng vừa đủ theo nhãn",
+          "alternative": "Nước ấm và khăn mềm khi cần làm sạch đơn giản",
+          "safetyNote": "Tránh chà xát hoặc sản phẩm gây kích ứng"
+        },
+        {
+          "categoryId": "moisturizer",
+          "productName": "Kem dưỡng ẩm",
+          "selectionNote": "Chọn gel/lotion cho da dễ dầu, kem dưỡng giàu ẩm cho da khô",
+          "quantityGuidance": "Một lớp mỏng, điều chỉnh theo cảm giác da",
+          "alternative": "Sản phẩm dưỡng ẩm khác phù hợp",
+          "safetyNote": "Ngừng dùng nếu có phản ứng kích ứng"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "cleanser",
+          "moisturizer"
+        ],
+        "faceRegions": [],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "sunscreen": {
+      "title": "Chống nắng ban ngày",
+      "category": "01 · CHUẨN BỊ",
+      "minutes": 2,
+      "kind": "prep",
+      "desc": "Bảo vệ da khi trang điểm ban ngày.",
+      "products": [
+        "Kem chống nắng phổ rộng SPF 30+"
+      ],
+      "tools": [
+        "Tay sạch",
+        "Gương cầm tay"
+      ],
+      "how": [
+        "Thoa đều lượng kem theo hướng dẫn trên sản phẩm.",
+        "Tán kỹ ở mặt, cổ và các vùng da hở.",
+        "Chờ lớp chống nắng ổn định trước khi đánh nền."
+      ],
+      "tip": "Nếu chỉ trang điểm ban đêm, có thể bỏ bước chống nắng. Makeup không thay thế kem chống nắng.",
+      "id": "sunscreen",
+      "requiredProductCategories": [
+        "sunscreen"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/prep.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Lựa chọn kem chống nắng",
+          "detail": "Ưu tiên sản phẩm phổ rộng SPF 30+ phù hợp da, kiểm tra hướng dẫn và hạn dùng.",
+          "durationSeconds": 40,
+          "productCategory": "sunscreen",
+          "tool": "Gương",
+          "faceRegion": "face"
+        },
+        {
+          "order": 2,
+          "title": "Phủ đều vùng da hở",
+          "detail": "Bôi đủ lượng theo hướng dẫn nhà sản xuất lên mặt, tai, cổ và vùng tiếp xúc ánh sáng.",
+          "durationSeconds": 40,
+          "productCategory": "sunscreen",
+          "tool": "Tay sạch",
+          "faceRegion": "face"
+        },
+        {
+          "order": 3,
+          "title": "Đợi ổn định",
+          "detail": "Cho lớp kem ổn định trước makeup; không dựa vào foundation có SPF để thay thế.",
+          "durationSeconds": 40,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "face"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chọn kem chống nắng dễ tán và phù hợp sinh hoạt.",
+          "quantityGuidance": "Đủ lượng theo nhãn sản phẩm."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Ưu tiên kết cấu nhẹ, không tự giảm lượng chống nắng để bớt bóng.",
+          "quantityGuidance": "Đủ lượng theo nhãn sản phẩm."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Ưu tiên công thức không gây khô, có thể dưỡng ẩm trước.",
+          "quantityGuidance": "Đủ lượng theo nhãn sản phẩm."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Chọn công thức dễ chịu trên cả vùng dầu và khô.",
+          "quantityGuidance": "Đủ lượng theo nhãn sản phẩm."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Chọn công thức ít gây kích ứng; thử trước nếu cần.",
+          "quantityGuidance": "Đủ lượng theo nhãn sản phẩm."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "basic",
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "sunscreen"
+        ],
+        "missingInventoryAction": "show_missing_notice",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "sunscreen",
+          "productName": "Kem chống nắng SPF 30+ phổ rộng",
+          "selectionNote": "Chọn công thức phù hợp và nhãn hiệu rõ ràng",
+          "quantityGuidance": "Đủ lượng theo hướng dẫn nhà sản xuất",
+          "alternative": "Không coi kem nền có SPF là thay thế mặc định",
+          "safetyNote": "Thoa lại theo hướng dẫn khi cần"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "sunscreen"
+        ],
+        "faceRegions": [
+          "face"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "primer": {
+      "title": "Chọn kem lót",
+      "category": "01 · CHUẨN BỊ",
+      "minutes": 2,
+      "kind": "base",
+      "desc": "Chuẩn bị vùng chữ T hoặc vùng da khô với lớp lót mỏng.",
+      "products": [
+        "Kem lót kiềm dầu hoặc dưỡng ẩm nhẹ"
+      ],
+      "tools": [
+        "Đầu ngón tay sạch",
+        "Cọ nền nhỏ (tùy chọn)"
+      ],
+      "how": [
+        "Chọn kem lót theo tình trạng da, có thể bỏ qua nếu không cần.",
+        "Chấm lượng nhỏ vào vùng cần hỗ trợ.",
+        "Tán mỏng rồi kiểm tra xem lớp dưỡng có bị vón không."
+      ],
+      "tip": "Nền lâu trôi không đồng nghĩa phải dùng nhiều kem lót.",
+      "id": "primer",
+      "requiredProductCategories": [
+        "primer"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/base.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Xác định vùng cần kem lót",
+          "detail": "Đánh giá vùng chữ T dễ bóng và vùng má khô; không nhất thiết dùng lót trên toàn mặt.",
+          "durationSeconds": 40,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "forehead"
+        },
+        {
+          "order": 2,
+          "title": "Lấy lượng nhỏ",
+          "detail": "Dùng lượng nhỏ ở vùng cần hỗ trợ; tránh chồng nhiều lớp kem lót.",
+          "durationSeconds": 40,
+          "productCategory": "primer",
+          "tool": "Ngón tay sạch",
+          "faceRegion": "forehead"
+        },
+        {
+          "order": 3,
+          "title": "Tán và kiểm tra",
+          "detail": "Tán một lớp mỏng; nếu lót và kem dưỡng bị vón, chờ thêm hoặc đổi công thức.",
+          "durationSeconds": 40,
+          "productCategory": null,
+          "tool": "Cọ nền nhỏ",
+          "faceRegion": "forehead"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Kem lót chỉ cần nếu muốn cải thiện độ bám.",
+          "quantityGuidance": "Lượng nhỏ tại vùng cần."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Ưu tiên kem lót kiềm dầu ở chữ T, không bắt buộc cả mặt.",
+          "quantityGuidance": "Lớp rất mỏng vùng chữ T."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Ưu tiên lót cấp ẩm, tránh lót quá khô hoặc lì.",
+          "quantityGuidance": "Lớp mỏng nơi khô."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Dùng lót khác nhau theo vùng dầu/khô nếu có.",
+          "quantityGuidance": "Từng vùng, không phủ toàn mặt."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Ưu tiên tối giản sản phẩm và tránh lót có thành phần dễ kích ứng.",
+          "quantityGuidance": "Ít hoặc bỏ qua nếu không cần."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "primer"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "primer",
+          "productName": "Kem lót",
+          "selectionNote": "Có thể bỏ qua nếu nền bám tốt",
+          "quantityGuidance": "Rất ít tại vùng cần",
+          "alternative": "Dưỡng ẩm phù hợp có thể đủ cho nhiều routine",
+          "safetyNote": "Tránh sản phẩm vón với lớp dưỡng"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "primer"
+        ],
+        "faceRegions": [
+          "forehead",
+          "nose",
+          "cheeks"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "foundation": {
+      "title": "Tán lớp nền phù hợp",
+      "category": "02 · HOÀN THIỆN DA",
+      "minutes": 4,
+      "kind": "base",
+      "desc": "Tạo lớp nền mềm, đều màu và giữ lại kết cấu da tự nhiên.",
+      "products": [
+        "Cushion / skin tint / foundation phù hợp",
+        "Bảng thử tông nền theo quai hàm"
+      ],
+      "tools": [
+        "Bông mút hơi ẩm",
+        "Cọ nền mềm (tùy chọn)"
+      ],
+      "how": [
+        "Thử nền ở đường quai hàm trong ánh sáng tự nhiên.",
+        "Lấy từng lượng nhỏ và dặm từ giữa mặt ra ngoài.",
+        "Tán đều sát đường viền hàm để tránh vệt màu."
+      ],
+      "tip": "Màu trên camera chỉ là tham khảo; không chọn mua nền dựa hoàn toàn vào màu AI.",
+      "id": "foundation",
+      "requiredProductCategories": [
+        "foundation"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/base.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/face-makeup/how-to-apply-foundation-the-best-way",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Kiểm tra sắc độ ở quai hàm",
+          "detail": "Thử một vài màu nền dưới ánh sáng tự nhiên, so màu với cổ; AI chỉ gợi ý sắc độ tham khảo.",
+          "durationSeconds": 60,
+          "productCategory": "foundation",
+          "tool": "Gương",
+          "faceRegion": "face"
+        },
+        {
+          "order": 2,
+          "title": "Tán lớp nền đầu tiên",
+          "detail": "Lấy lượng nhỏ bằng mút ẩm hoặc cọ, dặm từ vùng trung tâm mặt về hai bên.",
+          "durationSeconds": 60,
+          "productCategory": "foundation",
+          "tool": "Bông mút ẩm",
+          "faceRegion": "face"
+        },
+        {
+          "order": 3,
+          "title": "Tăng độ che phủ có chọn lọc",
+          "detail": "Chỉ thêm lớp thứ hai vào vùng cần; giữ lớp nền mỏng để còn thấy kết cấu da.",
+          "durationSeconds": 60,
+          "productCategory": "foundation",
+          "tool": "Bông mút ẩm",
+          "faceRegion": "face"
+        },
+        {
+          "order": 4,
+          "title": "Kiểm tra đường viền",
+          "detail": "Tán sát cánh mũi, chân tóc và đường hàm để tránh ranh giới màu.",
+          "durationSeconds": 60,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "face"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chọn độ che phủ theo nhu cầu, ưu tiên lớp mỏng đầu tiên.",
+          "quantityGuidance": "Lớp mỏng rồi tăng theo vùng."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Ưu tiên nền bền, tán mỏng; khóa cục bộ nơi dễ bóng.",
+          "quantityGuidance": "Lớp mỏng, có thể dặm sau."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Ưu tiên nền giữ ẩm; tránh phấn phủ dày sau đó.",
+          "quantityGuidance": "Lượng vừa đủ, tán mềm trên da đã dưỡng."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Dùng lớp nền mỏng và xử lý chữ T khác vùng má khi cần.",
+          "quantityGuidance": "Theo vùng da."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Ưu tiên sản phẩm dung nạp tốt; không phủ dày trên vùng kích ứng.",
+          "quantityGuidance": "Lượng ít, có thể bỏ qua vùng kích ứng."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "basic",
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "foundation"
+        ],
+        "missingInventoryAction": "show_missing_notice",
+        "optional": false
+      },
+      "toneSuggestions": {
+        "light": {
+          "suggestedColors": [
+            "be sáng/ivory trung tính"
+          ],
+          "note": "Đối chiếu undertone với cổ, không chỉ nhìn camera."
+        },
+        "medium": {
+          "suggestedColors": [
+            "be trung tính, warm beige"
+          ],
+          "note": "Kiểm tra cổ/quai hàm dưới ánh sáng tự nhiên."
+        },
+        "tan": {
+          "suggestedColors": [
+            "caramel, tan neutral/warm"
+          ],
+          "note": "Tránh chọn nền quá sáng hoặc quá cam theo ảnh webcam."
+        },
+        "deep": {
+          "suggestedColors": [
+            "deep neutral / deep warm / deep cool"
+          ],
+          "note": "Tùy undertone, kiểm tra nhiều màu; không làm sáng da theo mặc định."
+        }
+      },
+      "productNotes": [
+        {
+          "categoryId": "foundation",
+          "productName": "Cushion / skin tint / kem nền",
+          "selectionNote": "Thử 2–3 shade ở quai hàm và cổ; lựa undertone thủ công",
+          "quantityGuidance": "Lớp mỏng rồi thêm có chọn lọc",
+          "alternative": "Skin tint, cushion hoặc không đánh nền",
+          "safetyNote": "Không kết luận chính xác mã màu chỉ từ camera"
+        }
+      ],
+      "styleVariations": {
+        "vietnam": "Tán nền mỏng và bền với thời tiết nóng ẩm.",
+        "douyin": "Nền mỏng sáng tự nhiên, tránh bật tông quá mức.",
+        "western": "Lớp nền đều màu, có thể tăng độ che phủ ở vùng cần."
+      },
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "foundation"
+        ],
+        "faceRegions": [
+          "face"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "concealer": {
+      "title": "Che khuyết điểm tinh tế",
+      "category": "02 · HOÀN THIỆN DA",
+      "minutes": 2,
+      "kind": "base",
+      "desc": "Che đúng điểm cần thiết thay vì phủ quá dày.",
+      "products": [
+        "Concealer hợp màu nền",
+        "Corrector (nếu có quầng thâm)"
+      ],
+      "tools": [
+        "Cọ che khuyết điểm nhỏ",
+        "Bông mút mini"
+      ],
+      "how": [
+        "Chấm một lượng nhỏ ở vùng cần che.",
+        "Chờ vài giây rồi dặm nhẹ viền xung quanh.",
+        "Không chà hoặc đánh dày trên vùng da đang kích ứng."
+      ],
+      "tip": "Thêm từng lớp nhỏ sẽ tự nhiên hơn một lớp dày.",
+      "id": "concealer",
+      "requiredProductCategories": [
+        "concealer"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/base.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Nhận diện vùng cần che",
+          "detail": "Dùng gương xác định nốt thâm hoặc quầng mắt; không cần che phủ toàn mặt.",
+          "durationSeconds": 30,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "under_eyes"
+        },
+        {
+          "order": 2,
+          "title": "Chấm lượng nhỏ",
+          "detail": "Đặt concealer từng điểm; vùng quanh mắt bắt đầu rất ít để tránh đọng rãnh.",
+          "durationSeconds": 30,
+          "productCategory": "concealer",
+          "tool": "Cọ che khuyết điểm",
+          "faceRegion": "under_eyes"
+        },
+        {
+          "order": 3,
+          "title": "Dặm mép lớp kem",
+          "detail": "Dùng đầu mút/cọ dặm viền ngoài, giữ độ che phủ ở trung tâm.",
+          "durationSeconds": 30,
+          "productCategory": "concealer",
+          "tool": "Bông mút mini",
+          "faceRegion": "under_eyes"
+        },
+        {
+          "order": 4,
+          "title": "Kiểm tra kết cấu",
+          "detail": "Nếu vón hoặc khô, giảm lượng sản phẩm thay vì tăng phấn phủ.",
+          "durationSeconds": 30,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "under_eyes"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chỉ chấm lên vùng muốn che.",
+          "quantityGuidance": "Từng chấm nhỏ."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Chọn công thức bền ở vùng dễ xuống nền.",
+          "quantityGuidance": "Chấm ít, tăng tại chỗ."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Ưu tiên kết cấu ẩm và dặm nhẹ.",
+          "quantityGuidance": "Lớp mỏng, tránh chồng nhiều."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Điều chỉnh từng vùng theo mức khô/dầu.",
+          "quantityGuidance": "Từng chấm nhỏ."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Không bôi lên vùng tổn thương hoặc đang kích ứng.",
+          "quantityGuidance": "Có thể bỏ qua vùng nhạy cảm."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "concealer"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "concealer",
+          "productName": "Kem che khuyết điểm",
+          "selectionNote": "Chọn tông phù hợp vị trí và mục đích che",
+          "quantityGuidance": "Một vài chấm rất nhỏ",
+          "alternative": "Có thể bỏ qua nếu không cần che",
+          "safetyNote": "Tránh thoa dày lên vùng kích ứng"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "concealer"
+        ],
+        "faceRegions": [
+          "under_eyes",
+          "blemishes"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "powder": {
+      "title": "Phủ phấn và khóa nền",
+      "category": "02 · HOÀN THIỆN DA",
+      "minutes": 2,
+      "kind": "base",
+      "desc": "Hạn chế bóng dầu ở vùng cần thiết.",
+      "products": [
+        "Phấn phủ không màu hoặc tiệp nền"
+      ],
+      "tools": [
+        "Cọ phấn phủ lớn",
+        "Bông phấn sạch"
+      ],
+      "how": [
+        "Lấy ít phấn rồi gõ bỏ phần thừa.",
+        "Dặm nhẹ vùng chữ T và quanh cánh mũi.",
+        "Giữ vùng má ít phấn nếu muốn vẻ căng bóng."
+      ],
+      "tip": "Da khô có thể chỉ cần phủ phấn một vài vị trí.",
+      "id": "powder",
+      "requiredProductCategories": [
+        "powder"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/base.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Chọn vùng cần cố định",
+          "detail": "Xác định vùng chữ T, cánh mũi hoặc vị trí dễ trôi nền; tránh mặc định phủ dày cả mặt.",
+          "durationSeconds": 40,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "forehead"
+        },
+        {
+          "order": 2,
+          "title": "Lấy thật ít phấn",
+          "detail": "Chạm cọ/bông phấn vào sản phẩm, gõ bỏ phần thừa.",
+          "durationSeconds": 40,
+          "productCategory": "powder",
+          "tool": "Cọ phấn phủ",
+          "faceRegion": "forehead"
+        },
+        {
+          "order": 3,
+          "title": "Dặm và kiểm tra",
+          "detail": "Dặm lớp mỏng; thêm từng lớp nếu thực sự cần và quan sát trong ánh sáng đều.",
+          "durationSeconds": 40,
+          "productCategory": "powder",
+          "tool": "Bông phấn sạch",
+          "faceRegion": "forehead"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chỉ phủ nơi cần cố định.",
+          "quantityGuidance": "Một lớp mỏng."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Dặm phấn mỏng ở chữ T rồi đánh giá lại; không cần nhiều lớp.",
+          "quantityGuidance": "Một lớp mỏng, dặm khi cần."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Ưu tiên rất ít phấn, tránh vùng bong tróc.",
+          "quantityGuidance": "Rất mỏng hoặc bỏ qua."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Tập trung vùng chữ T, giữ vùng má khô ít phấn.",
+          "quantityGuidance": "Theo từng vùng."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Tránh cọ xát và phấn hương liệu dễ kích ứng.",
+          "quantityGuidance": "Một lớp mỏng hoặc bỏ qua."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "powder"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "powder",
+          "productName": "Phấn phủ",
+          "selectionNote": "Phấn không màu hoặc tiệp màu nền, tránh bột gây mốc",
+          "quantityGuidance": "Một lớp mỏng ở vùng cần",
+          "alternative": "Giấy thấm dầu hoặc không phủ phấn",
+          "safetyNote": "Không tự tăng lượng theo độ sẫm của da"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "powder"
+        ],
+        "faceRegions": [
+          "forehead",
+          "nose",
+          "chin"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "brows": {
+      "title": "Định hình chân mày",
+      "category": "03 · ĐÔI MẮT",
+      "minutes": 3,
+      "kind": "eye",
+      "desc": "Tạo dáng mày cân đối theo khuôn mặt, không tô thành mảng cứng.",
+      "products": [
+        "Chì kẻ mày / bột mày",
+        "Gel cố định chân mày"
+      ],
+      "tools": [
+        "Chổi spoolie",
+        "Cọ vát nhỏ"
+      ],
+      "how": [
+        "Chải chân mày theo hướng mọc tự nhiên.",
+        "Vẽ từng nét nhỏ ở vùng thưa, từ giữa về đuôi.",
+        "Tán mờ đầu mày và cố định bằng gel nếu cần."
+      ],
+      "tip": "Màu mày nên hài hòa với tóc và lớp makeup, không bắt buộc phải đen.",
+      "id": "brows",
+      "requiredProductCategories": [
+        "brow"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/eye.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Chải khuôn mày",
+          "detail": "Dùng cọ spoolie chải theo chiều mọc và tìm những đoạn thưa cần bổ sung.",
+          "durationSeconds": 60,
+          "productCategory": null,
+          "tool": "Cọ spoolie",
+          "faceRegion": "eyebrows"
+        },
+        {
+          "order": 2,
+          "title": "Vẽ từng nét ngắn",
+          "detail": "Dùng chì hoặc bột mày tạo nét nhẹ từ thân về đuôi; không tô kín thành mảng.",
+          "durationSeconds": 60,
+          "productCategory": "brow",
+          "tool": "Chì mày",
+          "faceRegion": "eyebrows"
+        },
+        {
+          "order": 3,
+          "title": "Tán đầu mày",
+          "detail": "Dùng spoolie làm mềm đầu mày, cố định bằng gel nếu cần.",
+          "durationSeconds": 60,
+          "productCategory": "brow",
+          "tool": "Spoolie",
+          "faceRegion": "eyebrows"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chọn sản phẩm dễ điều khiển và đúng màu tóc.",
+          "quantityGuidance": "Từng nét mảnh."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Có thể dùng gel cố định lâu trôi nếu mày dễ trôi.",
+          "quantityGuidance": "Từng nét mảnh."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Tránh kéo mạnh trên vùng da khô quanh mày.",
+          "quantityGuidance": "Từng nét mảnh."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Tùy chỉnh độ bền cho vùng chân mày.",
+          "quantityGuidance": "Từng nét mảnh."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Tránh sản phẩm gây cay hoặc kích ứng vùng mắt.",
+          "quantityGuidance": "Thử lượng ít."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "basic",
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "brow"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {
+        "light": {
+          "suggestedColors": [
+            "nâu tro, nâu tự nhiên"
+          ],
+          "note": "Phối hợp màu tóc, không chỉ theo màu da."
+        },
+        "medium": {
+          "suggestedColors": [
+            "nâu đậm hoặc nâu trung tính"
+          ],
+          "note": "Phối hợp màu tóc, không chỉ theo màu da."
+        },
+        "tan": {
+          "suggestedColors": [
+            "nâu sâu, nâu đậm"
+          ],
+          "note": "Phối hợp màu tóc, không chỉ theo màu da."
+        },
+        "deep": {
+          "suggestedColors": [
+            "nâu rất đậm, đen nâu"
+          ],
+          "note": "Phối hợp màu tóc, không chỉ theo màu da."
+        }
+      },
+      "productNotes": [
+        {
+          "categoryId": "brow",
+          "productName": "Chì/bột/gel chân mày",
+          "selectionNote": "Ưu tiên sắc độ hòa với tóc và kiểu makeup",
+          "quantityGuidance": "Từng nét ngắn",
+          "alternative": "Bột mày hoặc gel mày",
+          "safetyNote": "Tránh dính vào mắt"
+        }
+      ],
+      "styleVariations": {
+        "vietnam": "Đầu mày mềm, đuôi gọn.",
+        "douyin": "Dáng mày tự nhiên, đường nét dịu.",
+        "western": "Nhấn phần cung và đuôi mày rõ hơn nếu phù hợp."
+      },
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "brow"
+        ],
+        "faceRegions": [
+          "eyebrows"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "eyeshadow": {
+      "title": "Phối màu phấn mắt",
+      "category": "03 · ĐÔI MẮT",
+      "minutes": 4,
+      "kind": "eye",
+      "desc": "Tạo chiều sâu với bảng màu hài hòa tông da.",
+      "products": [
+        "Bảng phấn mắt phù hợp",
+        "Phấn nhũ mịn (tùy chọn)"
+      ],
+      "tools": [
+        "Cọ tán mắt đầu mềm",
+        "Cọ chi tiết nhỏ"
+      ],
+      "how": [
+        "Tán màu nền nhạt trên bầu mắt.",
+        "Đặt màu đậm hơn ở đuôi mắt rồi tán chuyển sắc.",
+        "Chấm một ít nhũ ở vùng bạn muốn bắt sáng."
+      ],
+      "tip": "Chỉ thêm màu khi đã tán sạch viền của lớp trước.",
+      "id": "eyeshadow",
+      "requiredProductCategories": [
+        "eyeshadow"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/eye.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Đặt màu nền",
+          "detail": "Chọn sắc nhạt rồi tán mỏng khắp phần mí nhìn thấy khi mở mắt.",
+          "durationSeconds": 80,
+          "productCategory": "eyeshadow",
+          "tool": "Cọ mắt mềm",
+          "faceRegion": "eyelids"
+        },
+        {
+          "order": 2,
+          "title": "Tăng chiều sâu",
+          "detail": "Đặt một chút màu trung bình/đậm ở vùng đuôi mắt, tán rìa bằng cọ sạch.",
+          "durationSeconds": 80,
+          "productCategory": "eyeshadow",
+          "tool": "Cọ tán",
+          "faceRegion": "eyelids"
+        },
+        {
+          "order": 3,
+          "title": "Hoàn thiện điểm nhấn",
+          "detail": "Nếu dùng nhũ, chấm ít lên giữa bầu mắt, tránh rơi vào mắt.",
+          "durationSeconds": 80,
+          "productCategory": "eyeshadow",
+          "tool": "Cọ đầu nhỏ",
+          "faceRegion": "eyelids"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Tán chuyển màu bằng cọ sạch.",
+          "quantityGuidance": "Một lớp nhạt rồi tăng."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Có thể dùng lót mắt nhẹ, hạn chế nén quá nhiều nhũ.",
+          "quantityGuidance": "Mỗi lớp rất mỏng."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Tránh phấn quá khô dễ đọng vảy mí.",
+          "quantityGuidance": "Tán nhẹ từng lớp."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Chú ý vùng mí dễ tiết dầu.",
+          "quantityGuidance": "Một lớp nhạt rồi tăng."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Ưu tiên phấn dành cho mắt và tránh nhũ dễ rơi vào mắt.",
+          "quantityGuidance": "Dùng ít, dừng nếu cay rát."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "eyeshadow"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {
+        "light": {
+          "suggestedColors": [
+            "nâu sữa, champagne, hồng phấn"
+          ],
+          "note": "Màu mắt có thể phối mạnh hơn theo phong cách."
+        },
+        "medium": {
+          "suggestedColors": [
+            "nâu caramel, hồng đất, bronze nhẹ"
+          ],
+          "note": "Tán chuyển màu ở ranh giới."
+        },
+        "tan": {
+          "suggestedColors": [
+            "đồng, chocolate, mauve sâu"
+          ],
+          "note": "Thử độ tương phản theo ánh sáng thực."
+        },
+        "deep": {
+          "suggestedColors": [
+            "đồng ánh kim, chocolate, vàng đồng"
+          ],
+          "note": "Chọn màu có độ hiện sắc phù hợp, không phụ thuộc gói."
+        }
+      },
+      "productNotes": [
+        {
+          "categoryId": "eyeshadow",
+          "productName": "Phấn mắt",
+          "selectionNote": "Chọn phấn chuyên dùng cho mắt và bảng màu phù hợp phong cách",
+          "quantityGuidance": "Từng lớp mỏng",
+          "alternative": "Phấn mắt 1 màu",
+          "safetyNote": "Tránh hạt nhũ rơi vào mắt"
+        }
+      ],
+      "styleVariations": {
+        "vietnam": "Nâu sữa/hồng đất dễ dùng.",
+        "douyin": "Hồng đào, nhũ mịn, nhấn nhẹ bọng mắt.",
+        "western": "Phối nâu khói, nhấn chiều sâu đuôi mắt."
+      },
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "eyeshadow"
+        ],
+        "faceRegions": [
+          "eyelids"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "eyeliner": {
+      "title": "Kẻ eyeliner",
+      "category": "03 · ĐÔI MẮT",
+      "minutes": 3,
+      "kind": "eye",
+      "desc": "Điểm nhấn mí mắt gọn, phù hợp dáng mắt.",
+      "products": [
+        "Bút eyeliner nâu / đen"
+      ],
+      "tools": [
+        "Bút đầu mảnh",
+        "Tăm bông để chỉnh lỗi"
+      ],
+      "how": [
+        "Nhìn hơi xuống gương và giữ tay ổn định.",
+        "Kẻ sát chân mi bằng những nét ngắn.",
+        "Hoàn thiện đuôi mắt theo hướng bạn thích, tránh kẻ vào mắt."
+      ],
+      "tip": "Với người mới, eyeliner nâu mảnh thường dễ thao tác hơn.",
+      "id": "eyeliner",
+      "requiredProductCategories": [
+        "eyeliner"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/eye.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Xác định dáng đuôi",
+          "detail": "Nhìn thẳng vào gương, đánh dấu đuôi kẻ phù hợp dáng mắt và sở thích.",
+          "durationSeconds": 60,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "upper_lash_line"
+        },
+        {
+          "order": 2,
+          "title": "Kẻ sát chân mi",
+          "detail": "Dùng bút đầu mảnh và những nét ngắn ở sát chân mi ngoài, không kẻ vào trong mắt.",
+          "durationSeconds": 60,
+          "productCategory": "eyeliner",
+          "tool": "Bút eyeliner",
+          "faceRegion": "upper_lash_line"
+        },
+        {
+          "order": 3,
+          "title": "Cân đối hai bên",
+          "detail": "Điều chỉnh đuôi mắt từ từ; sửa mép bằng tăm bông sạch.",
+          "durationSeconds": 60,
+          "productCategory": "eyeliner",
+          "tool": "Tăm bông",
+          "faceRegion": "upper_lash_line"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Dùng bút đầu mảnh để dễ sửa.",
+          "quantityGuidance": "Nét mảnh."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Ưu tiên eyeliner bền màu nhưng dễ tẩy trang.",
+          "quantityGuidance": "Nét mảnh."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Tránh kéo căng vùng da mí.",
+          "quantityGuidance": "Nét mảnh."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Kiểm tra đường kẻ có lem không.",
+          "quantityGuidance": "Nét mảnh."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Không kẻ vào niêm mạc; ngừng khi mắt kích ứng.",
+          "quantityGuidance": "Có thể bỏ qua."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "eyeliner"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "eyeliner",
+          "productName": "Bút kẻ mắt",
+          "selectionNote": "Bút nâu mảnh dễ làm quen, ưu tiên công thức dành cho mắt",
+          "quantityGuidance": "Nét mảnh",
+          "alternative": "Có thể bỏ qua ở cấp cơ bản",
+          "safetyNote": "Không kẻ vào niêm mạc mắt"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "eyeliner"
+        ],
+        "faceRegions": [
+          "upper_lash_line"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "mascara": {
+      "title": "Chuốt mi tự nhiên",
+      "category": "03 · ĐÔI MẮT",
+      "minutes": 3,
+      "kind": "eye",
+      "desc": "Làm rõ hàng mi mà không gây vón.",
+      "products": [
+        "Mascara phù hợp"
+      ],
+      "tools": [
+        "Kẹp mi sạch",
+        "Cọ chải mi"
+      ],
+      "how": [
+        "Bấm mi nhẹ và không kéo giật.",
+        "Chuốt từ gốc đến ngọn với lượng vừa đủ.",
+        "Tách các sợi bị vón bằng cọ sạch."
+      ],
+      "tip": "Tránh dùng chung mascara và vệ sinh kẹp mi thường xuyên.",
+      "id": "mascara",
+      "requiredProductCategories": [
+        "mascara"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/eye.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Kiểm tra vệ sinh",
+          "detail": "Kiểm tra mascara không khô, không có mùi lạ; vệ sinh kẹp mi trước khi dùng.",
+          "durationSeconds": 60,
+          "productCategory": null,
+          "tool": "Cọ chải mi",
+          "faceRegion": "eyelashes"
+        },
+        {
+          "order": 2,
+          "title": "Kẹp mi nhẹ",
+          "detail": "Kẹp từng nhịp nhẹ, không kéo giật sát da mí.",
+          "durationSeconds": 60,
+          "productCategory": null,
+          "tool": "Kẹp mi",
+          "faceRegion": "eyelashes"
+        },
+        {
+          "order": 3,
+          "title": "Chuốt từng lớp mỏng",
+          "detail": "Chuốt từ gốc lên ngọn một hoặc hai lớp; chải tách sợi khi bị vón.",
+          "durationSeconds": 60,
+          "productCategory": "mascara",
+          "tool": "Cọ mascara",
+          "faceRegion": "eyelashes"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chuốt từng lớp, tách sợi.",
+          "quantityGuidance": "Một lớp mỏng trước."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Chọn loại ít lem dưới mắt nếu cần.",
+          "quantityGuidance": "Một lớp mỏng trước."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Tránh sản phẩm dễ vón và cọ kéo mi.",
+          "quantityGuidance": "Một lớp mỏng trước."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Ưu tiên công thức dễ làm sạch.",
+          "quantityGuidance": "Một lớp mỏng trước."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Cẩn trọng khi mắt nhạy cảm; không dùng mascara đã quá hạn.",
+          "quantityGuidance": "Có thể bỏ qua."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "mascara"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "mascara",
+          "productName": "Mascara",
+          "selectionNote": "Cân nhắc độ bền và khả năng tẩy trang",
+          "quantityGuidance": "Một lớp trước",
+          "alternative": "Có thể bỏ qua khi mắt nhạy cảm",
+          "safetyNote": "Không dùng chung mascara"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "mascara"
+        ],
+        "faceRegions": [
+          "eyelashes"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "contour": {
+      "title": "Tạo khối nhẹ",
+      "category": "04 · ĐỊNH HÌNH",
+      "minutes": 4,
+      "kind": "blush",
+      "desc": "Tạo chiều sâu theo đường nét khuôn mặt.",
+      "products": [
+        "Contour tông trung tính",
+        "Bronzer (tùy phong cách)"
+      ],
+      "tools": [
+        "Cọ tạo khối vát",
+        "Cọ tán mềm"
+      ],
+      "how": [
+        "Đặt rất ít contour ở vùng bạn muốn tạo chiều sâu.",
+        "Tán từ vùng đậm về vùng sáng, không kéo đường cứng.",
+        "Kiểm tra hai bên mặt dưới ánh sáng đều."
+      ],
+      "tip": "Không phải khuôn mặt nào cũng cần cùng một kiểu tạo khối.",
+      "id": "contour",
+      "requiredProductCategories": [
+        "contour"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/blush.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Nhìn cấu trúc khuôn mặt",
+          "detail": "Xác định vùng muốn tạo bóng như dưới gò má hoặc quai hàm; không áp đặt một công thức cố định.",
+          "durationSeconds": 80,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": "cheeks"
+        },
+        {
+          "order": 2,
+          "title": "Đặt contour ít một",
+          "detail": "Lấy chút contour có undertone phù hợp, đặt từng điểm thay vì vẽ vệt lớn.",
+          "durationSeconds": 80,
+          "productCategory": "contour",
+          "tool": "Cọ vát",
+          "faceRegion": "cheeks"
+        },
+        {
+          "order": 3,
+          "title": "Tán tan đường ranh",
+          "detail": "Tán mờ về phía đường chân tóc/tai, kiểm tra hai bên dưới ánh sáng đều.",
+          "durationSeconds": 80,
+          "productCategory": "contour",
+          "tool": "Cọ mềm",
+          "faceRegion": "cheeks"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Tán kỹ để không thấy ranh giới.",
+          "quantityGuidance": "Rất ít, tăng dần."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Contour phấn hoặc kem đều được nếu nền chịu được.",
+          "quantityGuidance": "Rất ít, tăng dần."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Có thể dùng contour kem và dặm mềm.",
+          "quantityGuidance": "Một lớp rất mỏng."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Chọn kết cấu hợp từng vùng.",
+          "quantityGuidance": "Rất ít, tăng dần."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Tránh cọ sát mạnh vùng má.",
+          "quantityGuidance": "Ít hoặc bỏ qua."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "contour"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {
+        "light": {
+          "suggestedColors": [
+            "taupe/nâu trung tính nhẹ"
+          ],
+          "note": "Tránh tạo khối quá xám hoặc quá ấm so với undertone."
+        },
+        "medium": {
+          "suggestedColors": [
+            "nâu trung tính vừa"
+          ],
+          "note": "Tán mỏng, tăng dần."
+        },
+        "tan": {
+          "suggestedColors": [
+            "nâu sâu trung tính"
+          ],
+          "note": "Tạo chiều sâu tinh tế hơn nền."
+        },
+        "deep": {
+          "suggestedColors": [
+            "nâu rất sâu có undertone phù hợp"
+          ],
+          "note": "Không dùng contour sáng hơn da, thử trực tiếp."
+        }
+      },
+      "productNotes": [
+        {
+          "categoryId": "contour",
+          "productName": "Phấn/kem tạo khối",
+          "selectionNote": "Undertone không quá cam so với bóng tự nhiên trên da",
+          "quantityGuidance": "Lượng rất nhỏ",
+          "alternative": "Bronzer dùng cho hiệu ứng khác, không phải thay hoàn toàn contour",
+          "safetyNote": "Tán kỹ để không tạo vệt cứng"
+        }
+      ],
+      "styleVariations": {
+        "vietnam": "Tạo khối rất nhẹ hoặc bỏ qua.",
+        "douyin": "Tạo khối tinh tế, ưu tiên cảm giác trong trẻo.",
+        "western": "Nhấn đường khối rõ hơn, tán kỹ viền."
+      },
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "contour"
+        ],
+        "faceRegions": [
+          "cheeks",
+          "jaw"
+        ],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "blush": {
+      "title": "Đánh má hồng",
+      "category": "04 · ĐIỂM SẮC",
+      "minutes": 3,
+      "kind": "blush",
+      "desc": "Làm gương mặt tươi sáng với màu má hòa cùng màu son.",
+      "products": [
+        "Má hồng kem hoặc phấn"
+      ],
+      "tools": [
+        "Cọ má hồng đầu tròn",
+        "Bông mút (nếu dùng má kem)"
+      ],
+      "how": [
+        "Lấy ít má hồng, gõ bỏ phần dư.",
+        "Dặm màu lên gò má rồi tán mềm.",
+        "Thêm màu theo từng lớp cho đến khi vừa ý."
+      ],
+      "tip": "Với Douyin, có thể đặt má cao hơn, gần vùng dưới mắt; với Âu Mỹ, tán về phía thái dương.",
+      "id": "blush",
+      "requiredProductCategories": [
+        "blush"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/blush.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/face-makeup/how-to-apply-liquid-blush",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Chọn sắc độ má",
+          "detail": "Chọn màu phù hợp tổng thể son, mắt và sở thích; thử một mảng nhỏ trước.",
+          "durationSeconds": 60,
+          "productCategory": "blush",
+          "tool": "Cọ má",
+          "faceRegion": "cheeks"
+        },
+        {
+          "order": 2,
+          "title": "Tán lớp đầu",
+          "detail": "Dặm ít phấn hoặc má kem lên vùng gò má, không kéo mạnh trên lớp nền.",
+          "durationSeconds": 60,
+          "productCategory": "blush",
+          "tool": "Cọ má / mút",
+          "faceRegion": "cheeks"
+        },
+        {
+          "order": 3,
+          "title": "Kiểm tra cân đối",
+          "detail": "Quan sát trực diện; tăng thêm rất ít nếu cần, tán mềm rìa.",
+          "durationSeconds": 60,
+          "productCategory": "blush",
+          "tool": "Gương",
+          "faceRegion": "cheeks"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chọn vị trí má theo phong cách.",
+          "quantityGuidance": "Lớp nhẹ đầu tiên."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Má phấn có thể bền hơn trên vùng dễ bóng.",
+          "quantityGuidance": "Lớp nhẹ, tăng nếu cần."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Má kem dễ tạo hiệu ứng mềm nếu da đã dưỡng.",
+          "quantityGuidance": "Lượng ít, dặm nhẹ."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Chọn má phấn/kem tùy vùng da.",
+          "quantityGuidance": "Một lớp mỏng."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Ưu tiên công thức không kích ứng, dùng cọ sạch.",
+          "quantityGuidance": "Lớp mỏng, thử trước."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "basic",
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "blush"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {
+        "light": {
+          "suggestedColors": [
+            "hồng đào, hồng lạnh nhạt"
+          ],
+          "note": "Có thể chọn màu đậm hơn tùy phong cách."
+        },
+        "medium": {
+          "suggestedColors": [
+            "đào đất, hồng ấm, cam hồng"
+          ],
+          "note": "Tăng sắc độ từ từ theo sở thích."
+        },
+        "tan": {
+          "suggestedColors": [
+            "đỏ gạch, berry, terracotta"
+          ],
+          "note": "Các sắc có độ bão hòa thường hiện rõ hơn; thử trước."
+        },
+        "deep": {
+          "suggestedColors": [
+            "berry sâu, mận, đỏ gạch"
+          ],
+          "note": "Không mặc định dùng phấn nhiều hoặc ít theo tông da."
+        }
+      },
+      "productNotes": [
+        {
+          "categoryId": "blush",
+          "productName": "Má hồng kem hoặc phấn",
+          "selectionNote": "Chọn màu theo tổng thể, thay đổi sắc độ dần",
+          "quantityGuidance": "Một lớp mỏng rồi tăng",
+          "alternative": "Son đa năng chỉ dùng ở má nếu được nhà sản xuất cho phép",
+          "safetyNote": "Dùng cọ sạch"
+        }
+      ],
+      "styleVariations": {
+        "vietnam": "Đặt ở gò má tự nhiên, tán mềm.",
+        "douyin": "Đặt má cao và tán lan nhẹ dưới mắt.",
+        "western": "Tán từ gò má về thái dương."
+      },
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "blush"
+        ],
+        "faceRegions": [
+          "cheeks"
+        ],
+        "virtualTryOn": "cheek_color",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "lipstick": {
+      "title": "Thử son và tô môi",
+      "category": "05 · HOÀN THIỆN",
+      "minutes": 3,
+      "kind": "lip",
+      "desc": "Thử son ảo trên gương AI rồi chọn sắc độ phù hợp.",
+      "products": [
+        "Son tint / son satin / son lì",
+        "Son dưỡng không màu",
+        "Chì viền môi (nếu cần)"
+      ],
+      "tools": [
+        "Cọ môi",
+        "Gương nhỏ",
+        "Tăm bông sửa viền"
+      ],
+      "how": [
+        "Dưỡng môi mỏng rồi thấm bớt phần dư.",
+        "Thử màu son ở bảng bên trái, chỉnh độ đậm trực tiếp.",
+        "Tô son thật từ lòng môi ra viền, chỉnh từng lớp."
+      ],
+      "tip": "Màu hiển thị còn phụ thuộc camera, ánh sáng và màn hình của bạn.",
+      "id": "lipstick",
+      "requiredProductCategories": [
+        "lipstick"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/lip.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Làm mềm môi",
+          "detail": "Dùng son dưỡng mỏng nếu cần, thấm phần dư để son màu bám đều.",
+          "durationSeconds": 45,
+          "productCategory": null,
+          "tool": "Khăn giấy sạch",
+          "faceRegion": "lips"
+        },
+        {
+          "order": 2,
+          "title": "Thử màu trên gương AI",
+          "detail": "Chọn màu son ảo và chỉnh độ đậm; coi kết quả là mô phỏng, không phải màu sản phẩm bảo đảm.",
+          "durationSeconds": 45,
+          "productCategory": "lipstick",
+          "tool": "Gương AI",
+          "faceRegion": "lips"
+        },
+        {
+          "order": 3,
+          "title": "Tô son thật",
+          "detail": "Dùng cọ hoặc đầu son đi từ lòng môi ra viền, tăng sắc độ theo lớp.",
+          "durationSeconds": 45,
+          "productCategory": "lipstick",
+          "tool": "Cọ môi",
+          "faceRegion": "lips"
+        },
+        {
+          "order": 4,
+          "title": "Chỉnh mép môi",
+          "detail": "Dùng tăm bông sạch làm nét đường viền; tránh làm lem vào răng.",
+          "durationSeconds": 45,
+          "productCategory": "lipstick",
+          "tool": "Tăm bông",
+          "faceRegion": "lips"
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Giữ môi đủ ẩm, chọn finish yêu thích.",
+          "quantityGuidance": "Một lớp trước, tăng theo ý thích."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Loại da mặt không quyết định lượng son.",
+          "quantityGuidance": "Một lớp trước, tăng theo ý thích."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Nếu môi khô, dưỡng môi mỏng và chọn son không gây căng môi.",
+          "quantityGuidance": "Một lớp trước, tăng theo ý thích."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Loại da mặt không quyết định lượng son.",
+          "quantityGuidance": "Một lớp trước, tăng theo ý thích."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Tránh son gây kích ứng; thử trước nếu có tiền sử nhạy cảm.",
+          "quantityGuidance": "Lớp mỏng, ngừng nếu rát."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "basic",
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "lipstick"
+        ],
+        "missingInventoryAction": "offer_skip_or_substitute",
+        "optional": true
+      },
+      "toneSuggestions": {
+        "light": {
+          "suggestedColors": [
+            "hồng đào, rose nude, đỏ hồng"
+          ],
+          "note": "Lựa theo sắc môi gốc và sở thích."
+        },
+        "medium": {
+          "suggestedColors": [
+            "hồng đất, đỏ gạch, cam đất"
+          ],
+          "note": "Thử trên môi thật dưới ánh sáng tự nhiên."
+        },
+        "tan": {
+          "suggestedColors": [
+            "đỏ gạch, berry, nude nâu"
+          ],
+          "note": "Nude nên cân nhắc độ sâu so với sắc môi thật."
+        },
+        "deep": {
+          "suggestedColors": [
+            "đỏ rượu, berry sâu, nâu đỏ"
+          ],
+          "note": "Lựa theo undertone của môi, không giới hạn màu sắc."
+        }
+      },
+      "productNotes": [
+        {
+          "categoryId": "lipstick",
+          "productName": "Son môi",
+          "selectionNote": "Chọn finish, cảm giác môi và màu phù hợp sở thích",
+          "quantityGuidance": "Lớp mỏng đầu tiên",
+          "alternative": "Son dưỡng có màu",
+          "safetyNote": "Ngừng dùng nếu môi kích ứng"
+        }
+      ],
+      "styleVariations": {
+        "vietnam": "Son MLBB hoặc đỏ đất, tán mềm viền.",
+        "douyin": "Son ombre, nhấn lòng môi rồi tán loang.",
+        "western": "Có thể viền môi nhẹ trước khi tô son."
+      },
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "lipstick"
+        ],
+        "faceRegions": [
+          "lips"
+        ],
+        "virtualTryOn": "lip_color",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    },
+    "finish": {
+      "title": "Kiểm tra & hoàn thiện",
+      "category": "05 · HOÀN THIỆN",
+      "minutes": 2,
+      "kind": "prep",
+      "desc": "Kiểm tra độ đều màu và độ bám của các lớp makeup.",
+      "products": [
+        "Xịt khóa makeup (nếu cần)",
+        "Giấy thấm dầu"
+      ],
+      "tools": [
+        "Gương có ánh sáng tự nhiên",
+        "Bông phấn sạch"
+      ],
+      "how": [
+        "Kiểm tra lớp nền, mắt, má và môi ở ánh sáng đều.",
+        "Dặm lại các vùng lem bằng dụng cụ sạch.",
+        "Xịt khóa theo hướng dẫn sản phẩm nếu muốn."
+      ],
+      "tip": "Làm sạch lớp trang điểm sau khi sử dụng; không ngủ khi còn makeup.",
+      "id": "finish",
+      "requiredProductCategories": [
+        "setting_spray"
+      ],
+      "placeholderImageUrl": "assets/guide-poster.svg",
+      "localIllustrationVideoUrl": "media/prep.mp4",
+      "expertResourceUrl": "https://www.lorealparisusa.com/beauty-magazine/makeup/makeup-looks/makeup-order-for-application",
+      "expertVideoUrl": "https://www.youtube.com/watch?v=bb75cZ81HUU",
+      "instructionSteps": [
+        {
+          "order": 1,
+          "title": "Đánh giá tổng thể",
+          "detail": "Xem cả lớp nền, mắt, má và môi ở ánh sáng đều; đối chiếu với phong cách đã chọn.",
+          "durationSeconds": 40,
+          "productCategory": null,
+          "tool": "Gương",
+          "faceRegion": null
+        },
+        {
+          "order": 2,
+          "title": "Sửa có chọn lọc",
+          "detail": "Dùng bông phấn hoặc cọ sạch dặm chỗ lem; tránh phủ thêm lớp dày.",
+          "durationSeconds": 40,
+          "productCategory": "powder",
+          "tool": "Bông phấn",
+          "faceRegion": null
+        },
+        {
+          "order": 3,
+          "title": "Khóa makeup nếu muốn",
+          "detail": "Dùng xịt khóa đúng hướng dẫn, không xịt gần mắt hoặc hít trực tiếp.",
+          "durationSeconds": 40,
+          "productCategory": "setting_spray",
+          "tool": "Gương",
+          "faceRegion": null
+        }
+      ],
+      "skinTypeConditions": {
+        "normal": {
+          "enabled": true,
+          "guidance": "Chỉ khóa khi cần giữ lớp trang điểm lâu hơn.",
+          "quantityGuidance": "Theo hướng dẫn nhãn."
+        },
+        "oily": {
+          "enabled": true,
+          "guidance": "Có thể dùng giấy thấm dầu tại chữ T trước khi dặm.",
+          "quantityGuidance": "Dặm ít hoặc dùng giấy thấm."
+        },
+        "dry": {
+          "enabled": true,
+          "guidance": "Tránh phủ thêm nhiều phấn khi hoàn thiện.",
+          "quantityGuidance": "Rất ít phấn nếu cần."
+        },
+        "combination": {
+          "enabled": true,
+          "guidance": "Hoàn thiện theo từng vùng da.",
+          "quantityGuidance": "Theo vùng da."
+        },
+        "sensitive": {
+          "enabled": true,
+          "guidance": "Tránh xịt vào mắt; kiểm tra độ dung nạp với sản phẩm mới.",
+          "quantityGuidance": "Có thể bỏ qua xịt khóa."
+        }
+      },
+      "displayConditions": {
+        "plans": [
+          "basic",
+          "advanced"
+        ],
+        "timeOfDay": [
+          "day",
+          "night"
+        ],
+        "eligibleSkinTypes": [
+          "normal",
+          "oily",
+          "dry",
+          "combination",
+          "sensitive"
+        ],
+        "inventoryCategories": [
+          "setting_spray"
+        ],
+        "missingInventoryAction": "show_missing_notice",
+        "optional": true
+      },
+      "toneSuggestions": {},
+      "productNotes": [
+        {
+          "categoryId": "setting_spray",
+          "productName": "Xịt khóa makeup",
+          "selectionNote": "Chọn sản phẩm phù hợp và đọc kỹ hướng dẫn",
+          "quantityGuidance": "Theo nhãn, không xịt sát mặt",
+          "alternative": "Bỏ qua khi không cần",
+          "safetyNote": "Tránh hít trực tiếp và vùng mắt"
+        }
+      ],
+      "styleVariations": {},
+      "aiMapping": {
+        "recognizedProductCategories": [
+          "setting_spray"
+        ],
+        "faceRegions": [],
+        "virtualTryOn": "not_implemented",
+        "autoCompleteStep": false,
+        "requiresUserConfirmation": true
+      }
+    }
+  },
+  "personalizationKeys": {
+    "skinTypes": [
+      "normal",
+      "oily",
+      "dry",
+      "combination",
+      "sensitive"
+    ],
+    "skinTones": [
+      "light",
+      "medium",
+      "tan",
+      "deep"
+    ],
+    "styles": [
+      "vietnam",
+      "douyin",
+      "western"
+    ],
+    "plans": [
+      "basic",
+      "advanced"
+    ],
+    "timeOfDay": [
+      "day",
+      "night"
+    ]
+  },
+  "safetyNotes": [
+    "Không suy luận loại da từ độ sáng da; loại da nên do người dùng xác nhận.",
+    "Lượng phấn và độ che phủ dựa trên loại da, vùng da, công thức và sở thích — không dựa riêng vào tông da.",
+    "AI chỉ ước lượng màu trên ảnh/camera, phải thử nền thật ở quai hàm trước khi mua.",
+    "Nhận diện mỹ phẩm từ ảnh cần người dùng xác nhận loại sản phẩm, không suy luận thành phần hay thương hiệu."
+  ]
+}
