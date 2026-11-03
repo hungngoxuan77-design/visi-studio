@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "Visi Studio — Trợ lý trang điểm AI",
+  "short_name": "Visi Studio",
+  "description": "Camera trang điểm và lộ trình hướng dẫn cá nhân hóa theo phong cách, tông da và mỹ phẩm của bạn.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fcfaf7",
+  "theme_color": "#fcf9f5",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

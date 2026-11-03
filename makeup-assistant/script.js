@@ -40,7 +40,7 @@ const stepPlan=()=>dynamicPlan().stepIds;
 const keyPlan=()=>`${state.style}:${getTone()}:${state.timeOfDay}:${state.skinType}:${[...(window.VisiInventory?.getSelected()||[])].sort().join('_')}`;
 const STORE = 'visi-makeup-assistant-v1';
 let saved={};try{saved=JSON.parse(localStorage.getItem(STORE)||'{}')||{}}catch{}
-const state = {style:STYLES[saved.style]?saved.style:'vietnam',toneMode: (['auto',...Object.keys(TONES)].includes(saved.toneMode))?saved.toneMode:'auto',skinType:['normal','oily','dry','combination','sensitive'].includes(saved.skinType)?saved.skinType:'combination',timeOfDay:['day','night'].includes(saved.timeOfDay)?saved.timeOfDay:'day',detectedTone:null,step:0,progress:saved.progress&&typeof saved.progress==='object'?saved.progress:{},lip:'#B95962',blush:'#E4A095',opacity:65,compare:false,source:'none'};
+const state = {style:STYLES[saved.style]?saved.style:'vietnam',toneMode: (['auto',...Object.keys(TONES)].includes(saved.toneMode))?saved.toneMode:'auto',skinType:['normal','oily','dry','combination','sensitive'].includes(saved.skinType)?saved.skinType:'combination',timeOfDay:['day','night'].includes(saved.timeOfDay)?saved.timeOfDay:'day',detectedTone:null,step:0,expandedStep:0,progress:saved.progress&&typeof saved.progress==='object'?saved.progress:{},lip:'#B95962',blush:'#E4A095',opacity:65,compare:false,source:'none'};
 const history=[],future=[];
 let videoTrack=null,liveVideo=els.cameraVideo,photo=null,photoURL=null,guideURL=null,referenceURL=null;
 let detector=null,detectorPromise=null,detectorMode=null,landmarks=null,animationId=0,clock=0,streamToken=0,aiReady=false,toneAnalyzed=false;
@@ -169,7 +169,19 @@ function updateLesson(){
  els.prevStep.disabled=state.step===0;els.nextStep.disabled=state.step===ids.length-1;
  els.completeStep.textContent=done.has(id)?'✓ Đã hoàn thành':'✓ Đánh dấu hoàn thành';
  els.stepTrack.style.gridTemplateColumns=ids.length>8?'repeat(auto-fit,minmax(130px,1fr))':'';
- els.stepTrack.innerHTML=ids.map((stepId,i)=>`<button type="button" data-step="${i}" class="track-step ${state.step===i?'active':''} ${done.has(stepId)?'done':''}" aria-current="${state.step===i?'step':'false'}"><span class="num">${done.has(stepId)?'✓ ':''}${String(i+1).padStart(2,'0')}</span><strong>${esc(COURSE[stepId].title)}</strong><small>${COURSE[stepId].minutes} phút ${done.has(stepId)?'· Đã học':''}</small></button>`).join('');
+ els.stepTrack.innerHTML=ids.map((stepId,i)=>{
+   const step=COURSE[stepId];
+   const current=state.step===i, isDone=done.has(stepId);
+   const numeral=String(i+1).padStart(2,'0');
+   const preview=window.VisiCurriculum.personalize(step,{skinType:state.skinType,tone:getTone(),style:state.style});
+   const instructions=preview.actions.map(a=>`<li><strong>${esc(a.title||'Thao tác')}</strong><span>${esc(a.detail||'')}</span></li>`).join('');
+   const products=(step.availableProducts||[]).slice(0,4).map(p=>`<span>${esc(p)}</span>`).join('');
+   return `<button type="button" data-step="${i}" class="track-step desktop-track-step ${current?'active':''} ${isDone?'done':''}" aria-current="${current?'step':'false'}"><span class="num">${isDone?'✓ ':''}${numeral}</span><strong>${esc(step.title)}</strong><small>${step.minutes} phút ${isDone?'· Đã học':''}</small></button>
+     <details class="track-accordion ${current?'active':''} ${isDone?'done':''}" name="visi-mobile-lessons" data-accordion-step="${i}" ${i===(state.expandedStep??state.step)?'open':''}>
+       <summary><span class="accordion-number">${isDone?'✓':numeral}</span><span class="accordion-heading"><strong>${esc(step.title)}</strong><small>${step.minutes} phút · ${isDone?'Đã hoàn thành':'Chưa hoàn thành'}</small></span><span class="accordion-chevron" aria-hidden="true">⌄</span></summary>
+       <div class="accordion-panel"><p>${esc(step.desc||'')}</p><div class="accordion-products">${products||'<span>Chưa cần mỹ phẩm</span>'}</div><ol class="accordion-actions">${instructions}</ol><button type="button" class="btn primary accordion-open-guide" data-step="${i}">▶ Xem video và hướng dẫn bước này</button></div>
+     </details>`;
+ }).join('');
  els.totalTime.textContent=ids.reduce((total,stepId)=>total+(Number(COURSE[stepId].minutes)||0),0)+' phút';
  setGuideVideo();
 }
@@ -177,7 +189,7 @@ function updateUI(){els.styleSelect.value=state.style;updateToneLabel();$('#skin
 function makeupSnapshot(){return {lip:state.lip,blush:state.blush,opacity:state.opacity}}
 function applySnapshot(v){state.lip=v.lip;state.blush=v.blush;state.opacity=v.opacity;updateUI();drawFrame()}
 function makeupChange(fn){history.push(makeupSnapshot());if(history.length>50)history.shift();future.length=0;fn();updateUI();drawFrame()}
-function changeCourse(){state.step=0;persist();applySuggestedColors();updateUI();drawFrame()}
+function changeCourse(){state.step=0;state.expandedStep=0;persist();applySuggestedColors();updateUI();drawFrame()}
 function point(index){const p=landmarks?.[index];return p&&Number.isFinite(p.x)&&Number.isFinite(p.y)?[p.x*canvas.width,p.y*canvas.height]:null}
 function polygon(indices){const values=indices.map(point);if(values.some(p=>!p))return false;ctx.beginPath();values.forEach((p,i)=>i===0?ctx.moveTo(...p):ctx.lineTo(...p));ctx.closePath();return true}
 const outerLip=[61,185,40,39,37,0,267,269,270,409,291,375,321,405,314,17,84,181,91,146];
@@ -206,7 +218,7 @@ function detectTone(){// Approximate brightness from small cheek patches on an u
  for(const i of [117,346,205,425]){const p=landmarks[i];if(!p)continue;const cx=Math.round(p.x*w),cy=Math.round(p.y*h),r=Math.max(2,Math.min(7,Math.round(w*.007)));const l=clamp(cx-r,0,w-1),top=clamp(cy-r,0,h-1),rw=clamp(2*r+1,1,w-l),rh=clamp(2*r+1,1,h-top);const data=t.getImageData(l,top,rw,rh).data;for(let j=0;j<data.length;j+=16){const [red,green,blue]=[data[j],data[j+1],data[j+2]];const lum=.2126*red+.7152*green+.0722*blue;if(lum>30&&lum<247&&red>green*.82&&green>blue*.72)values.push(lum);}}
  toneAnalyzed=true;if(values.length<12){els.aiStatus.textContent='Đã thấy mặt, chưa đủ dữ liệu màu da';return;}values.sort((a,b)=>a-b);const median=values[Math.floor(values.length/2)];state.detectedTone=median>178?'light':median>132?'medium':median>90?'tan':'deep';if(state.toneMode==='auto'){applySuggestedColors();updateUI();}els.aiStatus.textContent='Đã phân tích tông da (ước lượng)';}
 function screenshot(){if(state.source==='none'){setStatus('Hãy mở camera hoặc tải ảnh trước khi lưu.',true);return;}drawFrame();canvas.toBlob(blob=>{if(!blob){setStatus('Trình duyệt không thể xuất ảnh PNG.',true);return;}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='visi-makeup-'+Date.now()+'.png';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);setStatus('Đã tải ảnh PNG xuống thiết bị.')},'image/png')}
-function navigate(step){state.step=clamp(step,0,stepPlan().length-1);persist();updateLesson()}
+function navigate(step){state.step=clamp(step,0,stepPlan().length-1);state.expandedStep=state.step;persist();updateLesson()}
 function finish(){const id=stepPlan()[state.step],done=completed();if(done.has(id))done.delete(id);else done.add(id);state.progress[keyPlan()]=[...done];if(done.has(id)&&state.step<stepPlan().length-1)state.step++;persist();updateLesson()}
 function setCustomVideo(file){if(!file)return;if(!['video/mp4','video/webm'].includes(file.type)||file.size>200*1024*1024){setStatus('Chỉ hỗ trợ video MP4/WebM dưới 200MB.',true);return;}if(guideURL)URL.revokeObjectURL(guideURL);guideURL=URL.createObjectURL(file);customVideo=true;els.guideVideo.pause();els.guideVideo.src=guideURL;els.guideVideo.loop=false;els.guideVideo.muted=false;els.guideVideo.load();els.videoLabel.textContent='VIDEO CỦA BẠN';els.useVideoSample.classList.remove('active');setStatus('Đã tải video hướng dẫn của bạn. File chỉ được đọc trong trình duyệt.')}
 function setReference(file){if(!file)return;if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>15*1024*1024){setStatus('Ảnh tham khảo phải là JPG/PNG/WEBP dưới 15MB.',true);return;}if(referenceURL)URL.revokeObjectURL(referenceURL);referenceURL=URL.createObjectURL(file);els.referenceImg.src=referenceURL;els.referenceBox.hidden=false;}
@@ -234,7 +246,15 @@ function bind(){
  els.resetBtn.addEventListener('click',()=>makeupChange(()=>{applySuggestedColors();state.opacity=65}));
  els.beforeAfter.addEventListener('click',()=>{state.compare=!state.compare;els.beforeAfter.classList.toggle('active',state.compare);drawFrame()});
  els.prevStep.addEventListener('click',()=>navigate(state.step-1));els.nextStep.addEventListener('click',()=>navigate(state.step+1));els.completeStep.addEventListener('click',finish);
- els.stepTrack.addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(b)navigate(Number(b.dataset.step))});
+ els.stepTrack.addEventListener('click',e=>{
+   const b=e.target.closest('button[data-step]');if(!b)return;
+   navigate(Number(b.dataset.step));
+   if(b.classList.contains('accordion-open-guide')){document.querySelector('.guide-pane')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
+ });
+ els.stepTrack.addEventListener('toggle',e=>{
+   const item=e.target;
+   if(item.matches('details.track-accordion')&&item.open&&item.isConnected){state.expandedStep=Number(item.dataset.accordionStep);}
+ },true);
  $('#restartCourse').addEventListener('click',()=>{state.progress[keyPlan()]=[];navigate(0)});
  els.guideVideo.addEventListener('error',()=>{els.videoLabel.textContent='VIDEO CỤC BỘ CHƯA TẢI ĐƯỢC';setStatus('Thiếu hoặc lỗi video MP4 theo phong cách ở máy chủ. Hãy kiểm tra file trong media/styles.',true);});
  window.addEventListener('pagehide',()=>{stopCamera();if(guideURL)URL.revokeObjectURL(guideURL);if(referenceURL)URL.revokeObjectURL(referenceURL)});

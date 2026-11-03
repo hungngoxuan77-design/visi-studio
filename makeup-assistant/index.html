@@ -4,21 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fcf9f5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Visi Studio">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
   <meta name="description" content="Visi Studio – AI makeup hai màn hình: 7 phong cách, lộ trình sinh động từ tông da và mỹ phẩm có sẵn, video MP4 theo phong cách.">
   <title>Visi Studio · AI Makeup Assistant</title>
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=dynamic20">
-  <link rel="stylesheet" href="inventory.css?v=dynamic20">
+  <link rel="stylesheet" href="inventory.css?v=dynamic20"
+  <link rel="stylesheet" href="mobile.css?v=mobile1">
   <script src="curriculum.js?v=dynamic20" defer></script>
   <script src="inventory-ai.js?v=dynamic20" defer></script>
   <script src="script.js?v=dynamic20" defer></script>
+  <script src="mobile-ui.js?v=mobile1" defer></script>
 </head>
 <body>
 <div class="app-shell">
   <header class="topbar">
     <a class="brand" href="./" aria-label="Trang chủ Visi Studio"><span class="logo-icon">✳</span><span class="brand-word">VISI<span class="period">.</span><small>STUDIO</small></span></a>
     <div class="topnav"><span class="nav-link active"><span class="dot"></span> AI Makeup Assistant</span><span class="nav-link hide-small">Học trang điểm cùng bạn</span></div>
-    <div class="topright"><span class="privacy-chip"><span class="privacy-dot"></span> Riêng tư trên thiết bị</span><span class="top-avatar">V</span></div>
+    <div class="topright"><button id="installAppBtn" class="install-btn" type="button" hidden>Cài ứng dụng</button><span class="privacy-chip"><span class="privacy-dot"></span> Riêng tư trên thiết bị</span><span class="top-avatar">V</span></div>
   </header>
 
   <main class="main">
@@ -66,10 +73,10 @@
         <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
         <div class="camera-actions"><button class="btn primary" id="startCamera" type="button">◉ Bật camera</button><button class="btn outline" id="uploadPhoto" type="button">↥ Tải ảnh</button><button class="btn outline" id="stopCamera" type="button">■ Tắt camera</button><button class="btn ghost" id="captureBtn" type="button">↓ Lưu ảnh</button></div>
         <div class="statusbar"><span id="statusLine" role="status" aria-live="polite">Camera chỉ được bật khi bạn chọn cho phép.</span><span class="status-detail" id="aiStatus">AI đang chờ</span></div>
-        <div class="preview-editor"><div class="editor-title"><span>THỬ MÀU TRANG ĐIỂM</span><small>Hiệu ứng mô phỏng trực tiếp</small></div>
+        <details class="palette-drawer" id="paletteDrawer" open><summary class="palette-summary"><span>🎨 Bảng màu son & má hồng</span><small>Nhấn để mở / thu gọn</small></summary><div class="preview-editor"><div class="editor-title"><span>THỬ MÀU TRANG ĐIỂM</span><small>Hiệu ứng mô phỏng trực tiếp</small></div>
           <div class="editor-rows"><div class="color-editor"><label>Màu son</label><div id="lipPalette" class="swatches" role="group" aria-label="Bảng màu son"></div></div><div class="color-editor"><label>Má hồng</label><div id="blushPalette" class="swatches" role="group" aria-label="Bảng màu má hồng"></div></div></div>
           <div class="preview-bottom"><div class="range-box"><label for="opacityRange">Độ đậm <b id="opacityValue">65%</b></label><input type="range" min="0" max="100" value="65" id="opacityRange"></div><div class="inline-tools"><button id="beforeAfter" type="button" class="mini-btn">◐ Trước / sau</button><button id="undoBtn" type="button" class="icon-btn" title="Hoàn tác" aria-label="Hoàn tác">↶</button><button id="redoBtn" type="button" class="icon-btn" title="Làm lại" aria-label="Làm lại">↷</button><button id="resetBtn" type="button" class="icon-btn" title="Đặt lại" aria-label="Đặt lại">↺</button></div></div>
-        </div>
+        </div></details>
       </section>
 
       <section class="pane guide-pane" aria-label="Video hướng dẫn và lộ trình">
@@ -90,7 +97,7 @@
       </section>
     </div>
 
-    <section class="roadmap"><div class="roadmap-head"><div><div class="eyebrow">LỘ TRÌNH THIẾT KẾ RIÊNG</div><h2>Bạn đang học những gì?</h2></div><button id="restartCourse" class="btn outline" type="button">↺ Học lại từ đầu</button></div><div class="step-track" id="stepTrack"></div></section>
+    <section class="roadmap" id="mobileLessons"><div class="roadmap-head"><div><div class="eyebrow">LỘ TRÌNH THIẾT KẾ RIÊNG</div><h2>Bạn đang học những gì?</h2></div><button id="restartCourse" class="btn outline" type="button">↺ Học lại từ đầu</button></div><div class="step-track" id="stepTrack"></div></section>
     <footer class="footer"><span>VISI STUDIO · AI MAKEUP ASSISTANT</span><span>Lộ trình theo mỹ phẩm sở hữu · Mô hình ước lượng tông da có thể sai · Màu minh họa không thay thế thử mỹ phẩm thực tế.</span></footer>
   </main>
 </div>
