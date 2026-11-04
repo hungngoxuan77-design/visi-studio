@@ -45,6 +45,7 @@ const history=[],future=[];
 let videoTrack=null,liveVideo=els.cameraVideo,photo=null,photoURL=null,guideURL=null,referenceURL=null;
 let detector=null,detectorPromise=null,detectorMode=null,landmarks=null,animationId=0,clock=0,streamToken=0,aiReady=false,toneAnalyzed=false;
 let customVideo=false,aiLoadId=0;
+let arRenderer=null; // Chỉ thay bộ vẽ AR, giao diện PWA và JSON được giữ nguyên.
 const ctx=els.makeupCanvas.getContext('2d',{willReadFrequently:true});
 const canvas=els.makeupCanvas;
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
@@ -190,25 +191,63 @@ function makeupSnapshot(){return {lip:state.lip,blush:state.blush,opacity:state.
 function applySnapshot(v){state.lip=v.lip;state.blush=v.blush;state.opacity=v.opacity;updateUI();drawFrame()}
 function makeupChange(fn){history.push(makeupSnapshot());if(history.length>50)history.shift();future.length=0;fn();updateUI();drawFrame()}
 function changeCourse(){state.step=0;state.expandedStep=0;persist();applySuggestedColors();updateUI();drawFrame()}
-function point(index){const p=landmarks?.[index];return p&&Number.isFinite(p.x)&&Number.isFinite(p.y)?[p.x*canvas.width,p.y*canvas.height]:null}
-function polygon(indices){const values=indices.map(point);if(values.some(p=>!p))return false;ctx.beginPath();values.forEach((p,i)=>i===0?ctx.moveTo(...p):ctx.lineTo(...p));ctx.closePath();return true}
-const outerLip=[61,185,40,39,37,0,267,269,270,409,291,375,321,405,314,17,84,181,91,146];
-const innerLip=[78,191,80,81,82,13,312,311,310,415,308,324,318,402,317,14,87,178,88,95];
-function paintLips(){if(!landmarks)return;ctx.save();if(!polygon(outerLip)){ctx.restore();return;}const verts=innerLip.map(point);if(verts.some(p=>!p)){ctx.restore();return;}verts.forEach((p,i)=>i===0?ctx.moveTo(...p):ctx.lineTo(...p));ctx.closePath();ctx.fillStyle=state.lip;ctx.globalAlpha=clamp(state.opacity/100,0,1)*.8;ctx.globalCompositeOperation='multiply';ctx.fill('evenodd');ctx.globalCompositeOperation='source-over';ctx.globalAlpha=clamp(state.opacity/100,0,1)*.18;ctx.fill('evenodd');ctx.restore()}
-function paintBlush(){if(!landmarks)return;const left=point(205),right=point(425),nose=point(4),mouthL=point(61),mouthR=point(291);if(!left||!right||!nose||!mouthL||!mouthR)return;const radius=Math.max(9,Math.hypot(mouthL[0]-mouthR[0],mouthL[1]-mouthR[1])*.88);ctx.save();ctx.globalCompositeOperation='soft-light';for(const p of [left,right]){const midx=p[0],midy=p[1]-radius*.25;const g=ctx.createRadialGradient(midx,midy,0,midx,midy,radius);g.addColorStop(0,state.blush+'ae');g.addColorStop(.48,state.blush+'55');g.addColorStop(1,state.blush+'00');ctx.globalAlpha=clamp(state.opacity/100,0,1)*.8;ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(midx,midy,radius,radius*.68,0,0,2*Math.PI);ctx.fill()}ctx.restore()}
-function drawFrame(){const src=state.source==='camera'?liveVideo:state.source==='photo'?photo:null;if(!src|| (state.source==='camera'&&liveVideo.readyState<2))return;
- const w=state.source==='camera'?liveVideo.videoWidth:photo.naturalWidth,h=state.source==='camera'?liveVideo.videoHeight:photo.naturalHeight;
- if(!w||!h)return;const factor=Math.min(1,960/Math.max(w,h));const cw=Math.max(1,Math.round(w*factor)),ch=Math.max(1,Math.round(h*factor));if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch;}
- ctx.clearRect(0,0,cw,ch);ctx.save();if(state.source==='camera'){ctx.translate(cw,0);ctx.scale(-1,1)}ctx.drawImage(src,0,0,cw,ch);if(!state.compare&&landmarks){paintBlush();paintLips();}ctx.restore();}
+/** Camera video và mặt nạ AR luôn dùng chung Canvas/hệ tọa độ. */
+function drawFrame(){
+ const src=state.source==='camera'?liveVideo:state.source==='photo'?photo:null;
+ if(!src||(state.source==='camera'&&liveVideo.readyState<2))return;
+ const face=detector?.getRenderState?.(performance.now())||{landmarks:null,opacity:0};
+ if(arRenderer){
+   arRenderer.render({canvas,ctx,source:src,sourceType:state.source,
+     landmarks:face.landmarks,trackingOpacity:face.opacity,
+     lipColor:state.lip,blushColor:state.blush,opacity:state.opacity,compare:state.compare});
+   return;
+ }
+ // MediaPipe chưa tải xong: vẫn hiển thị camera/ảnh, không để màn hình trắng.
+ const w=state.source==='camera'?src.videoWidth:src.naturalWidth;
+ const h=state.source==='camera'?src.videoHeight:src.naturalHeight;
+ if(!w||!h)return;
+ const factor=Math.min(1,960/Math.max(w,h));
+ const cw=Math.round(w*factor),ch=Math.round(h*factor);
+ if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch;}
+ ctx.clearRect(0,0,cw,ch);ctx.save();
+ if(state.source==='camera'){ctx.translate(cw,0);ctx.scale(-1,1);}
+ ctx.drawImage(src,0,0,cw,ch);ctx.restore();
+}
 function setupStage(){els.emptyState.hidden=state.source!=='none';setCameraBadge(state.source==='camera');}
-function stopCamera({clear=false}={}){streamToken++;cancelAnimationFrame(animationId);animationId=0;if(videoTrack){videoTrack.getTracks().forEach(t=>t.stop());videoTrack=null;}liveVideo.pause();liveVideo.srcObject=null;if(state.source==='camera')state.source='none';if(clear){state.source='none';photo=null;}landmarks=null;aiReady=false;setupStage();els.aiStatus.textContent='AI đang chờ';if(clear)ctx.clearRect(0,0,canvas.width,canvas.height)}
+function stopCamera({clear=false}={}){streamToken++;cancelAnimationFrame(animationId);animationId=0;if(videoTrack){videoTrack.getTracks().forEach(t=>t.stop());videoTrack=null;}liveVideo.pause();liveVideo.srcObject=null;if(state.source==='camera')state.source='none';if(clear){state.source='none';photo=null;}landmarks=null;aiReady=false;aiLoadId++;detector?.reset?.();clock=0;setupStage();els.aiStatus.textContent='AI đang chờ';if(clear)ctx.clearRect(0,0,canvas.width,canvas.height)}
 async function startCamera(){if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia){setStatus('Camera cần chạy qua HTTPS hoặc localhost và trình duyệt hỗ trợ.',true);return;}stopCamera();const token=streamToken;setStatus('Đang yêu cầu quyền truy cập camera…');
  let acquired;
  try{try{acquired=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:'user',width:{ideal:960},height:{ideal:720}}});}catch(error){if(['OverconstrainedError','NotFoundError'].includes(error.name))acquired=await navigator.mediaDevices.getUserMedia({video:true,audio:false});else throw error}
  if(token!==streamToken){acquired.getTracks().forEach(t=>t.stop());return;}videoTrack=acquired;liveVideo.srcObject=acquired;await liveVideo.play();state.source='camera';photo=null;landmarks=null;toneAnalyzed=false;state.detectedTone=null;setupStage();setStatus('Camera đã bật. Bạn có thể thử màu; đang tải mô hình AI…');drawFrame();cameraLoop(token);loadAI('VIDEO',token);
  }catch(err){if(acquired&&acquired!==videoTrack)acquired.getTracks().forEach(t=>t.stop());const map={NotAllowedError:'Camera bị từ chối quyền. Bấm biểu tượng bên trái địa chỉ web → Camera → Cho phép.',NotFoundError:'Không tìm thấy webcam. Hãy thử tải ảnh để sử dụng.',NotReadableError:'Camera đang bị chương trình khác sử dụng hoặc lỗi driver (NotReadableError). Đóng Zoom, Zalo, OBS và ứng dụng Camera.',OverconstrainedError:'Camera không đáp ứng cấu hình yêu cầu.'};setStatus(map[err.name]||`Không mở được camera: ${err.name||'lỗi chưa xác định'}. Bạn vẫn có thể tải ảnh.`,true);setupStage();}}
-function cameraLoop(token){if(token!==streamToken||state.source!=='camera')return;const tick=performance.now();if(tick-clock>130&&detector&&detectorMode==='VIDEO'&&liveVideo.readyState>=2){try{landmarks=detector.detectForVideo(liveVideo,tick).faceLandmarks?.[0]||null;if(landmarks&&!toneAnalyzed)detectTone();els.aiStatus.textContent=landmarks?'AI đã nhận diện khuôn mặt':'Đang tìm khuôn mặt';}catch(e){els.aiStatus.textContent='AI tạm dừng — camera vẫn hoạt động';console.warn(e);detector=null;}clock=tick;}drawFrame();animationId=requestAnimationFrame(()=>cameraLoop(token))}
-async function createDetector(){const {FilesetResolver,FaceLandmarker}=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/vision_bundle.mjs');const vision=await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/wasm');const options={baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task',delegate:'CPU'},runningMode:'VIDEO',numFaces:1,minFaceDetectionConfidence:.5,minFacePresenceConfidence:.5,minTrackingConfidence:.5};return FaceLandmarker.createFromOptions(vision,options)}
+function cameraLoop(token){
+ if(token!==streamToken||state.source!=='camera')return;
+ const tick=performance.now();
+ if(tick-clock>80&&detector&&detectorMode==='VIDEO'&&liveVideo.readyState>=2){
+   try{
+     const result=detector.detectForVideo(liveVideo,tick);
+     landmarks=result.faceLandmarks?.[0]||null;
+     if(result.detected&&landmarks&&!toneAnalyzed)detectTone();
+     els.aiStatus.textContent=result.detected?'AI đang bám khuôn mặt':'Đang tìm khuôn mặt';
+   }catch(error){
+     els.aiStatus.textContent='AR tạm dừng — camera vẫn hoạt động';
+     console.warn('Face tracking failed:',error);
+     detector?.close?.();detector=null;detectorPromise=null;aiReady=false;
+   }
+   clock=tick;
+ }
+ drawFrame();
+ animationId=requestAnimationFrame(()=>cameraLoop(token));
+}
+async function createDetector(){
+ const [{FaceTracker},{MakeupRenderer}]=await Promise.all([
+   import('./ar/face-tracker.js'),import('./ar/makeup-renderer.js')
+ ]);
+ const tracker=new FaceTracker({minDetectionIntervalMs:72});
+ await tracker.init();
+ arRenderer=new MakeupRenderer({maxDimension:960});
+ return tracker;
+}
 async function loadAI(mode,token){const req=++aiLoadId;try{if(!detector){if(!detectorPromise)detectorPromise=createDetector().catch(e=>{detectorPromise=null;throw e});detector=await detectorPromise;detectorMode='VIDEO';}if(req!==aiLoadId||token!==streamToken)return;if(detectorMode!==mode){await detector.setOptions({runningMode:mode});detectorMode=mode;}if(req!==aiLoadId||token!==streamToken)return;aiReady=true;els.aiStatus.textContent='AI đã sẵn sàng';if(state.source==='camera')setStatus('Camera và AI đã hoạt động. Thử đổi son và má hồng.');if(state.source==='photo'){landmarks=detector.detect(photo).faceLandmarks?.[0]||null;if(landmarks)detectTone();drawFrame();setStatus(landmarks?'Đã nhận diện khuôn mặt trong ảnh.':'Không tìm thấy khuôn mặt rõ trong ảnh.',!landmarks)}
  }catch(e){if(token!==streamToken)return;els.aiStatus.textContent='Chưa tải được mô hình AI';setStatus('Camera/ảnh vẫn hoạt động nhưng AI chưa tải được. Kiểm tra Internet và thử lại.',true);console.warn('MediaPipe loading error:',e)}}
 async function loadPhoto(file){if(!file)return;if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>20*1024*1024){setStatus('Chỉ hỗ trợ JPG, PNG, WEBP tối đa 20MB.',true);return;}stopCamera({clear:true});const token=streamToken;const url=URL.createObjectURL(file);try{const img=new Image();await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url});if(token!==streamToken)return;photo=img;state.source='photo';landmarks=null;state.detectedTone=null;toneAnalyzed=false;setupStage();setStatus('Đã tải ảnh. Đang nhận diện khuôn mặt…');drawFrame();await loadAI('IMAGE',token)}catch(e){setStatus('Không mở được ảnh. Hãy chọn ảnh JPEG/PNG/WEBP hợp lệ.',true)}finally{URL.revokeObjectURL(url)}}

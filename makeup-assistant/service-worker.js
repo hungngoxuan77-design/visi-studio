@@ -1,8 +1,9 @@
 /* Visi Studio PWA. Scope: /visi-studio/makeup-assistant/ only. Never precache 105 MP4 files. */
 'use strict';
-const CACHE='visi-makeup-mobile-v1';
+const CACHE='visi-makeup-mobile-v2-ar';
 const CORE=['./','./index.html','./style.css','./inventory.css','./mobile.css',
  './script.js','./curriculum.js','./inventory-ai.js','./mobile-ui.js',
+ './ar/face-tracker.js','./ar/landmark-filter.js','./ar/makeup-renderer.js',
  './data/steps.sample.json','./assets/logo.svg','./assets/guide-poster.svg',
  './assets/icon-192.png','./assets/icon-512.png','./manifest.webmanifest',
  './assets/styles/clean.svg','./assets/styles/douyin.svg','./assets/styles/korean.svg',
